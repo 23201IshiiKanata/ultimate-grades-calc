@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アルティメット成績計算機</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="女子小学生/script.js"></script>
+  <script src="女子小学生/ui.js"></script>
+</head>
+
+<body>
+  <div class="pinp">
+    <h1>配信の視聴者を待機中(WIP)</h1>
+    <br><br><br><br><br>
+    <p>クリックして無視</p>
+  </div>
+
+  <div id="play" class="title">
+    <h1>アルティメット成績計算機</h1>
+    <small>-Original by Hamaguchi Ryuki-</small>
+    <h3>tap or click to start</h3>
+  </div>
+
+  <div class="calcwindow">
+    <h1>アルティメット成績計算機</h1>
+
+    <div id="subject-data">
+      <!-- 試験<input
+        id="exam-rate"
+        type="number"
+        step="5"
+        min="0"
+        max="100"
+        value="70"
+        placeholder="70"
+        disabled
+      />%
+      +
+      ポートフォリオ等<input
+        id="other-rate"
+        type="number"
+        step="5"
+        min="0"
+        max="100"
+        value="30"
+        placeholder="30"
+        disabled
+        />%  の教科で、 -->
+      試験点:ポートフォリオ
+      =
+      <select id="exam-rate-select">
+        <option value="50">5:5</option>
+        <option value="60">6:4</option>
+        <option value="70" selected>7:3</option>
+        <option value="80">8:2</option>
+        <option value="90">9:1</option>
+        <option value="100">10:0</option>
+      </select>
+      の教科で、
+    </div>
+  
+    <div id="calc-base-container">
+      <select id="calc-base-select" disabled>
+        <option value="first-mid" selected>前期中間</option>
+        <option value="first-final">前期期末</option>
+        <option value="first-supplemental">前期補講</option>
+        <option value="first-re-exam">前期再試</option>
+        <option value="dummy-separator" class="calc-ignore" disabled></option>
+        <option value="second-mid">後期中間</option>
+        <option value="second-final">後期期末</option>
+        <option value="second-supplemental">後期補講</option>
+        <option value="second-re-exam">後期再試</option>
+        <option value="last-exam">単位認定試験</option>
+        <option value="retention" style="display: none;" hidden disabled> </option>
+      </select><!--までの<span class="base-color">試験点</span>と<span class="base-color">ポートフォリオ点</span>から、 -->
+      までの成績から、
+    </div>
+    <div id="calc-target-container">
+      <!-- <select id="calc-to-select" disabled>
+        <option value="first-mid" disabled>前期: 中間</option>
+        <option value="first-final">前期: 期末</option>
+        <option value="first-supplemental">前期: 補講</option>
+        <option value="first-re-exam">前期: 再試</option>
+        <option value="dummy-separator" class="calc-ignore" disabled></option>
+        <option value="second-mid">後期: 中間</option>
+        <option value="second-final">後期: 期末</option>
+        <option value="second-supplemental">後期: 補講</option>
+        <option value="second-re-exam">後期: 再試</option>
+        <option value="last-exam">単位認定試験</option>
+        <option value="this-grade">この学年</option>
+      </select>であと何点取れば合格するか計算します。 -->
+      <span id="calc-target-message-default">
+        <span id="calc-target-name" class="accent-color">前期期末</span>
+        で
+        <span class="accent-color">あと何点取れば合格するか</span>
+      </span>
+      <span id="calc-target-message-retention" class="accent-color" hidden>留年するかどうか</span>
+      計算します。
+    </div>
+    
+    <div>
+
+    </div>
+
+    <button class="gogo" style="background-color: rgb(210, 210, 210);" disabled>GO</button>
+  </div>
+
+  <div class="resu">
+    <h1>留年 </h1>
+  </div>
+
+  <!--
+  <div id="first-mid" />
+    <input type="number" id="first-mid-exam" placeholder="テスト点" />
+    /
+    <span id="first-mid-exam-max">0.70</span>
+    +
+    <input type="number" id="first-mid-other" placeholder="ポートフォリオ等その他点数" />
+    <span id="first-mid-other-max">30</span>
+    ≧ 60% ?
+  </div>
+  <div><input type="number" id="first-semeter-final" placeholder="前期期末テストの点数" /></div>
+  <div><input type="number" id="second-semeter-mid" placeholder="後期中間テストの点数" /></div>
+  <div><input type="number" id="second-semeter-final" placeholder="後期期末テストの点数" /></div>
+-->
+</body>
+
+</html>
