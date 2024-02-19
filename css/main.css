@@ -11,6 +11,10 @@
 }
 
 body {
+  background-color: bisque;
+}
+
+.hyper {
   animation: backgroundscsf .1s infinite;
 }
 
@@ -109,7 +113,7 @@ body select {
 }
 
 .hidewin {
-  top: 150%;
+  transform: rotate3d(1,1,1,70deg) translate(100%);
 }
 
 .pinp {

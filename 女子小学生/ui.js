@@ -78,6 +78,7 @@ $(() => {
     // 指定時間後に結果画面を表示
     setTimeout(() => {
       $('.resu').addClass('viewin');
+      $('body').addClass('hyper');
     }, 4500);
 
     // 指定時間後に仮で留年SEを再生
