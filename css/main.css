@@ -125,6 +125,11 @@ body select {
   left: 50%;
 }
 
+.hiwwwnum {
+  transform: scale(10);
+  opacity: 0%;
+}
+
 .viewin {
   top: 50%;
 }
@@ -166,7 +171,7 @@ body select {
   z-index: 10001;
 }
 
-.rainbow {
+#rainbow {
   background: linear-gradient(to right, #f00 0%, #f80 14.28%, #dd0 28.56%, #0d0 42.85%, #0dd 57.14%, #00f 71.42%, #e0e 85.71%, #f00 100%) 0% center / 200% auto;
   animation: rainbow 0.5s linear infinite;
 }

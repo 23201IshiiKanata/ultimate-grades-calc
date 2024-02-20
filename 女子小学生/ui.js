@@ -59,8 +59,7 @@ $(() => {
   }
 
   function gonum() {
-    $('.gogo, .calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
-    $('.next').prop('disabled', false);
+    $('.calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
     $('.calcwindow').addClass('hidewin');
     $('.numwindow').addClass('viwwwnum');
   }
@@ -70,7 +69,8 @@ $(() => {
    */
   function gogo() {
     // 要素をアニメーション
-    
+    $('.numwindow').removeClass('viwwwnum');
+    $('.numwindow').addClass('hiwwwnum');
 
     // 入力を無効化する
     $('.next').prop('disabled', true);
