@@ -78,7 +78,6 @@ $(() => {
 
     // 仮で留年祝いのBGMに変更
     mainMusic.pause();
-    retentionMusic.play();
 
     // SEを再生
     preResultSound.play();
@@ -87,6 +86,7 @@ $(() => {
     setTimeout(() => {
       $('.resu').addClass('viewin');
       $('body').addClass('hyper');
+      retentionMusic.play();
     }, 4500);
 
     // 指定時間後に仮で留年SEを再生
