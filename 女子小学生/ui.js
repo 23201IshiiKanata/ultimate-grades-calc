@@ -15,6 +15,8 @@ $(() => {
   const mainMusic = new Audio('./sound/bgm.mp3');
   /** 留年祝いのBGM */
   const retentionMusic = new Audio('./sound/oioi.mp3');
+  // えんどろーる
+  const endroll = new Audio('./sound/end.mp3');
 
   // BGMをループ再生する
   titleMusic.loop = true;
@@ -69,7 +71,6 @@ $(() => {
    */
   function gogo() {
     // 要素をアニメーション
-    $('.numwindow').removeClass('viwwwnum');
     $('.numwindow').addClass('hiwwwnum');
 
     // 入力を無効化する
@@ -92,6 +93,16 @@ $(() => {
     setTimeout(() => {
       retentionSound.play();
     }, 4800);
+
+    setTimeout(() => {
+      end()
+    }, 10000);
+  }
+
+  function end() {
+    retentionMusic.pause();
+    $('.end').removeClass('dis');
+    endroll.play();
   }
 
   // イベントハンドラの登録
