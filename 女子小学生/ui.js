@@ -176,13 +176,13 @@ $(() => {
     }, 180000);
     setTimeout(() => {
       $('#end14').addClass('upper');
-    }, 150000);
-    setTimeout(() => {
-      $('#end15').addClass('upper');
     }, 195000);
     setTimeout(() => {
-      $('#end16').addClass('upper');
+      $('#end15').addClass('upper');
     }, 210000);
+    setTimeout(() => {
+      $('#end16').addClass('upper');
+    }, 225000);
   }
 
   // イベントハンドラの登録
