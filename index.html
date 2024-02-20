@@ -109,6 +109,46 @@
   </div>
 
   <div class="numwindow">
+    <!-- <div id="num-first">
+      <div>
+        <input type="radio" id="num-first-grade-radio" name="num-first" disabled />
+        <label for="num-first-grade-radio">前期の成績を直接入力: </label>
+        <input
+          type="number"
+          id="num-first-grade"
+          placeholder="60"
+          min="0"
+          max="100"
+          step="1"
+          disabled
+          />
+      </div>
+      <div>
+        <input type="radio" id="num-first-grades-radio" name="num-first" />
+        <label for="num-first-grades-radio">前期の成績を</label>
+      </div>
+    </div> -->
+    <div id="num-template" hidden>
+      <div>
+        <select id="num-template-select">
+          <option value="calc">試験点とポートフォリオ点から自動計算</option>
+          <option value="direct">成績を直接入力</option>
+        </select>
+      </div>
+      <div id="num-template-calc" hidden>
+        試験<input type="number" id="num-template-exam" placeholder="43" min="0" max="100" step="1" />点
+        × <span id="num-template-rate">70</span>% +
+        ポートフォリオ<input type="number" id="num-template-portfolio" placeholder="30" min="0" max="100" step="1" />点
+        = ?
+      </div>
+      <div id="num-template-direct" hidden>
+        成績<input type="number" id="num-template-grade" placeholder="60" min="0" max="100" step="1" />点
+      </div>
+    </div>
+    
+    <div id="num-dynamic">
+    </div>
+
     <button class="gogo rainbow">GO</button>
   </div>
 

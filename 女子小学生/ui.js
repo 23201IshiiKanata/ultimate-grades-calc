@@ -188,8 +188,8 @@ $(() => {
   // イベントハンドラの登録
   $('.pinp').on('click', popupStream);
   $('.title').on('click', showMain);
-  $('.gogo').on('click', gogo);
   $('.next').on('click', gonum);
+  $('.gogo').on('click', gogo);
 
   //debug
 // popupStream();
