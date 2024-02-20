@@ -95,6 +95,17 @@ body select {
   transition: .7s;
 }
 
+.numwindow {
+  position: fixed;
+  background-color: aliceblue;
+  width: 60%;
+  padding: 20px;
+  border-radius: 10px;
+  margin: auto;
+  transform: rotate3d(1,1,1,70deg) translate(-100%);
+  transition: .7s;
+}
+
 .resu {
   position: fixed;
   background-color: aliceblue;
@@ -106,6 +117,12 @@ body select {
   left: 50%;
   transform: translate(-50%, -50%);
   transition: .7s;
+}
+
+.viwwwnum {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }
 
 .viewin {
@@ -147,4 +164,13 @@ body select {
 
 .drag {
   z-index: 10001;
+}
+
+.rainbow {
+  background: linear-gradient(to right, #f00 0%, #f80 14.28%, #dd0 28.56%, #0d0 42.85%, #0dd 57.14%, #00f 71.42%, #e0e 85.71%, #f00 100%) 0% center / 200% auto;
+  animation: rainbow 0.5s linear infinite;
+}
+
+@keyframes rainbow {
+  to { background-position-x: 200%; }
 }

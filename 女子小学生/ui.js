@@ -58,15 +58,22 @@ $(() => {
     clickTitleSound.play();
   }
 
+  function gonum() {
+    $('.gogo, .calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
+    $('.next').prop('disabled', false);
+    $('.calcwindow').addClass('hidewin');
+    $('.numwindow').addClass('viwwwnum');
+  }
+
   /**
    * 計算画面から結果画面まで遷移する。
    */
   function gogo() {
     // 要素をアニメーション
-    $('.calcwindow').addClass('hidewin');
+    
 
     // 入力を無効化する
-    $('.gogo, .calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
+    $('.next').prop('disabled', true);
 
     // 仮で留年祝いのBGMに変更
     mainMusic.pause();
@@ -91,4 +98,5 @@ $(() => {
   $('.pinp').on('click', popupStream);
   $('.title').on('click', showMain);
   $('.gogo').on('click', gogo);
+  $('.next').on('click', gonum);
 });
