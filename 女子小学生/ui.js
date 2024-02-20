@@ -95,7 +95,7 @@ $(() => {
     }, 4800);
 
     setTimeout(() => {
-      end()
+      end();
     }, 10000);
   }
 
@@ -103,6 +103,9 @@ $(() => {
     retentionMusic.pause();
     $('.end').removeClass('dis');
     endroll.play();
+    setTimeout(() => {
+      $('.end').addClass('upper');
+    }, 500);
   }
 
   // イベントハンドラの登録
@@ -110,4 +113,11 @@ $(() => {
   $('.title').on('click', showMain);
   $('.gogo').on('click', gogo);
   $('.next').on('click', gonum);
+
+  //debug
+  popupStream();
+  showMain();
+  gonum();
+  gogo();
+  end();
 });

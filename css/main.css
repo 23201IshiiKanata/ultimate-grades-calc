@@ -190,9 +190,17 @@ body select {
   background-color: black;
   color: white;
   transition: .5s;
+  padding-top: 150%;
 }
 
 .dis {
   transform: scale(0);
   opacity: 0%;
+}
+
+.upper {
+  height: 100000px;
+  transition-timing-function : linear;
+  transition-duration: 100s;
+  transform: translateY(-10000px);
 }
