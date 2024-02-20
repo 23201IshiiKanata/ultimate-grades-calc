@@ -15,7 +15,7 @@ $(() => {
   const mainMusic = new Audio('./sound/bgm.mp3');
   /** 留年祝いのBGM */
   const retentionMusic = new Audio('./sound/oioi.mp3');
-  // えんどろーる
+  /** えんどろーる */
   const endroll = new Audio('./sound/end.mp3');
 
   // BGMをループ再生する
