@@ -64,9 +64,13 @@ $(() => {
     $('.calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
     $('.calcwindow').addClass('hidewin');
     $('.numwindow').addClass('viwwwnum');
+    clickTitleSound.currentTime = 0;
+    clickTitleSound.play();
   }
 
   function gogo() {
+    clickTitleSound.currentTime = 0;
+    clickTitleSound.play();
     ryunen();
   }
 
@@ -105,14 +109,18 @@ $(() => {
 
   function end() {
     retentionMusic.pause();
+    $('.resu').addClass('hiwwwnum');
+    $('.calcwindow').addClass('hiwwwnum');
     $('.end').removeClass('dis');
+    $('body').removeClass('hyper');
+    $('body').addClass('dark');
     endroll.play();
     setTimeout(() => {
       $('.end').addClass('upper');
     }, 500);
-    setTimeout(() => {
-      endroll.pause();
-    }, 281000);
+    // setTimeout(() => {
+    //   endroll.pause();
+    // }, 281000);    
   }
 
   // イベントハンドラの登録
@@ -122,9 +130,9 @@ $(() => {
   $('.next').on('click', gonum);
 
   //debug
-  // popupStream();
-  // showMain();
-  // gonum();
-  // gogo();
-  // end();
+popupStream();
+showMain();
+gonum();
+gogo();
+end();
 });

@@ -12,6 +12,11 @@
 
 body {
   background-color: bisque;
+  max-width: 750px;
+}
+
+.dark {
+  background-color: black;
 }
 
 .hyper {
@@ -187,14 +192,14 @@ body select {
 .end {
   position: fixed;
   width: 100%;
+  max-width: 750px;
   height: 100%;
-  margin: auto;
+  margin: 0 auto;
   text-align: center;
-  z-index: 100;
   background-color: black;
   color: white;
   transition: .5s;
-  padding-top: 150%;
+  padding-top: 100%;
 }
 
 .dis {
@@ -202,9 +207,18 @@ body select {
   opacity: 0%;
 }
 
+.endbox {
+  max-width: fit-content;
+}
+
 .upper {
+  z-index: 1000000;
   height: 100000px;
   transition-timing-function : linear;
   transition-duration:  281s;
   transform: translateY(-15000px);
+}
+
+#padding {
+  padding: 100%;
 }
