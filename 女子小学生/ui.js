@@ -60,6 +60,9 @@ $(() => {
     clickTitleSound.play();
   }
 
+  /**
+   * 前提条件の入力を完了し、計算画面へ遷移する。
+   */
   function gonum() {
     $('.calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
     $('.calcwindow').addClass('hidewin');
@@ -68,6 +71,9 @@ $(() => {
     clickTitleSound.play();
   }
 
+  /**
+   * ?
+   */
   function gogo() {
     clickTitleSound.currentTime = 0;
     clickTitleSound.play();
@@ -107,6 +113,9 @@ $(() => {
     }, 10000);
   }
 
+  /**
+   * エンドロール表示の準備と、実際の表示を行う。
+   */
   function end() {
     retentionMusic.pause();
     $('.resu').addClass('hiwwwnum');
@@ -122,6 +131,9 @@ $(() => {
     // }, 281000);    
   }
 
+  /**
+   * エンドロールのテキストを順に表示する。
+   */
   function endrolltxt() {
     setTimeout(() => {
       $('#end1').addClass('upper');
