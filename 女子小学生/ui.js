@@ -16,7 +16,7 @@ $(() => {
   /** 留年祝いのBGM */
   const retentionMusic = new Audio('./sound/oioi.mp3');
   /** えんどろーる */
-  const endroll = new Audio('./sound/end.mp3');
+  const endrollMusic = new Audio('./sound/end.mp3');
 
   // BGMをループ再生する
   titleMusic.loop = true;
@@ -122,7 +122,7 @@ $(() => {
     $('.calcwindow').addClass('hiwwwnum');
     $('.end').removeClass('dis');
     $('body').removeClass('hyper');
-    endroll.play();
+    endrollMusic.play();
     setTimeout(() => {
       endrolltxt();
     }, 500);
