@@ -115,9 +115,9 @@ $(() => {
   $('.next').on('click', gonum);
 
   //debug
-  popupStream();
-  showMain();
-  gonum();
-  gogo();
-  end();
+  // popupStream();
+  // showMain();
+  // gonum();
+  // gogo();
+  // end();
 });
