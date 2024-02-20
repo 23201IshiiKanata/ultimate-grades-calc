@@ -176,6 +176,10 @@ body select {
   animation: rainbow 0.5s linear infinite;
 }
 
+#rainbowbg {
+  -webkit-text-fill-color: transparent;
+}
+
 @keyframes rainbow {
   to { background-position-x: 200%; }
 }
