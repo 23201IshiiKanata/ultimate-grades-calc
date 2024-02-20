@@ -146,22 +146,31 @@ $(() => {
     }, 90000);
     setTimeout(() => {
       $('#end8').addClass('upper');
-    }, 150000);
+    }, 105000);
     setTimeout(() => {
       $('#end9').addClass('upper');
-    }, 300000);
+    }, 120000);
     setTimeout(() => {
       $('#end10').addClass('upper');
-    }, 450000);
+    }, 135000);
     setTimeout(() => {
       $('#end11').addClass('upper');
-    }, 600000);
+    }, 150000);
     setTimeout(() => {
       $('#end12').addClass('upper');
-    }, 750000);
+    }, 165000);
     setTimeout(() => {
       $('#end13').addClass('upper');
-    }, 900000);
+    }, 180000);
+    setTimeout(() => {
+      $('#end14').addClass('upper');
+    }, 150000);
+    setTimeout(() => {
+      $('#end15').addClass('upper');
+    }, 195000);
+    setTimeout(() => {
+      $('#end16').addClass('upper');
+    }, 210000);
   }
 
   // イベントハンドラの登録
