@@ -66,10 +66,14 @@ $(() => {
     $('.numwindow').addClass('viwwwnum');
   }
 
+  function gogo() {
+    ryunen();
+  }
+
   /**
    * 計算画面から結果画面まで遷移する。
    */
-  function gogo() {
+  function ryunen() {
     // 要素をアニメーション
     $('.numwindow').addClass('hiwwwnum');
 
@@ -106,6 +110,9 @@ $(() => {
     setTimeout(() => {
       $('.end').addClass('upper');
     }, 500);
+    setTimeout(() => {
+      endroll.pause();
+    }, 281000);
   }
 
   // イベントハンドラの登録

@@ -201,6 +201,6 @@ body select {
 .upper {
   height: 100000px;
   transition-timing-function : linear;
-  transition-duration: 100s;
-  transform: translateY(-10000px);
+  transition-duration:  281s;
+  transform: translateY(-15000px);
 }
