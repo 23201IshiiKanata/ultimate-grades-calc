@@ -115,29 +115,53 @@ $(() => {
     $('body').removeClass('hyper');
     endroll.play();
     setTimeout(() => {
-      $('#end1').addClass('upper');
+      endrolltxt();
     }, 500);
-    setTimeout(() => {
-      $('#end2').addClass('upper');
-    }, 10500);
-    setTimeout(() => {
-      $('#end3').addClass('upper');
-    }, 20500);
-    setTimeout(() => {
-      $('#end4').addClass('upper');
-    }, 30500);
-    setTimeout(() => {
-      $('#end5').addClass('upper');
-    }, 40500);
-    setTimeout(() => {
-      $('#end6').addClass('upper');
-    }, 50500);
-    setTimeout(() => {
-      $('#end7').addClass('upper');
-    }, 60500);
     // setTimeout(() => {
     //   endroll.pause();
     // }, 281000);    
+  }
+
+  function endrolltxt() {
+    setTimeout(() => {
+      $('#end1').addClass('upper');
+    }, 0);
+    setTimeout(() => {
+      $('#end2').addClass('upper');
+    }, 15000);
+    setTimeout(() => {
+      $('#end3').addClass('upper');
+    }, 30000);
+    setTimeout(() => {
+      $('#end4').addClass('upper');
+    }, 45000);
+    setTimeout(() => {
+      $('#end5').addClass('upper');
+    }, 60000);
+    setTimeout(() => {
+      $('#end6').addClass('upper');
+    }, 75000);
+    setTimeout(() => {
+      $('#end7').addClass('upper');
+    }, 90000);
+    setTimeout(() => {
+      $('#end8').addClass('upper');
+    }, 150000);
+    setTimeout(() => {
+      $('#end9').addClass('upper');
+    }, 300000);
+    setTimeout(() => {
+      $('#end10').addClass('upper');
+    }, 450000);
+    setTimeout(() => {
+      $('#end11').addClass('upper');
+    }, 600000);
+    setTimeout(() => {
+      $('#end12').addClass('upper');
+    }, 750000);
+    setTimeout(() => {
+      $('#end13').addClass('upper');
+    }, 900000);
   }
 
   // イベントハンドラの登録

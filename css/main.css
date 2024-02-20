@@ -210,16 +210,16 @@ body select {
   width: max-content;
   position: fixed;
   color: white;
-  bottom: -20%;
+  bottom: -10%;
   left: 50%;
   transform: translate(-50%, 50%);
   transition-timing-function : linear;
-  transition-duration:  10s;
+  transition-duration:  15s;
   z-index: 100001;
 }
 
 .upper {
-  bottom: 120%;
+  bottom: 110%;
   z-index: 100001;
 }
 
