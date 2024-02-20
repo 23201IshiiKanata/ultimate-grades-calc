@@ -176,7 +176,7 @@ body select {
   z-index: 10001;
 }
 
-#rainbow {
+.rainbow {
   background: linear-gradient(to right, #f00 0%, #f80 14.28%, #dd0 28.56%, #0d0 42.85%, #0dd 57.14%, #00f 71.42%, #e0e 85.71%, #f00 100%) 0% center / 200% auto;
   animation: rainbow 0.5s linear infinite;
 }
@@ -192,14 +192,12 @@ body select {
 .end {
   position: fixed;
   width: 100%;
-  max-width: 750px;
   height: 100%;
-  margin: 0 auto;
   text-align: center;
   background-color: black;
-  color: white;
   transition: .5s;
   padding-top: 100%;
+  z-index: 100000;
 }
 
 .dis {
@@ -207,16 +205,22 @@ body select {
   opacity: 0%;
 }
 
-.endbox {
-  max-width: fit-content;
+.chr {
+  height: 50px;
+  width: max-content;
+  position: fixed;
+  color: white;
+  bottom: -20%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  transition-timing-function : linear;
+  transition-duration:  10s;
+  z-index: 100001;
 }
 
 .upper {
-  z-index: 1000000;
-  height: 100000px;
-  transition-timing-function : linear;
-  transition-duration:  281s;
-  transform: translateY(-15000px);
+  bottom: 120%;
+  z-index: 100001;
 }
 
 #padding {

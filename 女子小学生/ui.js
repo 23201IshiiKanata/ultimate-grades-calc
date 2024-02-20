@@ -113,11 +113,28 @@ $(() => {
     $('.calcwindow').addClass('hiwwwnum');
     $('.end').removeClass('dis');
     $('body').removeClass('hyper');
-    $('body').addClass('dark');
     endroll.play();
     setTimeout(() => {
-      $('.end').addClass('upper');
+      $('#end1').addClass('upper');
     }, 500);
+    setTimeout(() => {
+      $('#end2').addClass('upper');
+    }, 10500);
+    setTimeout(() => {
+      $('#end3').addClass('upper');
+    }, 20500);
+    setTimeout(() => {
+      $('#end4').addClass('upper');
+    }, 30500);
+    setTimeout(() => {
+      $('#end5').addClass('upper');
+    }, 40500);
+    setTimeout(() => {
+      $('#end6').addClass('upper');
+    }, 50500);
+    setTimeout(() => {
+      $('#end7').addClass('upper');
+    }, 60500);
     // setTimeout(() => {
     //   endroll.pause();
     // }, 281000);    
