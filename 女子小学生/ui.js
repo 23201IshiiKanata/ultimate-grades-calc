@@ -128,7 +128,7 @@ $(() => {
     }, 500);
     // setTimeout(() => {
     //   endroll.pause();
-    // }, 281000);    
+    // }, 281000);
   }
 
   /**
@@ -183,6 +183,18 @@ $(() => {
     setTimeout(() => {
       $('#end16').addClass('upper');
     }, 225000);
+    setTimeout(() => {
+      $('#end13').addClass('upper');
+    }, 240000);
+    setTimeout(() => {
+      $('#end14').addClass('upper');
+    }, 255000);
+    setTimeout(() => {
+      $('#end15').addClass('upper');
+    }, 270000);
+    setTimeout(() => {
+      $('#end16').addClass('upper');
+    }, 285000);
   }
 
   // イベントハンドラの登録
@@ -191,10 +203,10 @@ $(() => {
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);
 
-  //debug
-// popupStream();
-// showMain();
-// gonum();
-// gogo();
-// end();
+  // debug
+  // popupStream();
+  // showMain();
+  // gonum();
+  // gogo();
+  // end();
 });
