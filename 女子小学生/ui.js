@@ -17,6 +17,8 @@ $(() => {
   const retentionMusic = new Audio('./sound/oioi.mp3');
   /** えんどろーる */
   const endrollMusic = new Audio('./sound/end.mp3');
+  /** えんどろーる2 */
+  const endrollMusic2 = new Audio('./sound/oioifadeout.mp3');
 
   // BGMをループ再生する
   titleMusic.loop = true;
@@ -126,9 +128,9 @@ $(() => {
     setTimeout(() => {
       endrolltxt();
     }, 500);
-    // setTimeout(() => {
-    //   endroll.pause();
-    // }, 281000);
+    setTimeout(() => {
+      endrollMusic2.play();
+    }, 281000);
   }
 
   /**
