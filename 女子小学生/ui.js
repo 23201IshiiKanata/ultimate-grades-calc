@@ -184,16 +184,16 @@ $(() => {
       $('#end16').addClass('upper');
     }, 225000);
     setTimeout(() => {
-      $('#end13').addClass('upper');
+      $('#end17').addClass('upper');
     }, 240000);
     setTimeout(() => {
-      $('#end14').addClass('upper');
+      $('#end18').addClass('upper');
     }, 255000);
     setTimeout(() => {
-      $('#end15').addClass('upper');
+      $('#end19').addClass('upper');
     }, 270000);
     setTimeout(() => {
-      $('#end16').addClass('upper');
+      $('#end20').addClass('upper');
     }, 285000);
   }
 
