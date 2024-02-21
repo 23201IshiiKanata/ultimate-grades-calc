@@ -18,7 +18,7 @@ $(() => {
   /** えんどろーる */
   const endrollMusic = new Audio('./sound/end.mp3');
   /** えんどろーる2 */
-  const endrollMusic2 = new Audio('./sound/oioifadeout.mp3');
+  const endrollMusic2 = new Audio('./sound/end2.mp3');
 
   // BGMをループ再生する
   titleMusic.loop = true;
