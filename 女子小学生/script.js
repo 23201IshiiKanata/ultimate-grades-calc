@@ -56,10 +56,7 @@ $(() => {
      */
     const inputFormChange = (event) => {
       const elements = numWindow.find('input:visible').toArray();
-      console.log(elements);
       const isValid = elements.every((element) => {
-        console.log(element);
-        console.log(element.checkValidity());
         return element.checkValidity();
       });
       if (isValid) {
