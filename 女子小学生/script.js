@@ -2,25 +2,6 @@
  * ページの読み込みが完了した時に一度だけ実行されるコールバック関数。
  */
 $(() => {
-  // const examRate = $('#exam-rate');
-  // const otherRate = $('#other-rate');
-
-  // /**
-  //  * examRate の値が変更された時に実行され、
-  //  * otherRate の値を計算して設定するコールバック関数。
-  //  */
-  // examRate.on('change', () => {
-  //   otherRate.val(100 - examRate.val());
-  // });
-
-  // /**
-  //  * otherRate の値が変更された時に実行され、
-  //  * examRate の値を計算して設定するコールバック関数。
-  //  */
-  // otherRate.on('change', () => {
-  //   examRate.val(100 - otherRate.val());
-  // });
-
   const examRateSelect = $('#exam-rate-select');
 
   examRateSelect.on('change', () => {
@@ -70,21 +51,6 @@ $(() => {
     console.log('nextButton clicked');
 
     /**
-     * @deprecated gone
-     * 選択フォームの値が変更された時に実行されるコールバック関数。
-     * @param {'calc'|'direct'|''} name
-     * @param {JQuery.Event} event
-     */
-    const selectFormChange = (name, event) => {
-      console.log('form changed');
-      /** @type {'calc'|'direct'|''} */
-      const value = $(event.target).find('option:selected').val();
-      $(`#num-${name}-calc`).hide();
-      $(`#num-${name}-direct`).hide();
-      $(`#num-${name}-${value}`).show();
-    };
-
-    /**
      * 入力フォームの値が変更された時に実行されるコールバック関数。
      * @param {JQuery.Event} event
      */
@@ -104,54 +70,6 @@ $(() => {
         goButton.removeClass('rainbow');
       }
     };
-
-    /**
-     * @deprecated gone
-     * テンプレートから点数入力フォームを複製する。
-     * @param {string} name 複製後のテンプレートのidに使用される名前。
-     * @param {'calc'|'direct'|''} defaultSelect 初期で選択される選択肢。
-     * @param {boolean} force trueの場合、defaultSelectを強制し変更できないようにする。
-     */
-    const summonForm = (name, defaultSelect = '', force = false) => {
-      dynamic.append(template.html().replace(/template/g, name));
-
-      if (defaultSelect) {
-        $(`#num-${name}-select option[value="${defaultSelect}"]`).attr('selected', true);
-      }
-
-      if (defaultSelect && force) {
-        $(`#num-${name}-select option`).attr('disabled', true);
-        $(`#num-${name}-select option[value="${defaultSelect}"]`).attr('disabled', false);
-        // $(`#num-${name}-select`).attr('disabled', true);
-        $(`#num-${name}-select`).hide();
-      } else {
-        $(`#num-${name}-select`).on('change', (event) => {
-          selectFormChange(name, event);
-        });
-        $(`#num-${name}-select`).show();
-      }
-
-      // サブタイトルを設定
-      $(`#num-${name}-subtitle`).text(calcBaseSelect.find(`option[value="${name}"]`).text());
-      $(`#num-${name}`).show();
-      $(`#num-${name}-${defaultSelect || 'calc'}`).show();
-
-      console.log(100 - Number(examRateSelect.val()));
-      $(`#num-${name}-portfolio`).prop('max', 100 - Number(examRateSelect.val()));
-      console.log($(`#num-${name}-portfolio`).prop('max'));
-    };
-
-    /*
-    前期中間:              前期中間
-    前期期末:             (前期中間 + 前期期末)
-    前期補講:             (前期中間 + 前期期末) + 前期補講
-    前期再試:            ((前期中間 + 前期期末) + 前期補講) + 前期再試
-    後期中間: 前期成績 +   後期中間
-    後期期末: 前期成績 +  (後期中間 + 後期期末)
-    後期補講: 前期成績 +  (後期中間 + 後期期末) + 後期補講
-    後期再試: 前期成績 + ((後期中間 + 後期期末) + 後期補講) + 後期再試
-    単位認定: 単位認定
-    */
 
     /*
     前期中間: round(中間試験点*試験点割合 + 中間ポートフォリオ点)
@@ -217,8 +135,6 @@ $(() => {
     }
 
     numWindow.find('input').on('change', inputFormChange);
-
-    // TODO: 入力値が正常な場合のみボタンをrainbowに
   });
 
   console.log('script.js ready');
