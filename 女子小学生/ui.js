@@ -37,6 +37,9 @@ $(() => {
 
     // 要素をアニメーション
     $('.pinp').addClass('popup');
+    $('.first').addClass('none');
+    $('.second').removeClass('none');
+    $('.host .viewer').prop('disabled', false);
 
     // タイトル画面のBGMを再生
     titleMusic.play();
@@ -200,7 +203,8 @@ $(() => {
   }
 
   // イベントハンドラの登録
-  $('.pinp').on('click', popupStream);
+  $('.host').on('click', popupStream);
+  $('.viewer').on('click', popupStream);
   $('.title').on('click', showMain);
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);

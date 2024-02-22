@@ -169,10 +169,6 @@ body select:disabled {
   border-radius: 10px;
 }
 
-.popup p {
-  display: none;
-}
-
 .drag-and-drop {
   cursor: move;
   position: absolute;
@@ -232,4 +228,8 @@ body select:disabled {
 
 #padding {
   padding: 100%;
+}
+
+.none {
+  display: none;
 }
