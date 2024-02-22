@@ -118,6 +118,10 @@ body select:disabled {
   transition: .7s;
 }
 
+.numwindow h2 {
+  margin-top: 1.2em;
+}
+
 .resu {
   position: fixed;
   background-color: aliceblue;

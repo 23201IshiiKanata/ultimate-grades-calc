@@ -91,7 +91,7 @@
         <option value="second-supplemental">後期補講</option>
         <option value="second-reexam">後期再試</option>
         <option value="last">単位認定試験</option>
-        <option value="retention" style="display: none;" hidden disabled> </option>
+        <option value="retention" style="display: none;" hidden disabled></option>
       </select><!--までの<span class="base-color">試験点</span>と<span class="base-color">ポートフォリオ点</span>から、 -->
       までの成績から、
     </div>
@@ -122,29 +122,9 @@
   </div>
 
   <div class="numwindow">
-    <!-- <div id="num-first">
-      <div>
-        <input type="radio" id="num-first-grade-radio" name="num-first" disabled />
-        <label for="num-first-grade-radio">前期の成績を直接入力: </label>
-        <input
-          type="number"
-          id="num-first-grade"
-          placeholder="60"
-          min="0"
-          max="100"
-          step="1"
-          disabled
-          />
-      </div>
-      <div>
-        <input type="radio" id="num-first-grades-radio" name="num-first" />
-        <label for="num-first-grades-radio">前期の成績を</label>
-      </div>
-    </div> -->
+    <h1><span id="num-title">前期期末で必要な点数を計算</span></h1>
 
-    <h1><span id="num-title">前期期末</span>で必要な<br>点数について計算</h1>
-
-    <div id="num-template" hidden>
+    <!-- <div id="num-template" hidden>
       <h2 style="margin-top: 0.8em;"><span id="num-template-subtitle">前期中間</span>の成績を入力:</h2>
       <div>
         <select id="num-template-select" hidden>
@@ -153,20 +133,50 @@
         </select>
       </div>
       <div id="num-template-calc" hidden>
-        試験<input type="number" id="num-template-exam" placeholder="43" min="0" max="100" step="1" />点
+        試験<input type="number" id="num-template-exam" placeholder="43" min="0" max="100" step="1" required />点
         × <span id="num-template-rate">70</span>% +
-        ポートフォリオ<input type="number" id="num-template-portfolio" placeholder="30" min="0" max="100" step="1" />点
+        ポートフォリオ<input type="number" id="num-template-portfolio" placeholder="30" min="0" max="100" step="1" required />点
         = ?
       </div>
       <div id="num-template-direct" hidden>
-        成績: <input type="number" id="num-template-grade" placeholder="60" min="0" max="100" step="1" />点
+        成績: <input type="number" id="num-template-grade" placeholder="60" min="0" max="100" step="1" required />点
       </div>
     </div>
     
     <div id="num-dynamic">
+    </div> -->
+
+    <div id="num-first" hidden> <!-- 前期の成績 -->
+      <h2><span id="num-first-prefix">前期</span></h2>
+      成績: <input type="number" id="num-first-input" placeholder="60" min="0" max="100" step="1" required />
     </div>
 
-    <button class="gogo rainbow">GO</button>
+    <div id="num-mid-exam" hidden> <!-- 中間試験の試験点 -->
+      <h2><span id="num-mid-exam-prefix">前期中間試験</span></h2>
+      試験点: <input type="number" id="num-mid-exam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span class="num-exam-rate">70</span>%)
+    </div>
+
+    <div id="num-final-exam" hidden> <!-- 期末試験の試験点 -->
+      <h2><span id="num-final-exam-prefix">前期期末試験</span></h2>
+      試験点: <input type="number" id="num-final-exam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span class="num-exam-rate">70</span>%)
+    </div>
+
+    <div id="num-portfolio" hidden> <!-- ポートフォリオ点 -->
+      <h2><span id="num-portfolio-prefix">ポートフォリオ</span></h2>
+      点数: <input type="number" id="num-portfolio-input" placeholder="30" min="0" max="30" step="1" required /> / <span class="num-portfolio-rate">30</span>
+    </div>
+
+    <div id="num-reexam" hidden> <!-- 再試験の試験点 -->
+      <h2><span id="num-reexam-prefix">前期再試験</span></h2>
+      試験点: <input type="number" id="num-reexam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span class="num-exam-rate">70</span>%)
+    </div>
+
+    <div id="num-last" hidden> <!-- 単位認定試験の試験点 -->
+      <h2><span id="num-last-prefix">単位認定試験</span></h2>
+      試験点: <input type="number" id="num-last-input" placeholder="43" min="0" max="100" step="1" required />
+    </div>
+
+    <button class="gogo" disabled>GO</button>
   </div>
 
   <div class="resu">
