@@ -260,3 +260,7 @@ body select:disabled {
   width: 533px;
   height: 300px;
 }
+
+.small {
+  transform: scale(0);
+}

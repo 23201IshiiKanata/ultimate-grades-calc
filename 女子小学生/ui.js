@@ -49,7 +49,7 @@ $(() => {
    * 見る人用
    */
   function displayScreen() {
-    $('.pinp').addClass('none');
+    $('.pinp').addClass('small');
     $('.client').removeClass('none');
   }
 
