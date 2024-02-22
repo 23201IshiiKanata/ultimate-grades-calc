@@ -149,8 +149,17 @@ $(() => {
    * @param {number} index 表示するエンドロールの位置
    */
   function endrolltxt(index = 1) {
-    $('#endroll').children(`:nth-child(${index})`).addClass('upper');
-    setTimeout(() => endrolltxt(index + 1), 15000);
+    // 対象となる要素を取得
+    const element = $('#endroll').children(`:nth-child(${index})`);
+
+    // 要素が存在しない場合は終了
+    if ((element?.length ?? 0) == 0) return;
+
+    // 要素をアニメーション表示
+    element.addClass('upper');
+
+    // 次の要素を指定時間後に表示
+    setTimeout(() => endrolltxt(index + 1), 15);
   }
 
   // イベントハンドラの登録
