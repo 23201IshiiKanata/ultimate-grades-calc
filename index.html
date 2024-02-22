@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
+  <script src="女子小学生/server.js"></script>
   <script src="女子小学生/script.js"></script>
   <script src="女子小学生/ui.js"></script>
 </head>
@@ -18,11 +19,12 @@
     <div class="first">
       <h1>貴方は何方側の立場ですか</h1>
       <div style="padding: 100px;"></div>
-      <button class="host" style="background-color: rgb(210, 210, 210);">配信者</button>
+      <button id="start" class="host" style="background-color: rgb(210, 210, 210);">配信者</button>
       <button class="viewer" style="background-color: rgb(210, 210, 210);">傍観者</button>
     </div>
     <div class="second none">
       <h1>視聴者を待機中</h1>
+      <video id="video" autoplay></video>
     </div>
   </div>
 
