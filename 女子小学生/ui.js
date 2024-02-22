@@ -46,6 +46,14 @@ $(() => {
   }
 
   /**
+   * 見る人用
+   */
+  function displayScreen() {
+    $('.pinp').addClass('none');
+    $('.client').removeClass('none');
+  }
+
+  /**
    * タイトル画面から計算画面へ遷移する。
    */
   function showMain() {
@@ -204,7 +212,7 @@ $(() => {
 
   // イベントハンドラの登録
   $('.host').on('click', popupStream);
-  $('.viewer').on('click', popupStream);
+  $('.viewer').on('click', displayScreen);
   $('.title').on('click', showMain);
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);
