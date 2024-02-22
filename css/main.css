@@ -183,6 +183,15 @@ body select:disabled {
   z-index: 10001;
 }
 
+.gogo {
+  margin-top: 2em;
+}
+
+.gogo:disabled {
+  background: #5a5a5a;
+  color: gray;
+}
+
 .rainbow {
   background: linear-gradient(to right, #f00 0%, #f80 14.28%, #dd0 28.56%, #0d0 42.85%, #0dd 57.14%, #00f 71.42%, #e0e 85.71%, #f00 100%) 0% center / 200% auto;
   animation: rainbow 0.5s linear infinite;
