@@ -156,7 +156,7 @@ body select:disabled {
   height: 100%;
   margin: auto;
   text-align: center;
-  z-index: 100;
+  z-index: 1000000;
   background-color: black;
   color: white;
   transition: .5s;
