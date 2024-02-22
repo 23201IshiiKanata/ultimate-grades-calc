@@ -169,6 +169,10 @@ body select:disabled {
   border-radius: 10px;
 }
 
+.popup h1 {
+  position: fixed;
+}
+
 .drag-and-drop {
   cursor: move;
   position: absolute;
