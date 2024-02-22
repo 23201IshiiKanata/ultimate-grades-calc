@@ -146,68 +146,11 @@ $(() => {
 
   /**
    * エンドロールのテキストを順に表示する。
+   * @param {number} index 表示するエンドロールの位置
    */
-  function endrolltxt() {
-    setTimeout(() => {
-      $('#end1').addClass('upper');
-    }, 0);
-    setTimeout(() => {
-      $('#end2').addClass('upper');
-    }, 15000);
-    setTimeout(() => {
-      $('#end3').addClass('upper');
-    }, 30000);
-    setTimeout(() => {
-      $('#end4').addClass('upper');
-    }, 45000);
-    setTimeout(() => {
-      $('#end5').addClass('upper');
-    }, 60000);
-    setTimeout(() => {
-      $('#end6').addClass('upper');
-    }, 75000);
-    setTimeout(() => {
-      $('#end7').addClass('upper');
-    }, 90000);
-    setTimeout(() => {
-      $('#end8').addClass('upper');
-    }, 105000);
-    setTimeout(() => {
-      $('#end9').addClass('upper');
-    }, 120000);
-    setTimeout(() => {
-      $('#end10').addClass('upper');
-    }, 135000);
-    setTimeout(() => {
-      $('#end11').addClass('upper');
-    }, 150000);
-    setTimeout(() => {
-      $('#end12').addClass('upper');
-    }, 165000);
-    setTimeout(() => {
-      $('#end13').addClass('upper');
-    }, 180000);
-    setTimeout(() => {
-      $('#end14').addClass('upper');
-    }, 195000);
-    setTimeout(() => {
-      $('#end15').addClass('upper');
-    }, 210000);
-    setTimeout(() => {
-      $('#end16').addClass('upper');
-    }, 225000);
-    setTimeout(() => {
-      $('#end17').addClass('upper');
-    }, 240000);
-    setTimeout(() => {
-      $('#end18').addClass('upper');
-    }, 255000);
-    setTimeout(() => {
-      $('#end19').addClass('upper');
-    }, 270000);
-    setTimeout(() => {
-      $('#end20').addClass('upper');
-    }, 285000);
+  function endrolltxt(index = 1) {
+    $('#endroll').children(`:nth-child(${index})`).addClass('upper');
+    setTimeout(() => endrolltxt(index + 1), 15000);
   }
 
   // イベントハンドラの登録
