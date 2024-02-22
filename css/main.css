@@ -242,3 +242,8 @@ body select:disabled {
   background-color: #808080;
   text-align: center;
 }
+
+.playeronplay {
+  width: 533px;
+  height: 300px;
+}
