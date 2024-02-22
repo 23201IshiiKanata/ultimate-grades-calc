@@ -50,6 +50,10 @@ body select {
   appearance: auto;
 }
 
+body select:disabled {
+  background-color: #c0c0c0;
+}
+
 .base-color {
   color: rgb(126, 107, 107);
 }
