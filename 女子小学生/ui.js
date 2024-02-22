@@ -159,7 +159,7 @@ $(() => {
     element.addClass('upper');
 
     // 次の要素を指定時間後に表示
-    setTimeout(() => endrolltxt(index + 1), 15);
+    setTimeout(() => endrolltxt(index + 1), 15000);
   }
 
   // イベントハンドラの登録
