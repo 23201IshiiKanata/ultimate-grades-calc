@@ -1,3 +1,104 @@
+export {calcMid, calcFinal, calcSupplemental, calcReexam, calc};
+
+/**
+ * 中間試験終了時点での成績点を計算する。
+ * @param {number} mid 中間試験の点数
+ * @param {number} rate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ
+ * @return {number} 成績点(0-100)
+ */
+const calcMid = (mid, rate, portfolio) =>
+  Math.round(mid * (rate / 100) + portfolio);
+
+/**
+ * 期末試験終了時点での成績点を計算する。
+ * @param {number} mid 中間試験の点数
+ * @param {number} final 期末試験の点数
+ * @param {number} rate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ
+ * @return {number} 成績点(0-100)
+ */
+const calcFinal = (mid, final, rate, portfolio) =>
+  Math.round((mid + final) / 2 * (rate / 100) + portfolio);
+
+/**
+ * 補講後の成績点を計算する。
+ * @param {number} mid 中間試験の点数
+ * @param {number} final 期末試験の点数
+ * @param {number} rate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ(補講後)
+ * @return {number} 成績点(0-100)
+ */
+const calcSupplemental = (mid, final, rate, portfolio) =>
+  Math.round((mid + final) / 2 * (rate / 100) + portfolio);
+
+/**
+ * 再試験終了時点での成績点を計算する。
+ * @param {number} mid 中間試験の点数
+ * @param {number} final 期末試験の点数
+ * @param {number} rate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ(補講後)
+ * @param {number} reexam 再試験の点数
+ * @return {number} 成績点(0-100)
+ */
+const calcReexam = (mid, final, rate, portfolio, reexam) =>
+  Math.max(Math.round(reexam * (rate / 100) + portfolio), calcFinal(mid, final, rate, portfolio));
+
+/**
+ * フォームに入力された情報から自動で成績点を計算し、その他の情報とともに返す。
+ * @return {{score: number, semester: ('first'|'second'|'last'), examType: ('mid'|'final'|'supplemental'|'reexam'|'')}} 成績点と学期と試験種別
+ * @throws {RangeError} Invalid form input
+ */
+const calc = () => {
+  const validForm = $('.numwindow').find('input:visible').toArray().every((element) => element.checkValidity());
+  if (!validForm) {
+    throw new RangeError('Invalid form input');
+  }
+
+  /** @type {string[]} */
+  const parts = $('#calc-base-select').val().split('-');
+  /** @type {'first'|'second'|'last'|''} 学期 */
+  const semester = parts[0] || '';
+  /** @type {'mid'|'final'|'supplemental'|'reexam'|''} 試験種別 */
+  const examType = parts[1] || '';
+
+  const examRate = Number($('#exam-rate-select').val());
+  const portfolioRate = 100 - examRate;
+
+  const first = Number($('#num-first-input').val());
+  const mid = Number($('#num-mid-exam-input').val());
+  const final = Number($('#num-final-exam-input').val());
+  const portfolio = Number($('#num-portfolio-input').val());
+  const reexam = Number($('#num-reexam-input').val());
+  const last = Number($('#num-last-input').val());
+
+  let score = 0;
+
+  if (semester === 'last') {
+    score = last;
+  } else {
+    switch (examType) {
+      case 'mid':
+        score = calcMid(mid, examRate, portfolio);
+        break;
+      case 'final':
+        score = calcFinal(mid, final, examRate, portfolio);
+        break;
+      case 'supplemental':
+        score = calcSupplemental(mid, final, examRate, portfolio);
+        break;
+      case 'reexam':
+        score = calcReexam(mid, final, examRate, portfolio, reexam);
+        break;
+    }
+    if (semester === 'second') {
+      score = Math.round((first + score) / 2);
+    }
+  }
+
+  return {score, semester, examType};
+};
+
 /**
  * ページの読み込みが完了した時に一度だけ実行されるコールバック関数。
  */
@@ -132,6 +233,10 @@ $(() => {
     }
 
     numWindow.find('input').on('change', inputFormChange);
+  });
+
+  goButton.on('click', () => {
+    console.log('goButton clicked');
   });
 
   console.log('script.js ready');

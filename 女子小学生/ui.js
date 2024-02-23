@@ -1,3 +1,5 @@
+import {calc} from './script.js';
+
 /**
  * 読み込み完了時に一度だけ実行される。
  */
@@ -95,9 +97,18 @@ $(() => {
    * ?
    */
   function gogo() {
-    clickTitleSound.currentTime = 0;
-    clickTitleSound.play();
-    ryunen();
+    try {
+      const {score, semeter, examType} = calc();
+      alert(score);
+
+      clickTitleSound.currentTime = 0;
+      clickTitleSound.play();
+
+      // TODO: 結果によって処理を分岐
+    } catch (e) {
+      console.log(e);
+      return;
+    }
   }
 
   /**

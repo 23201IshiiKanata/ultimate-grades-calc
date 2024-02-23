@@ -6,7 +6,7 @@
     "extends": "google",
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "script"
+        "sourceType": "module"
     },
     "rules": {
         "no-unused-vars": "off",
