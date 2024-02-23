@@ -42,7 +42,15 @@ const calcSupplemental = (mid, final, rate, portfolio) =>
  * @return {number} 成績点(0-100)
  */
 const calcReexam = (mid, final, rate, portfolio, reexam) =>
-  Math.max(Math.round(reexam * (rate / 100) + portfolio), calcFinal(mid, final, rate, portfolio));
+  Math.max(Math.min(60, Math.round(reexam * (rate / 100) + portfolio)), calcFinal(mid, final, rate, portfolio));
+
+/**
+ * 単位認定試験終了時点での成績点を計算する。
+ * @param {number} last 単位認定試験の点数
+ * @return {number} 成績点(0-100) *単位認定試験後の成績が60点を超えることはない
+ */
+const calcLast = (last) =>
+  Math.min(60, last);
 
 /**
  * フォームに入力された情報から自動で成績点を計算し、その他の情報とともに返す。
@@ -75,7 +83,7 @@ const calc = () => {
   let score = 0;
 
   if (semester === 'last') {
-    score = last;
+    score = calcLast(last);
   } else {
     switch (examType) {
       case 'mid':
