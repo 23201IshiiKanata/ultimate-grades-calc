@@ -101,11 +101,27 @@ $(() => {
    * ?
    */
   function gogo() {
+    let score;
+    let semester;
+    let examType;
+
+    // 値の取得 + 入力チェック
+    try {
+      ({score, semester, examType} = calc());
+    } catch (e) {
+      if (e instanceof RangeError && e.message === 'Invalid form input') {
+        alert('点数を正しく入力しやがれください');
+      }
+      return;
+    }
+
     // 要素をアニメーション
     $('.numwindow').addClass('hiwwwnum');
 
     // 入力を無効化する
     $('.next').prop('disabled', true);
+    $('.gogo').prop('disabled', true);
+    $('#numwindow').find('input').prop('disabled', true);
 
     mainMusic.pause();
 
@@ -114,27 +130,20 @@ $(() => {
 
     // 指定時間後に結果画面を表示
     setTimeout(() => {
-      try {
-        const {score, semester, examType} = calc();
+      clickTitleSound.currentTime = 0;
+      // clickTitleSound.play();
 
-        clickTitleSound.currentTime = 0;
-        // clickTitleSound.play();
-
-        if (score < 60) {
-          ryunen();
-          const rate = Number.parseFloat(
-              // score * 1.666666666666666666666 * 0.75,
-              // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
-              ((score**2) / 45 ) || -50.0,
-          ).toFixed(1);
-          $('.resus').html('総合成績' + score + 'により、貴方が留年を回避できる確率は' + rate + '%です。');
-        } else if (score >= 60) {
-          goukaku();
-          $('.resugs').html('総合成績' + score);
-        }
-      } catch (e) {
-        console.log(e);
-        return;
+      if (score < 60) {
+        ryunen();
+        const rate = Number.parseFloat(
+            // score * 1.666666666666666666666 * 0.75,
+            // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
+            ((score**2) / 45 ) || -50.0,
+        ).toFixed(1);
+        $('.resus').html('総合成績' + score + 'により、貴方が留年を回避できる確率は' + rate + '%です。');
+      } else if (score >= 60) {
+        goukaku();
+        $('.resugs').html('総合成績' + score);
       }
     }, 4500);
   }
@@ -147,6 +156,7 @@ $(() => {
     retentionMusic.play();
     $('.resu').addClass('viewin');
     $('body').addClass('hyper');
+    $('.goend').removeAttr('disabled');
     // 指定時間後に仮で留年SEを再生
     setTimeout(() => {
       retentionSound.play();

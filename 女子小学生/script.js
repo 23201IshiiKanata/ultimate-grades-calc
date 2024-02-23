@@ -152,6 +152,8 @@ $(() => {
     console.log('nextButton clicked');
 
     /**
+     * @deprecated ボタンは常にレインボー
+     *
      * 入力フォームの値が変更された時に実行されるコールバック関数。
      * @param {JQuery.Event} event
      */
@@ -232,7 +234,8 @@ $(() => {
         }
     }
 
-    numWindow.find('input').on('change', inputFormChange);
+    // numWindow.find('input').on('change', inputFormChange);
+    goButton.removeAttr('disabled');
   });
 
   goButton.on('click', () => {
