@@ -218,6 +218,10 @@ $(() => {
     setTimeout(() => endrolltxt(index + 1), 14000);
   }
 
+  function reload() {
+    location.reload();
+  }
+
   // イベントハンドラの登録
   $('.host').on('click', popupStream);
   $('.viewer').on('click', displayScreen);
@@ -225,7 +229,7 @@ $(() => {
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);
   $('.goend').on('click', end);
-  $('.nextyear').on('click', location.reoad());
+  $('.nextyear').on('click', reload);
 
   // debug
   // popupStream();
