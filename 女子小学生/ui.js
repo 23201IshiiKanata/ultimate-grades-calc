@@ -17,6 +17,8 @@ $(() => {
   const mainMusic = new Audio('./sound/bgm.mp3');
   /** 留年祝いのBGM */
   const retentionMusic = new Audio('./sound/oioi.mp3');
+  /** goukakuのBGM */
+  const goukakuMusic = new Audio('./sound/goukaku.mp3');
   /** えんどろーる */
   const endrollMusic = new Audio('./sound/end.mp3');
   /** えんどろーる2 */
@@ -120,9 +122,11 @@ $(() => {
 
         if (score < 60) {
           ryunen();
+          $('.resus').html('総合成績' + score + 'により、貴方が留年を回避できる確率は' + '%です');
         }
-        if (score > 60) {
-          
+        if (score >= 60) {
+          goukaku();
+          $('.resugs').html('総合成績' + score);
         }
 
         // TODO: 結果によって処理を分岐
@@ -150,6 +154,17 @@ $(() => {
     setTimeout(() => {
       end();
     }, 10000);
+  }
+
+  /**
+   * 計算画面から結果画面まで遷移する。
+   */
+  function goukaku() {
+    goukakuMusic.play();
+    $('.resug').addClass('viewin');
+    setTimeout(() => {
+      retentionSound.play();
+    }, 800);
   }
 
   /**
