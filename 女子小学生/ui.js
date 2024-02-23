@@ -98,7 +98,7 @@ $(() => {
    */
   function gogo() {
     try {
-      const {score, semeter, examType} = calc();
+      const {score, semester, examType} = calc();
       alert(score);
 
       clickTitleSound.currentTime = 0;
