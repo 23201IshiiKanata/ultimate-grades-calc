@@ -179,7 +179,28 @@ $(() => {
     setTimeout(() => {
       endrollMusic2.play();
     }, 281000);
+    setTimeout(() => {
+      ピカピカの一年生();
+    }, 2000);
   }
+
+  function ピカピカの一年生() {
+    $('.chrx').addClass('upperx');
+    setTimeout(() => {
+      $('.end').css('transition', '5s');
+      $('.end').css('background-color', 'white');
+    }, 7500);
+    setTimeout(() => {
+      $('.chrx').css('transition', '.5s');
+      $('.chrx').css('color', 'black');
+      $('.chrx').html('もう1回遊べるドン');
+    }, 12500);
+    setTimeout(() => {
+      $('.chrx').html('<button class="nextyear" style="background-color: rgb(210, 210, 210);">1年後</button>');
+    }, 17500);
+  }
+
+  // 258000
 
   /**
    * エンドロールのテキストを順に表示する。
@@ -206,6 +227,7 @@ $(() => {
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);
   $('.goend').on('click', end);
+  $('.nextyear').on('click', showMain);
 
   // debug
   // popupStream();

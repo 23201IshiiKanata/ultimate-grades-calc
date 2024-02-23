@@ -252,8 +252,26 @@ body select:disabled {
   z-index: 100001;
 }
 
+.chrx {
+  height: 50px;
+  width: max-content;
+  position: fixed;
+  color: white;
+  bottom: -10%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  transition-timing-function : linear;
+  transition-duration:  7.5s;
+  z-index: 100001;
+}
+
 .upper {
   bottom: 110%;
+  z-index: 100001;
+}
+
+.upperx {
+  bottom: 50%;
   z-index: 100001;
 }
 
