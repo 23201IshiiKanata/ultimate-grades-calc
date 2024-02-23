@@ -1,4 +1,4 @@
-import { calc } from './script.js';
+import {calc} from './script.js';
 
 /**
  * 読み込み完了時に一度だけ実行される。
@@ -52,11 +52,10 @@ $(() => {
     // タイトル画面のBGMを再生
     titleMusic.play();
 
-    var script = document.createElement('script'); //\u5909\u6570\u540d\u306f\u9069\u5f53\u306a\u3082\u306e\u306b\u3067\u3082
-    script.src = "女子小学生/pinp.js"; //\u30d5\u30a1\u30a4\u30eb\u30d1\u30b9
-    document.head.appendChild(script); //<head>\u306b\u751f\u6210
-    // document.body.appendChild(script); /*<body>\u306b\u751f\u6210\u3059\u308b\u5834\u5408\u306f\u3053\u3061\u3089*/
-
+    const script = document.createElement('script'); // 変数名は適当なものにでも
+    script.src = '女子小学生/pinp.js'; // ファイルパス
+    document.head.appendChild(script); // <head>に生成
+    // document.body.appendChild(script); /*<body>に生成する場合はこちら*/
   }
 
   /**
@@ -115,9 +114,8 @@ $(() => {
 
     // 指定時間後に結果画面を表示
     setTimeout(() => {
-
       try {
-        const { score, semester, examType } = calc();
+        const {score, semester, examType} = calc();
         // alert(score);
 
         clickTitleSound.currentTime = 0;
@@ -137,7 +135,6 @@ $(() => {
         console.log(e);
         return;
       }
-
     }, 4500);
   }
 

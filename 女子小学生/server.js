@@ -35,11 +35,12 @@ $(() => {
   }
 
   /**
- * 読み込み完了時に一度だけ実行される。
- */
+   * 読み込み完了時に一度だけ実行される。
+   * @param {Event} evt イベント
+   */
   function stopCapture(evt) {
     const tracks = videoElem.srcObject.getTracks();
-    tracks.forEach(track => track.stop());
+    tracks.forEach((track) => track.stop());
     videoElem.srcObject = null;
   }
 });
