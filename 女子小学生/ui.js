@@ -196,7 +196,7 @@ $(() => {
       $('.chrx').html('もう1回遊べるドン');
     }, 12500);
     setTimeout(() => {
-      $('.chrx').html('<button class="nextyear" style="background-color: rgb(210, 210, 210);">1年後</button>');
+      $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
     }, 17500);
   }
 
