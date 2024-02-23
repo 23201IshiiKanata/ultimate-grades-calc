@@ -180,11 +180,11 @@ $(() => {
       endrollMusic2.play();
     }, 281000);
     setTimeout(() => {
-      ピカピカの一年生();
-    }, 2000);
+      moregrade();
+    }, 539000);
   }
 
-  function ピカピカの一年生() {
+  function moregrade() {
     $('.chrx').addClass('upperx');
     setTimeout(() => {
       $('.end').css('transition', '5s');
@@ -199,8 +199,6 @@ $(() => {
       $('.chrx').html('<button class="nextyear" style="background-color: rgb(210, 210, 210);">1年後</button>');
     }, 17500);
   }
-
-  // 258000
 
   /**
    * エンドロールのテキストを順に表示する。
