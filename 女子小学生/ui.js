@@ -37,12 +37,19 @@ $(() => {
 
     // 要素をアニメーション
     $('.pinp').addClass('popup');
+    $('.pinp').addClass('drag-and-drop');
     $('.first').addClass('none');
     $('.second').removeClass('none');
     $('.host .viewer').prop('disabled', false);
 
     // タイトル画面のBGMを再生
     titleMusic.play();
+
+    var script = document.createElement('script'); //\u5909\u6570\u540d\u306f\u9069\u5f53\u306a\u3082\u306e\u306b\u3067\u3082
+    script.src = "女子小学生/pinp.js"; //\u30d5\u30a1\u30a4\u30eb\u30d1\u30b9
+    document.head.appendChild(script); //<head>\u306b\u751f\u6210
+    // document.body.appendChild(script); /*<body>\u306b\u751f\u6210\u3059\u308b\u5834\u5408\u306f\u3053\u3061\u3089*/
+
   }
 
   /**
