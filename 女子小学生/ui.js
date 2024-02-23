@@ -225,7 +225,7 @@ $(() => {
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);
   $('.goend').on('click', end);
-  $('.nextyear').on('click', showMain);
+  $('.nextyear').on('click', location.reload());
 
   // debug
   // popupStream();
