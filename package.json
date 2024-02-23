@@ -9,6 +9,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "agora": "^0.0.2",
     "jquery": "^3.7.1"
   },
   "devDependencies": {

@@ -184,6 +184,9 @@ $(() => {
     }, 539000);
   }
 
+  /**
+   * もう1回遊べるドン
+   */
   function moregrade() {
     $('.chrx').addClass('upperx');
     setTimeout(() => {
