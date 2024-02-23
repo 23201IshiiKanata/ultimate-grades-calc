@@ -30,6 +30,7 @@ $(() => {
   titleMusic.loop = true;
   mainMusic.loop = true;
   retentionMusic.loop = true;
+  goukakuMusic.loop = true;
 
   // ?
   const play = document.getElementById('play');
