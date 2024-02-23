@@ -116,21 +116,22 @@ $(() => {
     setTimeout(() => {
       try {
         const {score, semester, examType} = calc();
-        // alert(score);
 
         clickTitleSound.currentTime = 0;
         // clickTitleSound.play();
 
         if (score < 60) {
           ryunen();
-          $('.resus').html('総合成績' + score + 'により、貴方が留年を回避できる確率は' + '%です');
-        }
-        if (score >= 60) {
+          const rate = Number.parseFloat(
+              // score * 1.666666666666666666666 * 0.75,
+              // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
+              ((score**2) / 45 ) || -50.0,
+          ).toFixed(1);
+          $('.resus').html('総合成績' + score + 'により、貴方が留年を回避できる確率は' + rate + '%です。');
+        } else if (score >= 60) {
           goukaku();
           $('.resugs').html('総合成績' + score);
         }
-
-        // TODO: 結果によって処理を分岐
       } catch (e) {
         console.log(e);
         return;
