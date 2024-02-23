@@ -1,4 +1,4 @@
-import {calc} from './script.js';
+import { calc } from './script.js';
 
 /**
  * 読み込み完了時に一度だけ実行される。
@@ -97,31 +97,12 @@ $(() => {
    * ?
    */
   function gogo() {
-    try {
-      const {score, semester, examType} = calc();
-      alert(score);
-
-      clickTitleSound.currentTime = 0;
-      clickTitleSound.play();
-
-      // TODO: 結果によって処理を分岐
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-  }
-
-  /**
-   * 計算画面から結果画面まで遷移する。
-   */
-  function ryunen() {
     // 要素をアニメーション
     $('.numwindow').addClass('hiwwwnum');
 
     // 入力を無効化する
     $('.next').prop('disabled', true);
 
-    // 仮で留年祝いのBGMに変更
     mainMusic.pause();
 
     // SEを再生
@@ -129,15 +110,42 @@ $(() => {
 
     // 指定時間後に結果画面を表示
     setTimeout(() => {
-      $('.resu').addClass('viewin');
-      $('body').addClass('hyper');
-      retentionMusic.play();
-    }, 4500);
 
+      try {
+        const { score, semester, examType } = calc();
+        // alert(score);
+
+        clickTitleSound.currentTime = 0;
+        // clickTitleSound.play();
+
+        if (score < 60) {
+          ryunen();
+        }
+        if (score > 60) {
+          
+        }
+
+        // TODO: 結果によって処理を分岐
+      } catch (e) {
+        console.log(e);
+        return;
+      }
+
+    }, 4500);
+  }
+
+  /**
+   * 計算画面から結果画面まで遷移する。
+   */
+  function ryunen() {
+    // 仮で留年祝いのBGMに変更
+    retentionMusic.play();
+    $('.resu').addClass('viewin');
+    $('body').addClass('hyper');
     // 指定時間後に仮で留年SEを再生
     setTimeout(() => {
       retentionSound.play();
-    }, 4800);
+    }, 800);
 
     setTimeout(() => {
       end();
