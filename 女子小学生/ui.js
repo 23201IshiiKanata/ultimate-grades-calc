@@ -10,6 +10,8 @@ $(() => {
   const preResultSound = new Audio('./sound/click2.mp3');
   /** 留年祝いの拍手の効果音 */
   const retentionSound = new Audio('./sound/pachi.mp3');
+  /** goukaku祝いの拍手の効果音 */
+  const goukakuSound = new Audio('./sound/gome.mp3');
 
   /** タイトル画面のBGM */
   const titleMusic = new Audio('./sound/title.mp3');
@@ -149,7 +151,7 @@ $(() => {
     // 指定時間後に仮で留年SEを再生
     setTimeout(() => {
       retentionSound.play();
-    }, 800);
+    }, 100);
   }
 
   /**
@@ -159,8 +161,8 @@ $(() => {
     goukakuMusic.play();
     $('.resug').addClass('viewin');
     setTimeout(() => {
-      retentionSound.play();
-    }, 800);
+      goukakuSound.play();
+    }, 100);
   }
 
   /**
