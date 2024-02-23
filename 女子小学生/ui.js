@@ -150,10 +150,6 @@ $(() => {
     setTimeout(() => {
       retentionSound.play();
     }, 800);
-
-    setTimeout(() => {
-      end();
-    }, 10000);
   }
 
   /**
@@ -209,6 +205,7 @@ $(() => {
   $('.title').on('click', showMain);
   $('.next').on('click', gonum);
   $('.gogo').on('click', gogo);
+  $('.goend').on('click', end);
 
   // debug
   // popupStream();
