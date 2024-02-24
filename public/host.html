@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アルティメット成績計算機</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"
+    integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4"
+    crossorigin="anonymous"></script>
+  <script src="女子小学生/host.js" type="module"></script>
+  <script src="女子小学生/script.js" type="module"></script>
+  <script src="女子小学生/ui.js" type="module"></script>
+</head>
+
+<body>
+  <div class="pinp">
+    <div class="first">
+      <h1>貴方は何方側の立場ですか</h1>
+      <div style="padding: 100px;"></div>
+      <button id="start" class="host" style="background-color: rgb(210, 210, 210);">配信者</button>
+      <h1>ok</h1>
+    </div>
+  </div>
+
+  <div id="play" class="title">
+    <div class="titletxt">
+      <h1>アルティメット成績計算機</h1>
+      <small>-Original by Hamaguchi Ryuki-</small>
+      <h3>tap or click to start</h3>
+    </div>
+  </div>
+
+  <div class="calcwindow">
+    <h1>アルティメット成績計算機</h1>
+
+    <div id="subject-data">
+      試験点:ポートフォリオ
+      =
+      <select id="exam-rate-select">
+        <option value="50">5:5</option>
+        <option value="60">6:4</option>
+        <option value="70" selected>7:3</option>
+        <option value="80">8:2</option>
+        <option value="90">9:1</option>
+        <option value="100">10:0</option>
+      </select>
+      の教科で、
+    </div>
+
+    <div id="calc-base-container">
+      <select id="calc-base-select" disabled>
+        <option value="first" class="calc-ignore" disabled>前期</option>
+        <option value="first-mid" selected>前期中間</option>
+        <option value="first-final">前期期末</option>
+        <option value="first-supplemental">前期補講</option>
+        <option value="first-reexam">前期再試</option>
+        <option value="second" class="calc-ignore" disabled>後期</option>
+        <option value="second-mid">後期中間</option>
+        <option value="second-final">後期期末</option>
+        <option value="second-supplemental">後期補講</option>
+        <option value="second-reexam">後期再試</option>
+        <option value="last">単位認定試験</option>
+        <option value="retention" style="display: none;" hidden disabled></option>
+      </select><!--までの<span class="base-color">試験点</span>と<span class="base-color">ポートフォリオ点</span>から、 -->
+      までの成績から、
+    </div>
+    <div id="calc-target-container">
+      <span id="calc-target-message-default">
+        <span id="calc-target-name" class="accent-color">前期期末</span>
+        で
+        <span class="accent-color">あと何点取れば合格するか</span>
+      </span>
+      <span id="calc-target-message-retention" class="accent-color" hidden>留年するかどうか</span>
+      計算します。
+    </div>
+
+    <button class="next" style="background-color: rgb(210, 210, 210);" disabled>NEXT</button>
+  </div>
+
+  <div class="numwindow">
+    <h1><span id="num-title">前期期末で必要な点数を計算</span></h1>
+
+    <div id="num-first" hidden>
+      <h2><span id="num-first-prefix">前期</span></h2>
+      成績: <input type="number" id="num-first-input" placeholder="60" min="0" max="100" step="1" required />
+    </div>
+
+    <div id="num-mid-exam" hidden>
+      <h2><span id="num-mid-exam-prefix">前期中間試験</span></h2>
+      試験点: <input type="number" id="num-mid-exam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span
+        class="num-exam-rate">70</span>%)
+    </div>
+
+    <div id="num-final-exam" hidden>
+      <h2><span id="num-final-exam-prefix">前期期末試験</span></h2>
+      試験点: <input type="number" id="num-final-exam-input" placeholder="43" min="0" max="100" step="1" required />
+      (×<span class="num-exam-rate">70</span>%)
+    </div>
+
+    <div id="num-portfolio" hidden>
+      <h2><span id="num-portfolio-prefix">ポートフォリオ</span></h2>
+      点数: <input type="number" id="num-portfolio-input" placeholder="30" min="0" max="30" step="1" required /> / <span
+        class="num-portfolio-rate">30</span>
+    </div>
+
+    <div id="num-reexam" hidden>
+      <h2><span id="num-reexam-prefix">前期再試験</span></h2>
+      試験点: <input type="number" id="num-reexam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span
+        class="num-exam-rate">70</span>%)
+    </div>
+
+    <div id="num-last" hidden>
+      <h2><span id="num-last-prefix">単位認定試験</span></h2>
+      試験点: <input type="number" id="num-last-input" placeholder="43" min="0" max="100" step="1" required />
+    </div>
+
+    <button class="gogo rainbow" disabled>GO</button>
+  </div>
+
+  <div class="resu">
+    <h1>留年</h1>
+    <small class="resus"></small>
+    <br>
+    <button class="goend rainbow" style="background-color: rgb(210, 210, 210);" disabled>NEXT</button>
+  </div>
+
+  <div class="resug">
+    <h1>合格</h1>
+    <small class="resugs"></small>
+  </div>
+
+  <div class="end dis"></div>
+
+  <div id="endroll">
+    <h1 class="chr">アルティメット成績計算機</h1>
+    <h2 class="chr rainbow">原作：濱口龍輝</h2>
+    <p class="chr">タイトル画面の画像：しまだ</p>
+    <p class="chr">演出よみあげ：しまだ</p>
+    <p class="chr">タイトル音声：いしい</p>
+    <p class="chr">計算機部分の実装：いしい</p>
+    <p class="chr">アニメーション：しまだ</p>
+    <p class="chr">装飾：しまだ</p>
+    <h2 class="chr rainbow">コーディングサポート：濱口龍輝</h2>
+    <p class="chr">テスター：しまだ、いしい</p>
+
+    <h2 class="chr">使ったライブラリ</h2>
+    <p class="chr">jquery</p>
+    <p class="chr">ress</p>
+
+    <p class="chr">フォント：IBM Plex Sans</p>
+
+    <h2 class="chr">使った音楽</h2>
+    <p class="chr">レトロパーク - 甘茶の音楽工房</p>
+    <p class="chr">マーブルテクノⅠ - 甘茶の音楽工房</p>
+    <p class="chr">キューブスカイ - かずち</p>
+    <p class="chr">Orange Octopus - Unicorn Heads</p>
+    <p class="chr">Rev - Eveningland</p>
+    <p class="chr">Buzzard - NeoTune! x Hermax</p>
+
+    <h1 class="chr">使った効果音</h1>
+    <p class="chr">ドラムロール - 効果音ラボ</p>
+    <p class="chr">カネの音 - 効果音ラボ</p>
+    <p class="chr">人々の悲しみ - 効果音ラボ</p>
+    <p class="chr">拍手 - 効果音ラボ</p>
+  </div>
+  <h1 class="chrx">留年おめでとう！！</h1>
+</body>
+
+<script>
+  ; (async () => {
+    const socket = io();
+    const connections = {};
+
+    /*   画面共有(配信)機能 -------------- */
+    // 緩めの排他制御
+    socket.on('shimedashi', function () {
+      alert('他の人が入室中なので受信室に移動します');
+      location.href = 'stream.html';
+      return null;
+    });
+
+    /*
+        ＜このアプリでのシグナリングの考え方＞
+        共有ボタン押下>  【now_on_air】→  >
+                【request】←  >  配信手続き~【(offer)】→  >
+                    【(answer)】← > setRemoteDescription:コネクション成立>
+                        受信側の「ontrack」〜受信開始 > 以上
+  
+    */
+    const startbutton = document.querySelector('#start');
+    startbutton.addEventListener('click', async evt => {
+      // 画面共有起動
+      const video = document.querySelector('#video')
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true
+      },);
+3
+      video.srcObject = stream
+
+
+      // 受信側(依頼元のIDはcidで規定）からの配信依頼があれば、配信手続きを始める
+      //    受信側が配信先全てを覚える実装モデルなので、それぞれのcidを管理する方式になっている
+      socket.on('request', async ({ cid }) => {
+        const pcConfig = {
+          iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+        };
+        // const pcConfig = { iceServers: [] } //LAN内の端末間どおしならこれでも動作するらしい
+        const peer = new RTCPeerConnection(pcConfig);
+        connections[cid] = peer;
+        stream.getTracks().forEach(track => peer.addTrack(track, stream));
+        // Vanilla ICE 〜オファー発行
+        const offer = await peer.createOffer();
+        await peer.setLocalDescription(offer);
+        peer.onicecandidate = async (evt) => {
+          if (evt.candidate) { // Vanilla ICEスタイルなので追加のcandidateを取得できていても今回は我慢する（何もしない）
+            return false;
+          }
+          // 集められるものは全て収集した（打ち止めになった）ので、offerを伝達する
+          // また、シグナリングサーバ側でofferをoffer元にのみ伝達できるように「cid」を送り返す
+          socket.emit('offer', { offer: peer.localDescription, cid });
+        };
+      },
+      );
+      socket.on('answer', async ({ cid, answer }) => {
+        if (cid in connections) {
+          await connections[cid].setRemoteDescription(answer);
+        }
+      }); // P2Pの接続確立の事後手続き(setRemoteDescription呼び出し)
+      // ここまででコールバックの設定がひととおり完了 ---
+
+      // LIVE開始を伝達する
+      //   ※あくまで開始連絡のみとなる。これをキッカケにシグナリング開始
+      document.getElementById('#start').setAttribute('disabled', true);
+      alert('LIVEを開始しました。\n配信者のブラウザには配信内容のキャプチャを表示しない仕様なので注意してください。\n また、配信するウィンドウや画面を変更する場合は、ページをリロードしてください。');
+      socket.emit('now_on_air');
+    });
+
+    console.log('host.js ready');
+  })();
+
+</script>
+
+</html>

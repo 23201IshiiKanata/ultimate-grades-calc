@@ -21,4 +21,6 @@ $(() => {
     element.onpointermove = null;
     element.releasePointerCapture(event.pointerId);
   };
+
+  console.log('pinp.js ready');
 });

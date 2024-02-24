@@ -240,6 +240,8 @@ $(() => {
     setTimeout(() => endrolltxt(index + 1), 14000);
   };
 
+  console.log('ui.js ready');
+
   // イベントハンドラの登録
 
   // debug
