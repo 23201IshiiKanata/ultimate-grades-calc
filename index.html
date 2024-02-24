@@ -97,22 +97,26 @@
 
     <div id="num-mid-exam" hidden>
       <h2><span id="num-mid-exam-prefix">前期中間試験</span></h2>
-      試験点: <input type="number" id="num-mid-exam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span class="num-exam-rate">70</span>%)
+      試験点: <input type="number" id="num-mid-exam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span
+        class="num-exam-rate">70</span>%)
     </div>
 
     <div id="num-final-exam" hidden>
       <h2><span id="num-final-exam-prefix">前期期末試験</span></h2>
-      試験点: <input type="number" id="num-final-exam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span class="num-exam-rate">70</span>%)
+      試験点: <input type="number" id="num-final-exam-input" placeholder="43" min="0" max="100" step="1" required />
+      (×<span class="num-exam-rate">70</span>%)
     </div>
 
     <div id="num-portfolio" hidden>
       <h2><span id="num-portfolio-prefix">ポートフォリオ</span></h2>
-      点数: <input type="number" id="num-portfolio-input" placeholder="30" min="0" max="30" step="1" required /> / <span class="num-portfolio-rate">30</span>
+      点数: <input type="number" id="num-portfolio-input" placeholder="30" min="0" max="30" step="1" required /> / <span
+        class="num-portfolio-rate">30</span>
     </div>
 
     <div id="num-reexam" hidden>
       <h2><span id="num-reexam-prefix">前期再試験</span></h2>
-      試験点: <input type="number" id="num-reexam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span class="num-exam-rate">70</span>%)
+      試験点: <input type="number" id="num-reexam-input" placeholder="43" min="0" max="100" step="1" required /> (×<span
+        class="num-exam-rate">70</span>%)
     </div>
 
     <div id="num-last" hidden>
@@ -148,13 +152,13 @@
     <p class="chr">装飾：しまだ</p>
     <h2 class="chr rainbow">コーディングサポート：濱口龍輝</h2>
     <p class="chr">テスター：しまだ、いしい</p>
-    
+
     <h2 class="chr">使ったライブラリ</h2>
     <p class="chr">jquery</p>
     <p class="chr">ress</p>
 
     <p class="chr">フォント：IBM Plex Sans</p>
-    
+
     <h2 class="chr">使った音楽</h2>
     <p class="chr">レトロパーク - 甘茶の音楽工房</p>
     <p class="chr">マーブルテクノⅠ - 甘茶の音楽工房</p>
@@ -171,5 +175,26 @@
   </div>
   <h1 class="chrx">留年おめでとう！！</h1>
 </body>
+
+<script>
+  var sock = new WebSocket('ws://127.0.0.1:5001');
+
+  // 接続
+  sock.addEventListener('open', function (e) {
+    console.log('Socket 接続成功');
+  });
+
+  // サーバーからデータを受け取る
+  sock.addEventListener('message', function (e) {
+    console.log(e.data);
+  });
+
+  document.addEventListener('DOMContentLoaded', function (e) {
+    // サーバーにデータを送る
+    document.getElementById('sample').addEventListener('click', function (e) {
+      sock.send('hello');
+    });
+  });
+</script>
 
 </html>

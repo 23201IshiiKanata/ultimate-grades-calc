@@ -11,7 +11,8 @@
   "dependencies": {
     "agora": "^0.0.2",
     "agora-rtc-sdk-ng": "^4.20.0",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
