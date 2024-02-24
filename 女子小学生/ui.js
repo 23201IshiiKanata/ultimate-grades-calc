@@ -49,6 +49,10 @@ $(() => {
     script.src = '女子小学生/pinp.js'; // ファイルパス
     document.head.appendChild(script); // <head>に生成
     // document.body.appendChild(script); /*<body>に生成する場合はこちら*/
+
+    setTimeout(() => {
+      $('.pinp').css('transition', '.1s');
+    }, 100);
   });
 
   // "傍観者"として、配信画面を視聴する。
