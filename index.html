@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
-  <script src="女子小学生/server.js" type="module"></script>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.esm.min.js" type="module"></script>
+  <script src="/server/host.js" type="module"></script>
   <script src="女子小学生/script.js" type="module"></script>
   <script src="女子小学生/ui.js" type="module"></script>
 </head>
@@ -19,7 +20,7 @@
     <div class="first">
       <h1>貴方は何方側の立場ですか</h1>
       <div style="padding: 100px;"></div>
-      <button id="start" class="host" style="background-color: rgb(210, 210, 210);">配信者</button>
+      <button id="start" class="host" style="background-color: rgb(210, 210, 210);" onclick="init()">配信者</button>
       <button class="viewer" style="background-color: rgb(210, 210, 210);">傍観者</button>
     </div>
     <div class="second none">
@@ -177,24 +178,24 @@
 </body>
 
 <script>
-  var sock = new WebSocket('ws://127.0.0.1:5001');
+  const init = async () => {
+    /**
+     * video取得
+     * @type {HTMLVideoElement}
+     */
+    const video = document.querySelector('#video')
+    try {
+      // PC画面のstream取得
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true
+      })
 
-  // 接続
-  sock.addEventListener('open', function (e) {
-    console.log('Socket 接続成功');
-  });
-
-  // サーバーからデータを受け取る
-  sock.addEventListener('message', function (e) {
-    console.log(e.data);
-  });
-
-  document.addEventListener('DOMContentLoaded', function (e) {
-    // サーバーにデータを送る
-    document.getElementById('sample').addEventListener('click', function (e) {
-      sock.send('hello');
-    });
-  });
+      // streamをvideoにつなげる
+      video.srcObject = stream
+    } catch (e) {
+      return
+    }
+  }
 </script>
 
 </html>
