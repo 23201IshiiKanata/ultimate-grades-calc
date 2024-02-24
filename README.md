@@ -10,3 +10,5 @@ bgm : https://amachamusic.chagasi.com
 - `npm i` で必要なモジュールをすべてインストール
 - VSCodeを使用している場合は、 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 拡張機能を導入する
 
+楽をするために遠回りなことをしています
+browserify ./public/女子小学生/node/client.js -o ./public/女子小学生/client.js
