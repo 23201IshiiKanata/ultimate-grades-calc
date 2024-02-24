@@ -12,34 +12,20 @@ $(() => {
     audio: false,
   };
 
-  // スタートボタンとストップボタンのイベントリスナーを設定する
-  startElem.addEventListener('click', (event) => {
-    startCapture();
-  }, false);
-
-  stopElem.addEventListener('click', (event) => {
-    stopCapture();
-  }, false);
-
-  /**
-   * 画面共有を開始する。
-   */
-  const startCapture = async () => {
+  // 画面共有を開始する。
+  startElem.addEventListener('click', async () => {
     try {
       videoElem.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
     } catch (err) {
       console.error('Error: ' + err);
     }
-  };
+  });
 
-  /**
-   * 画面共有を停止する。
-   * @param {Event} event イベント
-   */
-  const stopCapture = (event) => {
+  // 画面共有を停止する。
+  stopElem.addEventListener('click', (event) => {
     /** @type {MediaStreamTrack[]} */
     const tracks = videoElem.srcObject.getTracks();
     tracks.forEach((track) => track.stop());
     videoElem.srcObject = null;
-  };
+  });
 });
