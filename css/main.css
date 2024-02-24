@@ -180,14 +180,19 @@ body select:disabled {
   transition: .5s;
 }
 
+div.second {
+  height: 120px;
+}
+
 .popup {
-  transform: scale(.4);
-  height: 300px;
-  width: 533px;
+  transform: translate(10px, 10px);
+  width: 213px;
+  height: 120px;
   border-radius: 10px;
 }
 
 .popup h1 {
+  font-size: 16px;
   position: fixed;
 }
 
@@ -195,6 +200,10 @@ body select:disabled {
   cursor: move;
   position: absolute;
   z-index: 10000;
+  touch-action:none;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
 }
 
 .drag {
@@ -293,8 +302,8 @@ body select:disabled {
 }
 
 .playeronplay {
-  width: 533px;
-  height: 300px;
+  width: 213px;
+  height: 120px;
 }
 
 .small {
