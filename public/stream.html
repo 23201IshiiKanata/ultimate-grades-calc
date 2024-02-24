@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>アルティメット成績計算機</title>
-  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
@@ -15,15 +14,54 @@
 </head>
 
 <body>
-  <video autoplay playsinline></video>
-
   <div id="chat">
-    <form action="">
-        <input id="m" autocomplete="off" /><button>コメント送信</button>
-    </form>
     <ul id="messages"></ul>
-</div>
+    <div class="box">
+      <form action="">
+        <input id="m" autocomplete="off" /><button>コメント送信</button>
+      </form>
+      <video autoplay playsinline></video>
+    </div>
+  </div>
 </body>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+  body {
+    font-family: "IBM Plex Sans", sans-serif;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    background-color: bisque;
+  }
+
+  .box {
+    position: sticky;
+    bottom: 0%;
+    background-color: aliceblue;
+    width: 90%;
+    margin: auto;
+  }
+
+  video {
+    width: 100%;
+  }
+
+  input {
+    background-color: lightblue;
+  }
+
+  ul {
+    padding-left: 0;
+  }
+  
+  ul li {
+    width: 80%;
+    margin: auto;
+  }
+</style>
 
 <script src="女子小学生/chat.js"></script>
 <script>

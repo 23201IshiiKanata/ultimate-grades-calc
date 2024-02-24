@@ -24,6 +24,9 @@
       <button id="startbutton" class="host" style="background-color: rgb(210, 210, 210);">配信開始</button>
       <h1>ok</h1>
     </div>
+    <div class="second none">
+      <video autoplay playsinline></video>
+    </div>
   </div>
 
   <div id="play" class="title">
@@ -177,7 +180,7 @@
         <input id="m" autocomplete="off" /><button>コメント送信</button>
     </form>
     <ul id="messages"></ul>
-</div>
+  </div>
 </body>
 
 <script src="女子小学生/chat.js"></script>
@@ -220,6 +223,9 @@
         }
       )
 
+      const video = document.querySelector('video')
+      video.srcObject = stream
+
       // 受信側(依頼元のIDはcidで規定）からの配信依頼があれば、配信手続きを始める
       //    受信側が配信先全てを覚える実装モデルなので、それぞれのcidを管理する方式になっている
       socket.on('request', async ({ cid }) => {
@@ -251,7 +257,7 @@
       //　LIVE開始を伝達する
       //   ※あくまで開始連絡のみとなる。これをキッカケにシグナリング開始
       document.getElementById("startbutton").setAttribute("disabled", true)
-      alert("LIVEを開始しました。\n配信者のブラウザには配信内容のキャプチャを表示しない仕様なので注意してください。\n また、配信するウィンドウや画面を変更する場合は、ページをリロードしてください。")
+      alert("LIVEを開始しました。\n配信するウィンドウや画面を変更する場合は、ページをリロードしてください。")
       socket.emit('now_on_air')
 
     })

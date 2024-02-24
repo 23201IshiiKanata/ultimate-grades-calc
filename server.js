@@ -32,7 +32,7 @@ io.on('connect', socket => {
 
   // チャットサーバー用の待ち受け--------
   socket.on('chat message up', (msg) => {
-    io.emit('chat message2', socket.id + '◆　　' + msg);
+    io.emit('chat message2', socket.id + '◆' + msg);
   });
 
   // シグナリングサーバー用の待ち受けロジック --------

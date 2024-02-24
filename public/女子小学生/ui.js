@@ -121,6 +121,10 @@ $(() => {
     // 要素をアニメーション
     $('.numwindow').addClass('hiwwwnum');
 
+    setTimeout(() => {
+      $('.numwindow').css('display', 'none');
+    }, 700);
+
     // 入力を無効化する
     $('.next').prop('disabled', true);
     $('.gogo').prop('disabled', true);

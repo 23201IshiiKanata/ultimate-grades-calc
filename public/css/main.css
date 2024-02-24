@@ -168,6 +168,11 @@ body select:disabled {
   transform: rotate3d(1,1,1,70deg) translate(100%);
 }
 
+video {
+  width: 213px;
+  height: 120px;
+}
+
 .pinp {
   position: fixed;
   width: 100%;
