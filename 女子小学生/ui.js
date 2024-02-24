@@ -33,6 +33,13 @@ $(() => {
   // 配信画面をポップアップ(PinP)に切り替え、タイトル画面を表示する。
   $('.host').on('click', () => {
     // 連打防止
+    start();
+  });
+
+  /**
+   * Missing JSDoc comment.
+   */
+  function start() {
     if ($('pinp').hasClass('popup')) return;
 
     // 要素をアニメーション
@@ -53,7 +60,7 @@ $(() => {
     setTimeout(() => {
       $('.pinp').css('transition', '.1s');
     }, 100);
-  });
+  }
 
   // "傍観者"として、配信画面を視聴する。
   $('.viewer').on('click', () => {

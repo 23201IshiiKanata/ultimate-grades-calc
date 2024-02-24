@@ -10,6 +10,7 @@
   "license": "",
   "dependencies": {
     "agora": "^0.0.2",
+    "agora-rtc-sdk-ng": "^4.20.0",
     "jquery": "^3.7.1"
   },
   "devDependencies": {
