@@ -12,80 +12,83 @@
   <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"
     integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4"
     crossorigin="anonymous"></script>
-  <script src="女子小学生/client.js" type="module"></script>
 </head>
 
 <body>
   <video></video>
+
+  <div id="chat">
+    <form action="">
+        <input id="m" autocomplete="off" /><button>コメント送信</button>
+    </form>
+    <ul id="messages"></ul>
+</div>
 </body>
 
+<script src="女子小学生/chat.js"></script>
 <script>
   ; (async () => {
-  const socket = io();
+    const socket = io()
+    /*   チャット機能 -------------  */
+    init_chat(socket, $('form'), $('#messages'), $('#m'))
 
-  /*   画面共有(受信)機能 -------------- */
+    socket.emit('sub_enter')
 
-  /* ポイント                                                              */
-  /* 受信側は受信専任で、配信側がLIVEを開始するのを待つスタンスの設計である */
+    /*   画面共有(受信)機能 -------------- */
 
-  const video = document.querySelector('video');
-  let connection = null;
+    /* ポイント                                                              */
+    /* 受信側は受信専任で、配信側がLIVEを開始するのを待つスタンスの設計である */
 
-  // 配信側がLIVEを始めるのを待つ。開始連絡があれば、接続要求のrequestを投げる
-  socket.on('now_on_air', () => socket.emit('request'));
+    const video = document.querySelector('video')
+    let connection = null
 
-  // 配信側から'offer'を受け取ったら、answerを送り返すとともに、LIVEの受信のための関数setVideoを起動する
-  socket.on('offer', setVideo);
-  /**
-  * 受信側(依頼元のIDはcidで規定）からの配信依頼があれば、配信手続きを始める
-  */
-  async function setVideo({offer}) {
-    const pcConfig = {
-      iceServers: [{urls: 'stun:stun.l.google.com:19302'}],
-    };
-    // const pcConfig = { iceServers: [] } //LAN内の端末間どおしならこれでも動作するらしい
-    const peer = new RTCPeerConnection(pcConfig);
-    connection = peer;
-    // Vanilla ICE 〜アンサー発行
-    peer.setRemoteDescription(offer);
-    peer.onicecandidate = evt => {
-      if (evt.candidate) { // Vanilla ICEスタイルなので追加のcandidateを取得できていても今回は我慢する（何もしない）
-        return false;
+    //配信側がLIVEを始めるのを待つ。開始連絡があれば、接続要求のrequestを投げる
+    socket.on('now_on_air', () => socket.emit('request'))
+
+    //配信側から'offer'を受け取ったら、answerを送り返すとともに、LIVEの受信のための関数setVideoを起動する
+    socket.on('offer', setVideo)
+    async function setVideo({ offer }) {
+      const pcConfig = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
+      //const pcConfig = { iceServers: [] } //LAN内の端末間どおしならこれでも動作するらしい
+      const peer = new RTCPeerConnection(pcConfig)
+      connection = peer
+      //Vanilla ICE 〜アンサー発行                
+      peer.setRemoteDescription(offer)
+      peer.onicecandidate = evt => {
+        if (evt.candidate) { //Vanilla ICEスタイルなので追加のcandidateを取得できていても今回は我慢する（何もしない）
+          return false
+        }
+        //集められるものは全て収集した（打ち止めになった）ので、answerを返す
+        socket.emit('answer', { answer: peer.localDescription })
       }
-      // 集められるものは全て収集した（打ち止めになった）ので、answerを返す
-      socket.emit('answer', {answer: peer.localDescription});
-    };
-    peer.ontrack = evt => {
-      console.log('%%%%% ontrack %%%%%');
-      video.srcObject = evt.streams[0];
-    };
-    peer.setLocalDescription(await peer.createAnswer());
-  }
-
-  // 配信側が退出したら、ビデオを停止して、受信を終了する
-  socket.on('pub_exit', () => {
-    console.log('***** pub_exit *****');
-    stopVideo();
-  });
-  /**
-  * 配信側が退出したら、ビデオを停止して、受信を終了する
-  */
-  function stopVideo() {
-    if (connection) {
-      video.pause();
-      video.srcObject = null;
-      connection.close();
-      connection = null;
+      peer.ontrack = evt => {
+        console.log('%%%%% ontrack %%%%%')
+        video.srcObject = evt.streams[0]
+      }
+      peer.setLocalDescription(await peer.createAnswer())
     }
-  }
 
-  // ここまででコールバックの設定がひととおり完了 ---
+    //配信側が退出したら、ビデオを停止して、受信を終了する
+    socket.on('pub_exit', () => {
+      console.log('***** pub_exit *****')
+      stopVideo()
+    })
+    function stopVideo() {
+      if (connection) {
+        video.pause()
+        video.srcObject = null
+        connection.close()
+        connection = null
+      }
+    }
 
-  // ひとまず起動時にはダメ元でrequestを投げる(配信側がすでに配信を始めていれば、受信手続きにつながっていく）
-  socket.emit('request');
+    // ここまででコールバックの設定がひととおり完了 ---
 
-  console.log('client.js ready');
-})();
+    //ひとまず起動時にはダメ元でrequestを投げる(配信側がすでに配信を始めていれば、受信手続きにつながっていく）
+    socket.emit('request')
+
+
+  })()
 </script>
 
 </html>

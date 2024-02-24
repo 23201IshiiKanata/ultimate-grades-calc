@@ -3,7 +3,7 @@
  * シグナリングサーバー（socket.ioによるWebSocketサーバー） + ランデブー用のページを配信するWebサーバー
  */
 
-const port = 55555;
+const port = 5000;
 const http = require('http');
 const fs = require('fs');
 
@@ -62,7 +62,7 @@ io.on('connect', socket => {
 
   // 受信側からの配信要求を配信側へ渡す
   socket.on('request', () => {
-    console.log('request', socket.id, '->', pubid);
+    console.log('request', socket.id, '->', pubid)
     socket.to(pubid).emit('request', {cid: socket.id});
     io.emit('chat message2', 'LOG:' + socket.id + ' から配信元 ' + pubid + 'に接続要求');
   });
