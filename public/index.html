@@ -9,8 +9,10 @@
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
-  <script src="https://cdn.socket.io/4.7.4/socket.io.esm.min.js" type="module"></script>
-  <script src="/server/host.js" type="module"></script>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"
+    integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4"
+    crossorigin="anonymous"></script>
+  <script src="女子小学生/host.js" type="module"></script>
   <script src="女子小学生/script.js" type="module"></script>
   <script src="女子小学生/ui.js" type="module"></script>
 </head>
@@ -21,7 +23,7 @@
       <h1>貴方は何方側の立場ですか</h1>
       <div style="padding: 100px;"></div>
       <button id="start" class="host" style="background-color: rgb(210, 210, 210);" onclick="init()">配信者</button>
-      <button class="viewer" style="background-color: rgb(210, 210, 210);">傍観者</button>
+      <button class="viewer" style="background-color: rgb(210, 210, 210);"><a href="/stream">傍観者</a></button>
     </div>
     <div class="second none">
       <h1>視聴者を待機中</h1>

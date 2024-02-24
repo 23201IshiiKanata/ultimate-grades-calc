@@ -2,9 +2,7 @@
   console.log('host.js', 'ready');
   // シグナリングサーバーであるWebSocketサーバーに接続
   // 今回はsocket.ioを採用
-  const socket = ('http://localhost:55555');
-
-  // require('socket.io-client')
+  const socket = require('socket.io-client')('http://localhost:55555');
 
   /**
    * RTCPeerConnectionをクライアントごとに格納する変数

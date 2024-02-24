@@ -5,9 +5,11 @@
 console.log('main', 'start');
 
 const express = require('express');
+const cors = require('cors');
 const app = express();
+app.use(cors());
 
-// publicディレクトリを公開
+// public\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u3092\u516c\u958b
 app.use(express.static(__dirname + '/public'));
 
 const http = require('http');
