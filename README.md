@@ -12,3 +12,4 @@ bgm : https://amachamusic.chagasi.com
 
 ### 起動
 - `node ./server.js` 
+- http://localhost:5000/
