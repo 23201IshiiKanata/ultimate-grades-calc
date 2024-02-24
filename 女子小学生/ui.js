@@ -1,8 +1,6 @@
 import {calc} from './script.js';
 
-/**
- * 読み込み完了時に一度だけ実行される。
- */
+// 読み込み完了時に一度だけ実行される。
 $(() => {
   /** タイトルクリック時のコインの効果音 */
   const clickTitleSound = new Audio('./sound/clicktitle.mp3');
@@ -32,13 +30,8 @@ $(() => {
   retentionMusic.loop = true;
   goukakuMusic.loop = true;
 
-  // ?
-  const play = document.getElementById('play');
-
-  /**
-   * 配信画面をポップアップ(PinP)に切り替え、タイトル画面を表示。
-   */
-  function popupStream() {
+  // 配信画面をポップアップ(PinP)に切り替え、タイトル画面を表示する。
+  $('.host').on('click', () => {
     // 連打防止
     if ($('pinp').hasClass('popup')) return;
 
@@ -56,20 +49,16 @@ $(() => {
     script.src = '女子小学生/pinp.js'; // ファイルパス
     document.head.appendChild(script); // <head>に生成
     // document.body.appendChild(script); /*<body>に生成する場合はこちら*/
-  }
+  });
 
-  /**
-   * 見る人用
-   */
-  function displayScreen() {
+  // "傍観者"として、配信画面を視聴する。
+  $('.viewer').on('click', () => {
     $('.pinp').addClass('small');
     $('.client').removeClass('none');
-  }
+  });
 
-  /**
-   * タイトル画面から計算画面へ遷移する。
-   */
-  function showMain() {
+  // タイトル画面から計算画面へ遷移する。
+  $('.title').on('click', () => {
     // 要素をアニメーション
     $('.title').addClass('title-a');
     $('.calcwindow').addClass('viewin');
@@ -84,25 +73,26 @@ $(() => {
     // SEを連打可能な方法で再生
     clickTitleSound.currentTime = 0;
     clickTitleSound.play();
-  }
+  });
 
-  /**
-   * 前提条件の入力を完了し、計算画面へ遷移する。
-   */
-  function gonum() {
+  // 前提条件の入力を完了し、計算画面へ遷移する。
+  $('.next').on('click', () => {
     $('.calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
     $('.calcwindow').addClass('hidewin');
     $('.numwindow').addClass('viwwwnum');
     clickTitleSound.currentTime = 0;
     clickTitleSound.play();
-  }
+  });
 
-  /**
-   * ?
-   */
-  function gogo() {
+  // フォームの入力をチェックし、計算結果を結果画面に遷移して表示する。
+  $('.gogo').on('click', () => {
+    console.log('gogoButton clicked');
+
+    /** 成績 @type {number} */
     let score;
+    /** 学期 @type {"first" | "second" | "last"}*/
     let semester;
+    /** 試験種別 @type {'mid'|'final'|'supplemental'|'reexam'|''} */
     let examType;
 
     // 値の取得 + 入力チェック
@@ -110,10 +100,12 @@ $(() => {
       ({score, semester, examType} = calc());
     } catch (e) {
       if (e instanceof RangeError && e.message === 'Invalid form input') {
+        console.log(e.message);
         alert('点数を正しく入力しやがれください');
       }
       return;
     }
+    console.log('Input is vaild');
 
     // 要素をアニメーション
     $('.numwindow').addClass('hiwwwnum');
@@ -123,67 +115,74 @@ $(() => {
     $('.gogo').prop('disabled', true);
     $('#numwindow').find('input').prop('disabled', true);
 
+    // BGMを止めSEを再生
     mainMusic.pause();
-
-    // SEを再生
     preResultSound.play();
 
     // 指定時間後に結果画面を表示
     setTimeout(() => {
-      clickTitleSound.currentTime = 0;
-      // clickTitleSound.play();
-
       if (score < 60) {
         ryunen();
+        // 魔法の計算を行う
         const rate = Number.parseFloat(
             // score * 1.666666666666666666666 * 0.75,
             // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
             ((score**2) / 45 ) || -50.0,
         ).toFixed(1);
-        $('.resus').html('総合成績' + score + 'により、貴方が留年を回避できる確率は' + rate + '%です。');
+        $('.resus').html(`総合成績${score}により、貴方が留年を回避できる確率は${rate}%です。`);
       } else if (score >= 60) {
         goukaku();
-        $('.resugs').html('総合成績' + score);
+        $('.resugs').html(`総合成績${score}`);
       }
     }, 4500);
-  }
+  });
 
   /**
    * 計算画面から結果画面まで遷移する。
    */
-  function ryunen() {
-    // 仮で留年祝いのBGMに変更
+  const ryunen = () => {
+    // 留年祝いのBGM+SEを再生
     retentionMusic.play();
+    setTimeout(() => {
+      retentionSound.play;
+    }, 100);
+
+    // アニメーション
     $('.resu').addClass('viewin');
     $('body').addClass('hyper');
+
+    // エンドロールボタンを有効化
+    // TODO: 真の留年の際にのみエンドロールを有効化する
     $('.goend').removeAttr('disabled');
-    // 指定時間後に仮で留年SEを再生
-    setTimeout(() => {
-      retentionSound.play();
-    }, 100);
-  }
+  };
 
   /**
    * 計算画面から結果画面まで遷移する。
    */
-  function goukaku() {
+  const goukaku = () => {
+    // 合格祝いのBGM+SEを再生
     goukakuMusic.play();
-    $('.resug').addClass('viewin');
     setTimeout(() => {
-      goukakuSound.play();
+      goukakuSound.play;
     }, 100);
-  }
 
-  /**
-   * エンドロール表示の準備と、実際の表示を行う。
-   */
-  function end() {
+    // アニメーション
+    $('.resug').addClass('viewin');
+  };
+
+  // エンドロールの表示を行う。
+  $('.goend').on('click', () => {
+    // 音楽をエンドロール用に切り替え
     retentionMusic.pause();
+    endrollMusic.play();
+
+    // アニメーション
     $('.resu').addClass('hiwwwnum');
     $('.calcwindow').addClass('hiwwwnum');
     $('.end').removeClass('dis');
     $('body').removeClass('hyper');
-    endrollMusic.play();
+
+    // エンドロールの表示処理
     setTimeout(() => {
       endrolltxt();
     }, 500);
@@ -193,12 +192,12 @@ $(() => {
     setTimeout(() => {
       moregrade();
     }, 539000);
-  }
+  });
 
   /**
    * もう1回遊べるドン
    */
-  function moregrade() {
+  const moregrade = () => {
     $('.chrx').addClass('upperx');
     setTimeout(() => {
       $('.end').css('transition', '5s');
@@ -212,33 +211,25 @@ $(() => {
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
     }, 17500);
-  }
+  };
 
   /**
    * エンドロールのテキストを順に表示する。
    * @param {number} index 表示するエンドロールの位置
    */
-  function endrolltxt(index = 1) {
-    // 対象となる要素を取得
+  const endrolltxt = (index = 1) => {
+    // 対象となる要素を取得し、存在しなければ終了
     const element = $('#endroll').children(`:nth-child(${index})`);
-
-    // 要素が存在しない場合は終了
-    if ((element?.length ?? 0) == 0) return;
+    if (!!!element.length) return;
 
     // 要素をアニメーション表示
     element.addClass('upper');
 
     // 次の要素を指定時間後に表示
     setTimeout(() => endrolltxt(index + 1), 14000);
-  }
+  };
 
   // イベントハンドラの登録
-  $('.host').on('click', popupStream);
-  $('.viewer').on('click', displayScreen);
-  $('.title').on('click', showMain);
-  $('.next').on('click', gonum);
-  $('.gogo').on('click', gogo);
-  $('.goend').on('click', end);
 
   // debug
   // popupStream();

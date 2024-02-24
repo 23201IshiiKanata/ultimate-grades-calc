@@ -1,12 +1,10 @@
-/**
- * 読み込み完了時に一度だけ実行される。
- */
+// 読み込み完了時に一度だけ実行される。
 $(() => {
-  const videoElem = document.getElementById('video');
-  const startElem = document.getElementById('start');
-  const stopElem = document.getElementById('stop');
+  const videoElem = $('#video')[0];
+  const startElem = $('#start')[0];
+  const stopElem = $('#stop')[0];
 
-  // Options for getDisplayMedia()
+  /** getDisplayMedia()のオプション */
   const displayMediaOptions = {
     video: {
       cursor: 'always',
@@ -14,33 +12,34 @@ $(() => {
     audio: false,
   };
 
-  // Set event listeners for the start and stop buttons
-  startElem.addEventListener('click', function(evt) {
+  // スタートボタンとストップボタンのイベントリスナーを設定する
+  startElem.addEventListener('click', (event) => {
     startCapture();
   }, false);
 
-  stopElem.addEventListener('click', function(evt) {
+  stopElem.addEventListener('click', (event) => {
     stopCapture();
   }, false);
 
   /**
- * 読み込み完了時に一度だけ実行される。
- */
-  async function startCapture() {
+   * 画面共有を開始する。
+   */
+  const startCapture = async () => {
     try {
       videoElem.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
     } catch (err) {
       console.error('Error: ' + err);
     }
-  }
+  };
 
   /**
-   * 読み込み完了時に一度だけ実行される。
-   * @param {Event} evt イベント
+   * 画面共有を停止する。
+   * @param {Event} event イベント
    */
-  function stopCapture(evt) {
+  const stopCapture = (event) => {
+    /** @type {MediaStreamTrack[]} */
     const tracks = videoElem.srcObject.getTracks();
     tracks.forEach((track) => track.stop());
     videoElem.srcObject = null;
-  }
+  };
 });

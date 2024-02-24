@@ -65,9 +65,9 @@ const calc = () => {
 
   /** @type {string[]} */
   const parts = $('#calc-base-select').val().split('-');
-  /** @type {'first'|'second'|'last'|''} 学期 */
+  /** 学期 @type {'first'|'second'|'last'|''} */
   const semester = parts[0] || '';
-  /** @type {'mid'|'final'|'supplemental'|'reexam'|''} 試験種別 */
+  /** 試験種別 @type {'mid'|'final'|'supplemental'|'reexam'|''} */
   const examType = parts[1] || '';
 
   const examRate = Number($('#exam-rate-select').val());
@@ -107,16 +107,8 @@ const calc = () => {
   return {score, semester, examType};
 };
 
-/**
- * ページの読み込みが完了した時に一度だけ実行されるコールバック関数。
- */
+// ページの読み込みが完了した時に一度だけ実行される。
 $(() => {
-  const examRateSelect = $('#exam-rate-select');
-
-  examRateSelect.on('change', () => {
-    console.log('examRateSelect changed');
-  });
-
   const calcBaseSelect = $('#calc-base-select');
   const calcTargetName = $('#calc-target-name');
   const calcTargetMessageDefault = $('#calc-target-message-default');
@@ -159,26 +151,6 @@ $(() => {
   nextButton.on('click', () => {
     console.log('nextButton clicked');
 
-    /**
-     * @deprecated ボタンは常にレインボー
-     *
-     * 入力フォームの値が変更された時に実行されるコールバック関数。
-     * @param {JQuery.Event} event
-     */
-    const inputFormChange = (event) => {
-      const elements = numWindow.find('input:visible').toArray();
-      const isValid = elements.every((element) => {
-        return element.checkValidity();
-      });
-      if (isValid) {
-        goButton.attr('disabled', false);
-        goButton.addClass('rainbow');
-      } else {
-        goButton.attr('disabled', true);
-        goButton.removeClass('rainbow');
-      }
-    };
-
     /*
     前期中間: round(中間試験点*試験点割合 + 中間ポートフォリオ点)
     前期期末: round((中間試験点+期末試験点)*試験点割合/2) + ポートフォリオ点
@@ -219,35 +191,21 @@ $(() => {
         numMidExamPrefix.text('後期中間試験');
         numFinalExamPrefix.text('後期期末試験');
       case 'first':
-        numPortfolio.show();
         switch (examType) {
+          case 'reexam':
+            numReexam.show();
+          case 'supplemental':
+            numPortfolioPrefix.text('補講後のポートフォリオ');
+          case 'final':
+            numFinalExam.show();
           case 'mid':
             numMidExam.show();
-            break;
-          case 'final':
-            numMidExam.show();
-            numFinalExam.show();
-            break;
-          case 'supplemental':
-            numMidExam.show();
-            numFinalExam.show();
-            numPortfolioPrefix.text('補講後のポートフォリオ');
-            break;
-          case 'reexam':
-            numMidExam.show();
-            numFinalExam.show();
-            numPortfolioPrefix.text('補講後のポートフォリオ');
-            numReexam.show();
+            numPortfolio.show();
             break;
         }
     }
 
-    // numWindow.find('input').on('change', inputFormChange);
     goButton.removeAttr('disabled');
-  });
-
-  goButton.on('click', () => {
-    console.log('goButton clicked');
   });
 
   console.log('script.js ready');
