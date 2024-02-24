@@ -1,6 +1,6 @@
 /**
-* 読み込み完了時に一度だけ実行される。
-*/
+ * 読み込み完了時に一度だけ実行される。
+ */
 $(() => {
   // 要素の取得
   var elements = document.getElementsByClassName('drag-and-drop');
