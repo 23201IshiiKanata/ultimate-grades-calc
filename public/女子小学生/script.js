@@ -175,8 +175,18 @@ $(() => {
     }
 
     // 試験点割合とポートフォリオ点を設定
-    $('num-exam-rate').text($('#exam-rate-select').val());
-    $('num-portfolio-rate').text(100 - Number($('#exam-rate-select').val()));
+    const examRate = Number($('#exam-rate-select').val());
+    const portfolioRate = 100 - examRate;
+
+    $('.num-exam-rate').text(examRate);
+    numWindow.find('div input').attr('placeholder', [...Array(100 + 1).keys()].find((value) => calcMid(value, examRate, portfolioRate) >= 60));
+
+    $('.num-portfolio-rate').text(portfolioRate);
+    $('#num-portfolio-input').attr('placeholder', portfolioRate);
+    $('#num-portfolio-input').attr('max', portfolioRate);
+    if (portfolioRate === 0) {
+      $('#num-portfolio-input').val(0);
+    }
 
     // 入力フォームを表示
     switch (semester) {
@@ -204,7 +214,9 @@ $(() => {
             numFinalExam.show();
           case 'mid':
             numMidExam.show();
-            numPortfolio.show();
+            if (portfolioRate > 0) {
+              numPortfolio.show();
+            }
             break;
         }
     }
