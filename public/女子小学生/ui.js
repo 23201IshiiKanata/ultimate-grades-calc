@@ -23,6 +23,8 @@ $(() => {
   const endrollMusic = new Audio('./sound/end.mp3');
   /** えんどろーる2 */
   const endrollMusic2 = new Audio('./sound/end2.mp3');
+  // onemore
+  const oneMore = new Audio('./sound/onemore.mp3');
 
   // BGMをループ再生する
   titleMusic.loop = true;
@@ -205,6 +207,7 @@ $(() => {
       endrollMusic2.play();
     }, 281000);
     setTimeout(() => {
+      oneMore.play();
       moregrade();
     }, 539000);
   });
