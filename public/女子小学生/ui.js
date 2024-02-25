@@ -211,13 +211,16 @@ $(() => {
       oneMore.play();
       moregrade();
     }, 539000);
+    setTimeout(() => {
+      moregrade();
+    }, 12000);
   });
 
   /**
    * もう1回遊べるドン
    */
   const moregrade = () => {
-    $('.chrx').addClass('upperx');
+    oneMore.play();
     setTimeout(() => {
       $('.end').css('transition', '5s');
       $('.end').css('background-color', 'white');
@@ -242,7 +245,11 @@ $(() => {
     if (!!!element.length) return;
 
     // 要素をアニメーション表示
-    element.addClass('upper');
+    if ($('#chrx').attr('class') == 'chrx') {
+      element.addClass('upperx');
+    } else {
+      element.addClass('upper');
+    };
 
     // 次の要素を指定時間後に表示
     setTimeout(() => {
