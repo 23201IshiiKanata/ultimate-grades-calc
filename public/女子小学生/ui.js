@@ -210,7 +210,7 @@ $(() => {
     setTimeout(() => {
       oneMore.play();
       moregrade();
-    }, 525000);
+    }, 539000);
   });
 
   /**
@@ -245,7 +245,9 @@ $(() => {
     element.addClass('upper');
 
     // 次の要素を指定時間後に表示
-    setTimeout(() => endrolltxt(index + 1), 12800);
+    setTimeout(() => {
+      endrolltxt(index + 1);
+    }, 525000/41);
   };
 
   console.log('ui.js ready');
