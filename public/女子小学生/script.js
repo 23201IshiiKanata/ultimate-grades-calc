@@ -136,6 +136,7 @@ $(() => {
   const nextButton = $('.next');
   const goButton = $('.gogo');
   const title = $('#num-title');
+
   const numWindow = $('.numwindow');
   const numFirst = $('#num-first');
   const numMidExam = $('#num-mid-exam');
@@ -146,6 +147,9 @@ $(() => {
   const numPortfolioPrefix = $('#num-portfolio-prefix');
   const numReexam = $('#num-reexam');
   const numLast = $('#num-last');
+
+  const examRate = Number($('#exam-rate-select').val());
+  const portfolioRate = 100 - examRate;
 
 
   nextButton.on('click', () => {
@@ -173,6 +177,10 @@ $(() => {
     } else {
       title.text(`${calcTargetName.text()}で必要な点数を計算`);
     }
+
+    // 試験点割合とポートフォリオ点を設定
+    $('num-exam-rate').text(examRate);
+    $('num-portfolio-rate').text(portfolioRate);
 
     // 入力フォームを表示
     switch (semester) {
