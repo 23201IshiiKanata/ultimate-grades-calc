@@ -8,7 +8,7 @@ export {calcMid, calcFinal, calcSupplemental, calcReexam, calc};
  * @return {number} 成績点(0-100)
  */
 const calcMid = (mid, rate, portfolio) =>
-  Math.round(mid * (rate / 100) + portfolio);
+  Math.ceil(mid * (rate / 100) + portfolio);
 
 /**
  * 期末試験終了時点での成績点を計算する。
@@ -19,7 +19,7 @@ const calcMid = (mid, rate, portfolio) =>
  * @return {number} 成績点(0-100)
  */
 const calcFinal = (mid, final, rate, portfolio) =>
-  Math.round((mid + final) / 2 * (rate / 100) + portfolio);
+  Math.ceil((mid + final) / 2 * (rate / 100) + portfolio);
 
 /**
  * 補講後の成績点を計算する。
@@ -30,7 +30,7 @@ const calcFinal = (mid, final, rate, portfolio) =>
  * @return {number} 成績点(0-100)
  */
 const calcSupplemental = (mid, final, rate, portfolio) =>
-  Math.round((mid + final) / 2 * (rate / 100) + portfolio);
+  Math.ceil((mid + final) / 2 * (rate / 100) + portfolio);
 
 /**
  * 再試験終了時点での成績点を計算する。
@@ -42,7 +42,7 @@ const calcSupplemental = (mid, final, rate, portfolio) =>
  * @return {number} 成績点(0-100)
  */
 const calcReexam = (mid, final, rate, portfolio, reexam) =>
-  Math.max(Math.min(60, Math.round(reexam * (rate / 100) + portfolio)), calcFinal(mid, final, rate, portfolio));
+  Math.max(Math.min(60, Math.ceil(reexam * (rate / 100) + portfolio)), calcFinal(mid, final, rate, portfolio));
 
 /**
  * 単位認定試験終了時点での成績点を計算する。
