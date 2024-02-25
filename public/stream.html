@@ -42,7 +42,6 @@
     bottom: 0%;
     background-color: aliceblue;
     width: 90%;
-    width: 550px;
     margin: auto;
   }
 
@@ -62,8 +61,10 @@
     var devW = 650;
     if (winW <= devW) {
       $("body").css("width", "100%");
+      $(".box").css("width", "90%");
     } else {
       $("body").css("width", "70%");
+      $(".box").css("width", "550px");
     }
   });
 </script>
