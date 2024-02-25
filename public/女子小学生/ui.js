@@ -210,7 +210,7 @@ $(() => {
     setTimeout(() => {
       oneMore.play();
       moregrade();
-    }, 539000);
+    }, 531500);
   });
 
   /**
