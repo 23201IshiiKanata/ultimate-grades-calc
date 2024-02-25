@@ -56,12 +56,12 @@ $(() => {
     titleMusic.play();
 
     const script = document.createElement('script'); // 変数名は適当なものにでも
-    script.src = '女子小学生/pinp.js'; // ファイルパス
+    script.src = 'js/pinp.js'; // ファイルパス
     document.head.appendChild(script); // <head>に生成
     // document.body.appendChild(script); /*<body>に生成する場合はこちら*/
 
     setTimeout(() => {
-      $('.pinp').css('transition', '.1s');
+      $('.pinp').css('transition', '0s');
     }, 100);
   }
 
