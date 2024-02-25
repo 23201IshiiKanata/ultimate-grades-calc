@@ -31,6 +31,7 @@ $(() => {
   mainMusic.loop = true;
   retentionMusic.loop = true;
   goukakuMusic.loop = true;
+  oneMore.loop = true;
 
   // 配信画面をポップアップ(PinP)に切り替え、タイトル画面を表示する。
   $('.host').on('click', () => {
