@@ -241,12 +241,12 @@ $(() => {
     const element = $('#endroll').children(`:nth-child(${index})`);
     if (!!!element.length) return;
 
-    // tamesitaato
-    if ($('#chrx').attr('class') == 'chrx') {
+    // .chrxにのみupperxを、それ以外にはupperを付与
+    if (element.hasClass('chrx')) {
       element.addClass('upperx');
     } else {
       element.addClass('upper');
-    };
+    }
 
     // 次の要素を指定時間後に表示
     setTimeout(() => {
