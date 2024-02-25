@@ -247,7 +247,7 @@ $(() => {
     // 次の要素を指定時間後に表示
     setTimeout(() => {
       endrolltxt(index + 1);
-    }, 525000/41);
+    }, 524000/41);
   };
 
   console.log('ui.js ready');
