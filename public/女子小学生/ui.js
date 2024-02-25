@@ -211,9 +211,6 @@ $(() => {
       oneMore.play();
       moregrade();
     }, 539000);
-    setTimeout(() => {
-      moregrade();
-    }, 12000);
   });
 
   /**
@@ -244,7 +241,7 @@ $(() => {
     const element = $('#endroll').children(`:nth-child(${index})`);
     if (!!!element.length) return;
 
-    // 要素をアニメーション表示
+    // tamesitaato
     if ($('#chrx').attr('class') == 'chrx') {
       element.addClass('upperx');
     } else {
