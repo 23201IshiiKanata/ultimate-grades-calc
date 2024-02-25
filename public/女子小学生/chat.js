@@ -9,7 +9,7 @@ function init_chat(socket, form, messages, msgInput) {
   });
 
   socket.on('chat message2', function(msg) {
-    messages.prepend($('<li>').text(msg));
+    messages.prepend($('<p>').text(msg));
     window.scrollTo(0, document.body.scrollHeight);
   });
 };

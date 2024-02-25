@@ -42,6 +42,7 @@
     bottom: 0%;
     background-color: aliceblue;
     width: 90%;
+    width: 550px;
     margin: auto;
   }
 
@@ -52,16 +53,20 @@
   input {
     background-color: lightblue;
   }
-
-  ul {
-    padding-left: 0;
-  }
-  
-  ul li {
-    width: 80%;
-    margin: auto;
-  }
 </style>
+
+<script>
+  //画面サイズ
+  $(window).on('load resize', function () {
+    var winW = $(window).width();
+    var devW = 650;
+    if (winW <= devW) {
+      $("body").css("width", "100%");
+    } else {
+      $("body").css("width", "70%");
+    }
+  });
+</script>
 
 <script src="女子小学生/chat.js"></script>
 <script>
