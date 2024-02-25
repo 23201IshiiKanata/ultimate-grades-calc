@@ -148,10 +148,6 @@ $(() => {
   const numReexam = $('#num-reexam');
   const numLast = $('#num-last');
 
-  const examRate = Number($('#exam-rate-select').val());
-  const portfolioRate = 100 - examRate;
-
-
   nextButton.on('click', () => {
     console.log('nextButton clicked');
 
@@ -179,8 +175,8 @@ $(() => {
     }
 
     // 試験点割合とポートフォリオ点を設定
-    $('num-exam-rate').text(examRate);
-    $('num-portfolio-rate').text(portfolioRate);
+    $('num-exam-rate').text($('#exam-rate-select').val());
+    $('num-portfolio-rate').text(100 - Number($('#exam-rate-select').val()));
 
     // 入力フォームを表示
     switch (semester) {
