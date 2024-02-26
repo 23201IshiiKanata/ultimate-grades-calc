@@ -3,12 +3,15 @@
 @keyframes backgroundscsf {
   0% {
     background-color: aqua;
+    color: crimson;
   }
   50% {
     background-color: crimson;
+    color: aqua;
   }
   100% {
     background-color: aqua;
+    color: crimson;
   }
 }
 
@@ -322,12 +325,13 @@ div.second {
   height: 100%;
   text-align: center;
   background-color: rgb(48, 48, 48);
-  transition: 5s;
+  transition: 7s;
+  filter: blur(0px);
   z-index: 100000;
   opacity: 0%;
 }
 
 .overh1 {
   text-align: center;
-  transition: 5s;
+  transition: 7s;
 }
