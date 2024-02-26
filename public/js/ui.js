@@ -231,14 +231,35 @@ $(() => {
     $('.resug').addClass('viewin');
     setTimeout(() => {
       goukakuED();
-    }, 2000);
+    }, 5000);
   };
 
   /**
    * gouakuED
    */
   const goukakuED = () => {
-    //
+    goukakuCSS();
+    $('.resug').addClass('viewin');
+    setTimeout(() => {
+      $('.over').removeClass('none');
+      $('.over').css('height', '60%');
+      $('.over').css('height', '60%');
+      $('.over').css('font-size', '1000px');
+      $('.over').css('background-color', 'rgb(77, 77, 77)');
+    }, 7000);
+  };
+
+  /**
+   * gouakuCSS
+   */
+  const goukakuCSS = () => {
+    $('*').css('transition', '7s');
+    $('*').css('height', '0px');
+    $('*').css('font-size', '10px');
+    $('.chr').css('font-size', '0px');
+    $('.chrx').css('font-size', '0px');
+    $('*').css('filter', 'grayscale(100%)');
+    $('*').css('background-color', 'black');
   };
 
   /**

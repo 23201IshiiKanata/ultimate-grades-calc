@@ -314,3 +314,17 @@ div.second {
 .small {
   transform: scale(0);
 }
+
+.over {
+  position: fixed;
+  background-color: rgb(77, 77, 77);
+  color: black;
+  width: 60%;
+  height: fit-content;
+  padding: 20px;
+  margin: auto;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transition: .7s;
+}
