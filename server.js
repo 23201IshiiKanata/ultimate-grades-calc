@@ -32,7 +32,7 @@ const server = http.createServer(app);
 /*  シグナリングサーバー(WebSocketサーバー(socket.ioを利用))  */
 const io = require('socket.io')(server);
 
-console.log('server', 'start', socket.id);
+console.log('server', 'start');
 
 let pubid = null;
 let connections = {};
