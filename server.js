@@ -5,10 +5,18 @@
 
 const port = 5000;
 const http = require('http');
+// const https = require('https');
 const fs = require('fs');
 
 const express = require('express');
 const app = express();
+
+/*
+const options = {
+  key: fs.readFileSync('pem/orekey.pem'),
+  cert: fs.readFileSync('pem/orecert.pem'),
+};
+*/
 
 /*  Webサーバー  */
 const docroot = '/public';
@@ -18,10 +26,13 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + docroot + '/index.html');
 });
 
-const server = http.createServer(app); // node.js自体はhttpで良い場合はこちらを利用
+const server = http.createServer(app);
+// const server = https.createServer(options, app);
 
 /*  シグナリングサーバー(WebSocketサーバー(socket.ioを利用))  */
 const io = require('socket.io')(server);
+
+console.log('server', 'start', socket.id);
 
 let pubid = null;
 let connections = {};
