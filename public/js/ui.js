@@ -238,29 +238,18 @@ $(() => {
    * gouakuED
    */
   const goukakuED = () => {
-    goukakuCSS();
     $('.resug').addClass('viewin');
+    $('.over').removeClass('none');
+    $('.over').css('opacity', '0%');
+    $('.overh1').css('color', 'rgb(48, 48, 48)');
     setTimeout(() => {
-      $('.over').removeClass('none');
-      $('.over').css('height', '60%');
-      $('.over').css('height', '60%');
-      $('.over').css('font-size', '1000px');
-      $('.over').css('background-color', 'rgb(77, 77, 77)');
-    }, 7000);
+      $('.over').css('opacity', '100%');
+    }, 3000);
+    setTimeout(() => {
+      $('.overh1').css('color', '#808080');
+    }, 8000);
   };
 
-  /**
-   * gouakuCSS
-   */
-  const goukakuCSS = () => {
-    $('*').css('transition', '7s');
-    $('*').css('height', '0px');
-    $('*').css('font-size', '10px');
-    $('.chr').css('font-size', '0px');
-    $('.chrx').css('font-size', '0px');
-    $('*').css('filter', 'grayscale(100%)');
-    $('*').css('background-color', 'black');
-  };
 
   /**
    * エンドロールのテキストを順に表示する。
