@@ -145,7 +145,7 @@ $(() => {
         const rate = (semester === 'last' ? '0.00' : Number.parseFloat(
             // score * 1.666666666666666666666 * 0.75,
             // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
-            ((score**2) / 45 ) || -50.0,
+            ((score ** 2) / 45) || -50.0,
         ).toFixed(1));
         $('.resus').html(`総合成績${score}により、貴方が留年を回避できる確率は${rate}%です。`);
       } else if (score >= 60) {
@@ -162,7 +162,7 @@ $(() => {
     // 留年祝いのBGM+SEを再生
     retentionMusic.play();
     setTimeout(() => {
-      retentionSound.play;
+      retentionSound.play();
     }, 100);
 
     // アニメーション
@@ -172,20 +172,6 @@ $(() => {
     // エンドロールボタンを有効化
     // TODO: 真の留年の際にのみエンドロールを有効化する
     $('.goend').removeAttr('disabled');
-  };
-
-  /**
-   * 計算画面から結果画面まで遷移する。
-   */
-  const goukaku = () => {
-    // 合格祝いのBGM+SEを再生
-    goukakuMusic.play();
-    setTimeout(() => {
-      goukakuSound.play;
-    }, 100);
-
-    // アニメーション
-    $('.resug').addClass('viewin');
   };
 
   // エンドロールの表示を行う。
@@ -233,6 +219,29 @@ $(() => {
   };
 
   /**
+   * 計算画面から結果画面まで遷移する。
+   */
+  const goukaku = () => {
+    // 合格祝いのBGM+SEを再生
+    goukakuMusic.play();
+    setTimeout(() => {
+      goukakuSound.play();
+    }, 100);
+    // アニメーション
+    $('.resug').addClass('viewin');
+    setTimeout(() => {
+      goukakuED();
+    }, 2000);
+  };
+
+  /**
+   * gouakuED
+   */
+  const goukakuED = () => {
+    //
+  };
+
+  /**
    * エンドロールのテキストを順に表示する。
    * @param {number} index 表示するエンドロールの位置
    */
@@ -251,7 +260,7 @@ $(() => {
     // 次の要素を指定時間後に表示
     setTimeout(() => {
       endrolltxt(index + 1);
-    }, 524000/44);
+    }, 524000 / 44);
   };
 
   console.log('ui.js ready');
