@@ -56,18 +56,18 @@ io.on('connect', socket => {
       return null;
     }
     pubid = socket.id;
-    io.emit('chat message2', pubid + 'が配信者です');
+    io.emit('chat message2', '配信者 : ' + pubid);
   });
 
   // 視聴者入室
   socket.on('sub_enter', () => {
-    io.emit('chat message2', socket.id + 'が入室');
+    io.emit('chat message2', '入室 : ' + socket.id);
   });
 
   // 配信側の準備OKを受信
   socket.on('now_on_air', () => {
     pubid = socket.id;
-    io.emit('chat message2', pubid + 'が配信中です');
+    io.emit('chat message2', '配信中 : ' + pubid);
     socket.broadcast.emit('now_on_air');
   });
 
@@ -102,7 +102,7 @@ io.on('connect', socket => {
       socket.broadcast.emit('pub_exit');
       msgprfx = '配信者の'; // 誤記ではないです。アドホックな方法...
     }
-    io.emit('chat message2', msgprfx + socket.id + 'が退室');
+    io.emit('chat message2', '退室 : ' + msgprfx + socket.id);
   });
 });
 
