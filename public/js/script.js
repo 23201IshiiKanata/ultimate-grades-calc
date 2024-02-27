@@ -64,7 +64,7 @@ const calcLast = (last) =>
 
 /**
  * `data`から`type`の成績点を計算する。
- * @param {'mid'|'final'|'supplemental'|'reexam'|'last'} type 計算する種類
+ * @param {'first'|'mid'|'final'|'supplemental'|'reexam'|'last'} type 計算する種類
  * @param {{mid: number?, final: number?, rate: number?, portfolio: number?, reexam: number?, last: number?}} data 計算に必要なデータ
  * @return {number} 成績点(0-100)
  */
@@ -78,6 +78,7 @@ const calcFrom = (type, data) => {
       return calcSupplemental(data.mid, data.final, data.rate, data.portfolio);
     case 'reexam':
       return calcReexam(data.mid, data.final, data.rate, data.portfolio, data.reexam);
+    case 'first':
     case 'last':
       return calcLast(data.last);
   }
@@ -210,7 +211,10 @@ $(() => {
     const portfolioRate = 100 - examRate;
 
     $('.num-exam-rate').text(examRate);
-    numWindow.find('div input').attr('placeholder', [...Array(100 + 1).keys()].find((value) => calcMid(value, examRate, portfolioRate) >= 60));
+    numWindow.find('div input').each((index, element) =>
+      element.setAttribute('placeholder', [...Array(100 + 1).keys()].find((value) =>
+        calcFrom(element.id.replace(/num-([^-]+)(-.+)/, '$1'), {mid: value, final: value, rate: examRate, portfolio: portfolioRate, reexam: value, last: value}) >= 60,
+      )));
 
     $('.num-portfolio-rate').text(portfolioRate);
     $('#num-portfolio-input').attr('placeholder', portfolioRate);
