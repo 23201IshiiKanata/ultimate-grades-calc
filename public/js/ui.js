@@ -280,7 +280,7 @@ $(() => {
     }, 17000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
-    }, 28000);
+    }, 27000);
   };
 
 
