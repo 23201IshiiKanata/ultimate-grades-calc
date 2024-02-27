@@ -191,19 +191,18 @@ $(() => {
       endrolltxt();
     }, 500);
     setTimeout(() => {
-      endrollMusic2.play();
-    }, 217500);
-    setTimeout(() => {
       oneMore.play();
       moregrade();
-    }, 476000);
+    }, 217000);
   });
 
   /**
    * もう1回遊べるドン
    */
   const moregrade = () => {
-    oneMore.play();
+    setTimeout(() => {
+      oneMore.play();
+    }, 4000);
     setTimeout(() => {
       $('.end').css('transition', '5s');
       $('.end').css('background-color', 'white');
@@ -274,7 +273,7 @@ $(() => {
     // 次の要素を指定時間後に表示
     setTimeout(() => {
       endrolltxt(index + 1);
-    }, (476000 - 7500) / 44); // (MUSIC TIME - 7.5s) / ELEMENT
+    }, (217000 - 7500) / 44); // (MUSIC TIME - 7.5s) / ELEMENT
   };
 
   console.log('ui.js ready');
