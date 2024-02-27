@@ -56,7 +56,7 @@ io.on('connect', socket => {
       return null;
     }
     pubid = socket.id;
-    io.emit('chat message2', pubid + 'が放送室に入室');
+    io.emit('chat message2', pubid + 'が配信者です');
   });
 
   // 視聴者入室
@@ -67,7 +67,7 @@ io.on('connect', socket => {
   // 配信側の準備OKを受信
   socket.on('now_on_air', () => {
     pubid = socket.id;
-    io.emit('chat message2', '放送室の' + pubid + 'がライブを開始');
+    io.emit('chat message2', '配信者の' + pubid + 'が配信を開始');
     socket.broadcast.emit('now_on_air');
   });
 
@@ -100,7 +100,7 @@ io.on('connect', socket => {
     if (socket.id == pubid) { // 配信者の退室の場合は、全ての受信者にそれを伝達する（videoを停止してもらう）
       pubid = null;
       socket.broadcast.emit('pub_exit');
-      msgprfx = '放送室の'; // 誤記ではないです。アドホックな方法...
+      msgprfx = '配信者の'; // 誤記ではないです。アドホックな方法...
     }
     io.emit('chat message2', msgprfx + socket.id + 'が退室');
   });
