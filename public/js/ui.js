@@ -183,6 +183,8 @@ $(() => {
     $('.goend').removeAttr('disabled');
   };
 
+  const howlong = 217000;
+
   // エンドロールの表示を行う。
   $('.goend').on('click', () => {
     // 音楽をエンドロール用に切り替え
@@ -200,30 +202,25 @@ $(() => {
       endrolltxt();
     }, 500);
     setTimeout(() => {
-      oneMore.play();
       moregrade();
-    }, 217000);
+    }, howlong + 2000);
   });
 
   /**
    * もう1回遊べるドン
    */
   const moregrade = () => {
-    setTimeout(() => {
-      oneMore.play();
-    }, 6000);
-    setTimeout(() => {
-      $('.end').css('transition', '5s');
-      $('.end').css('background-color', 'white');
-    }, 7000);
+    oneMore.play();
+    $('.end').css('transition', '5s');
+    $('.end').css('background-color', 'white');
     setTimeout(() => {
       $('.chrx').css('transition', '.5s');
       $('.chrx').css('color', 'black');
       $('.chrx').html('もう1回遊べるドン');
-    }, 12500);
+    }, 5000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
-    }, 17500);
+    }, 10000);
   };
 
   /**
@@ -286,7 +283,7 @@ $(() => {
     // 次の要素を指定時間後に表示
     setTimeout(() => {
       endrolltxt(index + 1);
-    }, (217000 - 7500) / $('#endroll').children().length); // (MUSIC TIME - 7.5s) / ELEMENT
+    }, (howlong - 5000) / $('#endroll').children().length); // (MUSIC TIME - 7.5s) / ELEMENT
   };
 
   console.log('ui.js ready');

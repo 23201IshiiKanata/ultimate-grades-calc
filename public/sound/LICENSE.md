@@ -15,13 +15,13 @@
 ドラムロール
 
 ### clicktitle.mp3
-カネの音
+レジスターで精算
 
 ### gome.mp3
-人々の悲しみ
+逃げ惑う人々
 
 ### pachi.mp3
-拍手
+大勢で拍手
 
 ## DOVA-SYNDROME
 - https://dova-s.jp/_contents/license/
