@@ -67,7 +67,7 @@ io.on('connect', socket => {
   // 配信側の準備OKを受信
   socket.on('now_on_air', () => {
     pubid = socket.id;
-    io.emit('chat message2', '配信者の' + pubid + 'が配信を開始');
+    io.emit('chat message2', pubid + 'が配信中です');
     socket.broadcast.emit('now_on_air');
   });
 
