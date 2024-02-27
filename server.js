@@ -43,7 +43,7 @@ io.on('connect', socket => {
 
   // チャットサーバー用の待ち受け--------
   socket.on('chat message up', (msg) => {
-    io.emit('chat message2', socket.id + '◆' + msg);
+    io.emit('chat message2', socket.id + ' : ' + msg);
   });
 
   // シグナリングサーバー用の待ち受けロジック --------
@@ -56,18 +56,18 @@ io.on('connect', socket => {
       return null;
     }
     pubid = socket.id;
-    io.emit('chat message2', pubid + 'さんが放送室に入室しました');
+    io.emit('chat message2', pubid + 'が放送室に入室');
   });
 
   // 視聴者入室
   socket.on('sub_enter', () => {
-    io.emit('chat message2', socket.id + 'さんが入室しました');
+    io.emit('chat message2', socket.id + 'が入室');
   });
 
   // 配信側の準備OKを受信
   socket.on('now_on_air', () => {
     pubid = socket.id;
-    io.emit('chat message2', '放送室の' + pubid + 'さんがライブを開始しました');
+    io.emit('chat message2', '放送室の' + pubid + 'がライブを開始');
     socket.broadcast.emit('now_on_air');
   });
 
@@ -75,7 +75,7 @@ io.on('connect', socket => {
   socket.on('request', () => {
     console.log('request', socket.id, '->', pubid);
     socket.to(pubid).emit('request', {cid: socket.id});
-    io.emit('chat message2', 'LOG:' + socket.id + ' から配信元 ' + pubid + 'に接続要求');
+    io.emit('chat message2', socket.id + ' から配信元 ' + pubid + 'に接続要求');
   });
 
   // 配信側からのオファーをもともと要求をかけてきた特定の受信へ渡す
@@ -102,7 +102,7 @@ io.on('connect', socket => {
       socket.broadcast.emit('pub_exit');
       msgprfx = '放送室の'; // 誤記ではないです。アドホックな方法...
     }
-    io.emit('chat message2', msgprfx + socket.id + 'さんが退室');
+    io.emit('chat message2', msgprfx + socket.id + 'が退室');
   });
 });
 
