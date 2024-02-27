@@ -4,9 +4,6 @@
 ### bgm.mp3
 マーブルテクノⅠ
 
-### goukaku.mp3
-1950DAの接近
-
 ### title.mp3
 レトロパーク
 
@@ -28,7 +25,11 @@
 
 ## DOVA-SYNDROME
 - https://dova-s.jp/_contents/license/
+- https://dova-s.jp/_contents/author/profile000.html
 - https://dova-s.jp/_contents/author/profile055.html
+
+### goukaku.mp3
+クレイジークッキング - 稿屋 隆
 
 ### oioi.mp3
 キューブスカイ - かずち
