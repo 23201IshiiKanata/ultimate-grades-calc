@@ -55,7 +55,7 @@ Free Download/Stream: http://ncs.io/everlasting
 Watch: http://youtu.be/MT814DNhy_U
 ```
 ## 声(いしい、しまだ)
-All Rights Reserved
+- All Rights Reserved
 
 ### ugctitle.mp3
 アルティメット成績計算機 - いしい
