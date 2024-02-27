@@ -192,11 +192,11 @@ $(() => {
     }, 500);
     setTimeout(() => {
       endrollMusic2.play();
-    }, 217000);
+    }, 217500);
     setTimeout(() => {
       oneMore.play();
       moregrade();
-    }, 475000);
+    }, 476000);
   });
 
   /**
@@ -274,7 +274,7 @@ $(() => {
     // 次の要素を指定時間後に表示
     setTimeout(() => {
       endrolltxt(index + 1);
-    }, (475000 - 7500) / 44); // (MUSIC TIME - 7.5s) / ELEMENT
+    }, (476000 - 7500) / 44); // (MUSIC TIME - 7.5s) / ELEMENT
   };
 
   console.log('ui.js ready');
