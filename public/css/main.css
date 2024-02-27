@@ -43,6 +43,10 @@ body input[type="number"] {
   border-radius: 3px;
 }
 
+a {
+  text-decoration: none;
+}
+
 body button {
   /* background-color: rgb(94, 94, 94); */
   padding: 5px;
@@ -237,7 +241,7 @@ div.second {
 .c {
   background-clip: text;
   -webkit-background-clip: text;
-  
+
   text-fill-color: transparent;
   -webkit-text-fill-color: transparent;
 }
