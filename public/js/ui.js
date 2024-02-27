@@ -255,7 +255,7 @@ $(() => {
     $('.resug').addClass('viewin');
     setTimeout(() => {
       goukakuED();
-    }, 5000);
+    }, 3000);
   };
 
   /**
