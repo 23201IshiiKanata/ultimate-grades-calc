@@ -16,6 +16,8 @@ $(() => {
   const ryuSound = new Audio('./sound/ryu.mp3');
   /** タイトル画面のBGM */
   const gouSound = new Audio('./sound/gou.mp3');
+  /** goukaku祝いの拍手の効果音 */
+  const overSound = new Audio('./sound/over.mp3');
 
   /** タイトル画面のBGM */
   const titleMusic = new Audio('./sound/title.mp3');
@@ -257,6 +259,9 @@ $(() => {
     setTimeout(() => {
       $('.overh1').css('color', '#808080');
     }, 10000);
+    setTimeout(() => {
+      overSound();
+    }, 17000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
     }, 28000);

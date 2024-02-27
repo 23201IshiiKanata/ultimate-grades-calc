@@ -65,3 +65,6 @@ Watch: http://youtu.be/MT814DNhy_U
 
 ### gou.mp3
 合格 - しまだ
+
+### over.mp3
+GAME OVER - しまだ
