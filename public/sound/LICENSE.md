@@ -17,7 +17,7 @@
 ### clicktitle.mp3
 レジスターで精算
 
-### gome.mp3
+### gokaku.mp3
 逃げ惑う人々
 
 ### pachi.mp3

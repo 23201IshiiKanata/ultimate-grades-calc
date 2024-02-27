@@ -9,7 +9,7 @@ $(() => {
   /** 留年祝いの拍手の効果音 */
   const retentionSound = new Audio('./sound/pachi.mp3');
   /** goukaku祝いの拍手の効果音 */
-  const goukakuSound = new Audio('./sound/gome.mp3');
+  const goukakuSound = new Audio('./sound/gokaku.mp3');
   /** タイトル画面のBGM */
   const titleSound = new Audio('./sound/ugctitle.mp3');
   /** タイトル画面のBGM */
