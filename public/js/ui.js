@@ -126,10 +126,16 @@ $(() => {
     let semester;
     /** 試験種別 @type {'mid'|'final'|'supplemental'|'reexam'|''} */
     let examType;
+    /** 次の試験/学期 @type {'前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'} */
+    let nextExam;
+    /** 残っている値の種類 @type {'exam'|'portfolio'|'score'} */
+    let remainingType;
+    /** 残っている値 @type {number} */
+    let remainingValue;
 
     // 値の取得 + 入力チェック
     try {
-      ({score, semester, examType} = calc());
+      ({score, semester, examType, nextExam, remainingType, remainingValue} = calc());
     } catch (e) {
       if (e instanceof RangeError && e.message === 'Invalid form input') {
         console.log(e.message);
@@ -157,6 +163,7 @@ $(() => {
 
     // 指定時間後に結果画面を表示
     setTimeout(() => {
+      console.log(`今回の${semester} ${examType}の成績は${score}でした。${remainingType !== 'portfolio' ? '現在のポートフォリオ点を維持した場合、' : ''}次の${nextExam}で${remainingType}を${remainingValue}点取ると合格です。`);
       if (score < 60) {
         ryunen();
         // 魔法の計算を行う

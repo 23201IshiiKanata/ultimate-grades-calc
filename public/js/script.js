@@ -86,7 +86,7 @@ const calcFrom = (type, data) => {
 
 /**
  * フォームに入力された情報から自動で成績点を計算し、その他の情報とともに返す。
- * @return {{score: number, semester: ('first'|'second'|'last'), examType: ('mid'|'final'|'supplemental'|'reexam'|'')}} 成績点と学期と試験種別
+ * @return {{score: number, semester: ('first'|'second'|'last'), examType: ('mid'|'final'|'supplemental'|'reexam'|''), nextExam: ('前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'), remainingType: ('exam'|'portfolio'|'score'), remainingValue: number}} 成績点, 学期, 試験種別, 次の試験, 残っている値の種類, 残っている値
  * @throws {RangeError} Invalid form input
  */
 const calc = () => {
@@ -136,7 +136,99 @@ const calc = () => {
     }
   }
 
-  return {score, semester, examType};
+  let nextExam = (semester === 'first' ? '前期' : '後期');
+  let remainingType = '';
+  let remainingValue = 0;
+
+  if (semester === 'last') {
+    if (score < 60) {
+      nextExam = '留年';
+      remainingType = 'score';
+      remainingValue = Infinity;
+    } else {
+      nextExam = '合格';
+      remainingType = 'score';
+      remainingValue = 0;
+    }
+  } else if (semester === 'second' && first < 60) {
+    nextExam = '単位認定';
+    remainingType = 'exam';
+    remainingValue = 60;
+  } else {
+    switch (examType) {
+      case 'mid':
+        nextExam += '期末';
+        remainingType = 'exam';
+        remainingValue = [...Array(100 + 1).keys()].find((value) =>
+          calcFinal(mid, value, examRate, portfolio) >= 60,
+        );
+        break;
+      case 'final':
+        if (score < 60) {
+          nextExam += '補講';
+          remainingType = 'portfolio';
+          remainingValue = ([...Array(portfolioRate + 1).keys()].find((value) =>
+            calcSupplemental(mid, final, examRate, value) >= 60,
+          ) - portfolio);
+          if (Number.isNaN(remainingValue)) {
+            nextExam = '再試';
+            remainingType = 'exam';
+            remainingValue = [...Array(100 + 1).keys()].find((value) =>
+              calcReexam(mid, final, examRate, portfolio, value) >= 60,
+            );
+          }
+        } else if (semester === 'first') {
+          nextExam = '後期';
+          remainingType = 'score';
+          remainingValue = 120 - score;
+        } else {
+          nextExam = '合格';
+          remainingType = 'score';
+          remainingValue = 0;
+        }
+        break;
+      case 'supplemental':
+        if (score < 60) {
+          nextExam += '再試';
+          remainingType = 'exam';
+          remainingValue = [...Array(100 + 1).keys()].find((value) =>
+            calcReexam(mid, final, examRate, portfolio, value) >= 60,
+          );
+        } else if (semester === 'first') {
+          nextExam = '後期';
+          remainingType = 'score';
+          remainingValue = 60;
+        } else {
+          nextExam = '合格';
+          remainingType = 'score';
+          remainingValue = 0;
+        }
+        break;
+      case 'reexam':
+        if (score < 60) {
+          if (semester === 'first') {
+            nextExam = '後期';
+            remainingType = 'score';
+            remainingValue = 120 - score;
+          } else {
+            nextExam = '単位認定';
+            remainingType = 'exam';
+            remainingValue = 60;
+          }
+        } else if (semester === 'first') {
+          nextExam = '後期';
+          remainingType = 'score';
+          remainingValue = 60;
+        } else {
+          nextExam = '合格';
+          remainingType = 'score';
+          remainingValue = 0;
+        }
+        break;
+    }
+  }
+
+  return {score, semester, examType, nextExam, remainingType, remainingValue};
 };
 
 // ページの読み込みが完了した時に一度だけ実行される。
