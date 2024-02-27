@@ -10,6 +10,12 @@ $(() => {
   const retentionSound = new Audio('./sound/pachi.mp3');
   /** goukaku祝いの拍手の効果音 */
   const goukakuSound = new Audio('./sound/gome.mp3');
+  /** タイトル画面のBGM */
+  const titleSound = new Audio('./sound/ugctitle.mp3');
+  /** タイトル画面のBGM */
+  const ryuSound = new Audio('./sound/ryu.mp3');
+  /** タイトル画面のBGM */
+  const gouSound = new Audio('./sound/gou.mp3');
 
   /** タイトル画面のBGM */
   const titleMusic = new Audio('./sound/title.mp3');
@@ -51,7 +57,10 @@ $(() => {
     $('.host .viewer').prop('disabled', false);
 
     // タイトル画面のBGMを再生
-    titleMusic.play();
+    titleSound.play();
+    setTimeout(() => {
+      titleMusic.play();
+    }, 1000);
 
     const script = document.createElement('script'); // 変数名は適当なものにでも
     script.src = 'js/pinp.js'; // ファイルパス
@@ -161,6 +170,7 @@ $(() => {
     retentionMusic.play();
     setTimeout(() => {
       retentionSound.play();
+      ryuSound.play();
     }, 100);
 
     // アニメーション
@@ -222,6 +232,7 @@ $(() => {
     // 合格祝いのBGM+SEを再生
     goukakuMusic.play();
     setTimeout(() => {
+      gouSound.play();
       goukakuSound.play();
     }, 100);
     // アニメーション
