@@ -273,7 +273,7 @@ $(() => {
     // 次の要素を指定時間後に表示
     setTimeout(() => {
       endrolltxt(index + 1);
-    }, (217000 - 7500) / 44); // (MUSIC TIME - 7.5s) / ELEMENT
+    }, (217000 - 7500) / $('#endroll').children().length); // (MUSIC TIME - 7.5s) / ELEMENT
   };
 
   console.log('ui.js ready');
