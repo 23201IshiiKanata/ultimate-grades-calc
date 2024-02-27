@@ -21,8 +21,6 @@ $(() => {
   const goukakuMusic = new Audio('./sound/goukaku.mp3');
   /** えんどろーる */
   const endrollMusic = new Audio('./sound/end.mp3');
-  /** えんどろーる2 */
-  const endrollMusic2 = new Audio('./sound/end2.mp3');
   // onemore
   const oneMore = new Audio('./sound/onemore.mp3');
 
