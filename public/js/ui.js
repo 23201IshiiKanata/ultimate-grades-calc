@@ -151,7 +151,7 @@ $(() => {
       if (score < 60) {
         ryunen();
         // 魔法の計算を行う
-        const rate = (semester === 'last' ? '0.00' : Number.parseFloat(
+        const rate = (semester === 'last' ? '-50.0' : Number.parseFloat(
             // score * 1.666666666666666666666 * 0.75,
             // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
             ((score ** 2) / 45) || -50.0,
@@ -180,7 +180,6 @@ $(() => {
     $('body').addClass('hyper');
 
     // エンドロールボタンを有効化
-    // TODO: 真の留年の際にのみエンドロールを有効化する
     $('.goend').removeAttr('disabled');
   };
 
