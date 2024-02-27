@@ -223,6 +223,24 @@ $(() => {
       $('#num-portfolio-input').val(0);
     }
 
+    numFirst.hide();
+    numMidExam.hide();
+    numFinalExam.hide();
+    numPortfolio.hide();
+    numReexam.hide();
+    numLast.hide();
+
+    numFirst.val('');
+    numMidExam.val('');
+    numFinalExam.val('');
+    numPortfolio.val('');
+    numReexam.val('');
+    numLast.val('');
+
+    numMidExamPrefix.text('前期中間試験');
+    numFinalExamPrefix.text('前期期末試験');
+    numPortfolioPrefix.text('ポートフォリオ');
+
     // 入力フォームを表示
     switch (semester) {
       case 'last':
