@@ -62,7 +62,7 @@ $(() => {
     titleSound.play();
     setTimeout(() => {
       titleMusic.play();
-    }, 1000);
+    }, 1200);
 
     const script = document.createElement('script'); // 変数名は適当なものにでも
     script.src = 'js/pinp.js'; // ファイルパス
@@ -103,6 +103,15 @@ $(() => {
     $('.calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', true);
     $('.calcwindow').addClass('hidewin');
     $('.numwindow').addClass('viwwwnum');
+    clickTitleSound.currentTime = 0;
+    clickTitleSound.play();
+  });
+
+  // 前提条件の入力を完了し、計算画面へ遷移する。
+  $('.back').on('click', () => {
+    $('.calcwindow input, .calcwindow button, .calcwindow select').prop('disabled', false);
+    $('.calcwindow').removeClass('hidewin');
+    $('.numwindow').removeClass('viwwwnum');
     clickTitleSound.currentTime = 0;
     clickTitleSound.play();
   });
@@ -211,16 +220,25 @@ $(() => {
    */
   const moregrade = () => {
     oneMore.play();
-    $('.end').css('transition', '5s');
+    $('.end').css('transition', '1s');
     $('.end').css('background-color', 'white');
     setTimeout(() => {
+      repoView();
       $('.chrx').css('transition', '.5s');
       $('.chrx').css('color', 'black');
       $('.chrx').html('もう1回遊べるドン');
-    }, 5000);
+    }, 1000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
-    }, 10000);
+    }, 11000);
+  };
+
+  const repoView = () => {
+    $('.repo').removeClass('none');
+    $('.repo').css('opacity', '0%');
+    setTimeout(() => {
+      $('.repo').css('opacity', '100%');
+    }, 1000);
   };
 
   /**
@@ -256,6 +274,8 @@ $(() => {
       $('.overh1').css('color', '#808080');
     }, 10000);
     setTimeout(() => {
+      $('.txt').css('color', '#808080');
+      repoView();
       overSound.play();
     }, 17000);
     setTimeout(() => {

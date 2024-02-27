@@ -121,6 +121,10 @@ body select:disabled {
   transition: .7s;
 }
 
+.hidewin {
+  transform: rotate3d(1, 1, 1, 70deg) translate(100%);
+}
+
 .numwindow {
   position: fixed;
   background-color: aliceblue;
@@ -131,6 +135,13 @@ body select:disabled {
   opacity: 0%;
   transform: translate(-100%);
   transition: .7s;
+}
+
+.viwwwnum {
+  transform: translate(-50%, -50%);
+  opacity: 100%;
+  top: 50%;
+  left: 50%;
 }
 
 .numwindow h2 {
@@ -163,14 +174,6 @@ body select:disabled {
   transition: .7s;
 }
 
-
-.viwwwnum {
-  transform: translate(-50%, -50%);
-  opacity: 100%;
-  top: 50%;
-  left: 50%;
-}
-
 .hiwwwnum {
   transform: scale(10);
   opacity: 0%;
@@ -178,10 +181,6 @@ body select:disabled {
 
 .viewin {
   top: 50%;
-}
-
-.hidewin {
-  transform: rotate3d(1, 1, 1, 70deg) translate(100%);
 }
 
 video {
@@ -343,4 +342,21 @@ div.second {
   filter: blur(0px);
   z-index: 100000;
   opacity: 0%;
+}
+
+.repo {
+  transition: .5s;
+  top: 0%;
+  text-align: center;
+  bottom: -90%;
+  position: fixed;
+  color: black;
+  z-index: 1000000;
+  margin: auto;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.txt a {
+  color: black;
 }
