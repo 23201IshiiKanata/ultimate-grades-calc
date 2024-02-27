@@ -128,7 +128,8 @@ body select:disabled {
   padding: 20px;
   border-radius: 10px;
   margin: auto;
-  transform: rotate3d(1, 1, 1, 70deg) translate(-100%);
+  opacity: 0%;
+  transform: translate(-100%);
   transition: .7s;
 }
 
@@ -165,6 +166,7 @@ body select:disabled {
 
 .viwwwnum {
   transform: translate(-50%, -50%);
+  opacity: 100%;
   top: 50%;
   left: 50%;
 }
