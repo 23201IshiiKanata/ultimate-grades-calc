@@ -149,7 +149,7 @@ $(() => {
         ).toFixed(1));
         $('.resus').html(`総合成績${score}により、貴方が留年を回避できる確率は${rate}%です。`);
       } else if (score >= 60) {
-        goukaku();
+        gameOVER();
         $('.resugs').html(`総合成績${score}`);
       }
     }, 4500);
@@ -221,7 +221,7 @@ $(() => {
   /**
    * 計算画面から結果画面まで遷移する。
    */
-  const goukaku = () => {
+  const gameOVER = () => {
     // 合格祝いのBGM+SEを再生
     goukakuMusic.play();
     setTimeout(() => {
@@ -241,6 +241,7 @@ $(() => {
     $('.resug').addClass('viewin');
     $('.over').removeClass('none');
     $('.over').css('opacity', '0%');
+    $('.x').addClass('upperx');
     $('.overh1').css('color', 'rgb(48, 48, 48)');
     setTimeout(() => {
       $('.over').css('opacity', '100%');
@@ -248,6 +249,9 @@ $(() => {
     setTimeout(() => {
       $('.overh1').css('color', '#808080');
     }, 10000);
+    setTimeout(() => {
+      $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
+    }, 25000);
   };
 
 
