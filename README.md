@@ -16,10 +16,10 @@ bgm : https://amachamusic.chagasi.com
 
 ## LICENSES
 このレポジトリは、 **`public/sound/*`を除き、** MITライセンスの元で頒布されます。
-- `public/sound/*`については、[public/sound/LICENSE](/public/sound/LICENSE)を参照してください。
+- `public/sound/*`については、[public/sound/LICENSE](/public/sound/LICENSE.md)を参照してください。
 
 This repository is distributed under the MIT license, **EXCEPT FOR `public/sound/*`**.
-- For `public/sound/*`, see [public/sound/LICENSE](/public/sound/LICENSE).
+- For `public/sound/*`, see [public/sound/LICENSE](/public/sound/LICENSE.md).
 
 ## クレジット
 
