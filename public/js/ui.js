@@ -260,7 +260,7 @@ $(() => {
       $('.overh1').css('color', '#808080');
     }, 10000);
     setTimeout(() => {
-      overSound();
+      overSound.play();
     }, 17000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
