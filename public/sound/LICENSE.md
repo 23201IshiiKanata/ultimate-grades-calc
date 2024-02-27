@@ -54,3 +54,14 @@ Music provided by NoCopyrightSounds
 Free Download/Stream: http://ncs.io/everlasting
 Watch: http://youtu.be/MT814DNhy_U
 ```
+## 声(いしい、しまだ)
+All Rights Reserved
+
+### ugctitle.mp3
+アルティメット成績計算機 - いしい
+
+### ryu.mp3
+留年おめでとう - しまだ
+
+### gou.mp3
+合格 - しまだ

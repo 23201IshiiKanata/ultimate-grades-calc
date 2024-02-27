@@ -210,11 +210,11 @@ $(() => {
   const moregrade = () => {
     setTimeout(() => {
       oneMore.play();
-    }, 4000);
+    }, 6000);
     setTimeout(() => {
       $('.end').css('transition', '5s');
       $('.end').css('background-color', 'white');
-    }, 7500);
+    }, 7000);
     setTimeout(() => {
       $('.chrx').css('transition', '.5s');
       $('.chrx').css('color', 'black');
@@ -259,7 +259,7 @@ $(() => {
     }, 10000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
-    }, 25000);
+    }, 28000);
   };
 
 
