@@ -1,4 +1,14 @@
-export {calcMid, calcFinal, calcSupplemental, calcReexam, calc};
+export {assert, calcMid, calcFinal, calcSupplemental, calcReexam, calcLast, calc};
+
+/**
+ * 条件を検証し、条件が false の場合は例外をスローします。
+ * @param {boolean} condition 検証する条件
+ * @param {Error|string} assertion 条件が false の場合にスローされるエラーメッセージまたはエラーオブジェクト
+ * @throws {Error} 条件が false の場合にスローされるエラーオブジェクト
+ */
+const assert = (condition, assertion) => {
+  if (!condition) throw assertion instanceof Error ? assertion : new Error(assertion);
+};
 
 /**
  * 中間試験終了時点での成績点を計算する。
@@ -51,6 +61,27 @@ const calcReexam = (mid, final, rate, portfolio, reexam) =>
  */
 const calcLast = (last) =>
   Math.min(60, last);
+
+/**
+ * `data`から`type`の成績点を計算する。
+ * @param {'mid'|'final'|'supplemental'|'reexam'|'last'} type 計算する種類
+ * @param {{mid: number?, final: number?, rate: number?, portfolio: number?, reexam: number?, last: number?}} data 計算に必要なデータ
+ * @return {number} 成績点(0-100)
+ */
+const calcFrom = (type, data) => {
+  switch (type) {
+    case 'mid':
+      return calcMid(data.mid, data.rate, data.portfolio);
+    case 'final':
+      return calcFinal(data.mid, data.final, data.rate, data.portfolio);
+    case 'supplemental':
+      return calcSupplemental(data.mid, data.final, data.rate, data.portfolio);
+    case 'reexam':
+      return calcReexam(data.mid, data.final, data.rate, data.portfolio, data.reexam);
+    case 'last':
+      return calcLast(data.last);
+  }
+};
 
 /**
  * フォームに入力された情報から自動で成績点を計算し、その他の情報とともに返す。
@@ -124,7 +155,7 @@ $(() => {
     calcTargetName.text(selected.next().text());
 
     // 単位認定試験専用メッセージ
-    if (selected.val() === 'last-exam') {
+    if (selected.val() === 'last') {
       calcTargetMessageDefault.hide();
       calcTargetMessageRetention.show();
     } else {
