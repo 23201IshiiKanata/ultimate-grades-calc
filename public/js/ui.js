@@ -10,11 +10,11 @@ $(() => {
   const retentionSound = new Audio('./sound/pachi.mp3');
   /** goukaku祝いの拍手の効果音 */
   const goukakuSound = new Audio('./sound/gokaku.mp3');
-  /** タイトル画面のBGM */
+  /** タイトル画面ボイス */
   const titleSound = new Audio('./sound/ugctitle.mp3');
-  /** タイトル画面のBGM */
+  /** 留年ボイス */
   const ryuSound = new Audio('./sound/ryu.mp3');
-  /** タイトル画面のBGM */
+  /** 合格ボイス */
   const gouSound = new Audio('./sound/gou.mp3');
   /** goukaku祝いの拍手の効果音 */
   const overSound = new Audio('./sound/over.mp3');
@@ -61,7 +61,7 @@ $(() => {
     // タイトル画面のBGMを再生
     titleSound.play();
     setTimeout(() => {
-      titleMusic.play();
+      if (mainMusic.paused) titleMusic.play();
     }, 1200);
 
     const script = document.createElement('script'); // 変数名は適当なものにでも
