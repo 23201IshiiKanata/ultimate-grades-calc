@@ -1,4 +1,4 @@
-export {assert, calcMid, calcFinal, calcSupplemental, calcReexam, calcLast, calc};
+export {assert, calcMid, calcFinal, calcSupplemental, calcReexam, calcLast, calcFrom, calc, calcMidRemaining, calcFinalRemaining, calcSupplementalRemaining, calcReexamRemaining};
 
 /**
  * 条件を検証し、条件が false の場合は例外をスローします。
@@ -84,9 +84,234 @@ const calcFrom = (type, data) => {
   }
 };
 
+
+/**
+ * @typedef {Object} Remaining
+ * @prop {'前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'} nextExam 次の試験/学期
+ * @prop {'exam'|'portfolio'|'score'} remainingType 追加で取る必要がある点数の種類
+ * @prop {number} remainingValue 追加で取る必要がある点数(次の試験/学期で0点でも合格できる場合は0、取っても合格にはならない場合はInfinity)
+ */
+
+/**
+ * 中間試験終了時点での残りの成績点を計算する。
+ * @param {number?} first 前期の成績点(0-100)、nullishの場合は前期として、数値の場合は後期として計算を行う
+ * @param {number} mid 中間試験の点数
+ * @param {number} examRate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ点の割合(百分率)
+ * @return {Remaining}
+ */
+const calcMidRemaining = (first, mid, examRate, portfolio) => {
+  const score = calcMid(mid, examRate, portfolio);
+  const isFirstSemeseter = !(first ?? false);
+  const threshold = isFirstSemeseter ? 60 : 120 - first;
+
+  // すでに合格している場合
+  if (calcFinal(mid, 0, examRate, portfolio) >= threshold) {
+    if (isFirstSemeseter) {
+      return {
+        nextExam: '後期',
+        remainingType: 'score',
+        remainingValue: 120 - score,
+      };
+    } else {
+      return {
+        nextExam: '合格',
+        remainingType: 'score',
+        remainingValue: 0,
+      };
+    }
+  }
+
+  // 期末試験で合格する可能性がある場合
+  if (calcFinal(mid, 100, examRate, 100 - examRate) >= threshold) {
+    return {
+      nextExam: `${isFirstSemeseter ? '前期' : '後期'}期末`,
+      remainingType: 'score',
+      remainingValue: threshold,
+    };
+  }
+
+  // 期末試験を受けても点数が足りない場合
+  return {
+    nextExam: `${isFirstSemeseter ? '前期' : '後期'}期末`,
+    remainingType: 'score',
+    remainingValue: Infinity,
+  };
+};
+
+/**
+ * 期末試験終了時点での残りの成績点を計算する。
+ * @param {number?} first 前期の成績点(0-100)、nullishの場合は前期として、数値の場合は後期として計算を行う
+ * @param {number} mid 中間試験の点数
+ * @param {number} final 期末試験の点数
+ * @param {number} examRate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ点の割合(百分率)
+ * @return {Remaining}
+ */
+const calcFinalRemaining = (first, mid, final, examRate, portfolio) => {
+  const score = calcFinal(mid, final, examRate, portfolio);
+  const isFirstSemeseter = !(first ?? false);
+  const threshold = isFirstSemeseter ? 60 : 120 - first;
+
+  // すでに合格している場合
+  if (score >= threshold) {
+    if (isFirstSemeseter) {
+      return {
+        nextExam: '後期',
+        remainingType: 'score',
+        remainingValue: 120 - score,
+      };
+    } else {
+      return {
+        nextExam: '合格',
+        remainingType: 'score',
+        remainingValue: 0,
+      };
+    }
+  }
+
+  // 補講により補填可能な場合
+  if (calcSupplemental(mid, final, examRate, 100 - examRate) >= threshold) {
+    return {
+      nextExam: `${isFirstSemeseter ? '前期' : '後期'}補講`,
+      remainingType: 'portfolio',
+      remainingValue: [...Array(100 - examRate + 1).keys()].find((value) =>
+        calcSupplemental(mid, final, examRate, value) >= threshold,
+      ) - portfolio,
+    };
+  }
+
+  // 補講でも補填できず再試を受ける必要がある場合
+  return {
+    nextExam: `${isFirstSemeseter ? '前期' : '後期'}補講`,
+    remainingType: 'score',
+    remainingValue: Infinity,
+  };
+};
+
+
+/**
+ * 補講後の残りの成績点を計算する。
+ * @param {number?} first 前期の成績点(0-100)、nullishの場合は前期として、数値の場合は後期として計算を行う
+ * @param {number} mid 中間試験の点数
+ * @param {number} final 期末試験の点数
+ * @param {number} examRate 試験点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ点の割合(百分率)
+ * @return {Remaining}
+ */
+const calcSupplementalRemaining = (first, mid, final, examRate, portfolio) => {
+  const score = calcSupplemental(mid, final, examRate, portfolio);
+  const isFirstSemeseter = !(first ?? false);
+  const threshold = isFirstSemeseter ? 60 : 120 - first;
+
+  // すでに合格している場合
+  if (score >= threshold) {
+    if (isFirstSemeseter) {
+      return {
+        nextExam: '後期',
+        remainingType: 'score',
+        remainingValue: 120 - score,
+      };
+    } else {
+      return {
+        nextExam: '合格',
+        remainingType: 'score',
+        remainingValue: 0,
+      };
+    }
+  }
+
+  // 再試を受ければ合格する可能性がある場合
+  if (calcReexam(mid, final, examRate, portfolio, 100) >= threshold) {
+    return {
+      nextExam: `${isFirstSemeseter ? '前期' : '後期'}再試`,
+      remainingType: 'exam',
+      remainingValue: [...Array(100 + 1).keys()].find((value) =>
+        calcReexam(mid, final, examRate, portfolio, value) >= threshold,
+      ),
+    };
+  }
+
+  // 再試を受けても点数が足りない場合
+  return {
+    nextExam: `${isFirstSemeseter ? '前期' : '後期'}再試`,
+    remainingType: 'score',
+    remainingValue: Infinity,
+  };
+};
+
+/**
+ * 再試験終了時点での残りの成績点を計算する。
+ * @param {number?} first 前期の成績点(0-100)、nullishの場合は前期として、数値の場合は後期として計算を行う
+ * @param {number} mid 中間試験の点数
+ * @param {number} final 期末試験の点数
+ * @param {number} examRate 試験点の割合(百分率)
+ * @param {number} portfolioRate ポートフォリオ点の割合(百分率)
+ * @param {number} reexam 再試験の点数
+ * @return {Remaining}
+ */
+const calcReexamRemaining = (first, mid, final, examRate, portfolioRate, reexam) => {
+  const score = calcReexam(mid, final, examRate, portfolioRate, reexam);
+  const isFirstSemeseter = !(first ?? false);
+  const threshold = isFirstSemeseter ? 60 : 120 - first;
+
+  // すでに合格している場合
+  if (score >= threshold) {
+    return {
+      nextExam: '合格',
+      remainingType: 'score',
+      remainingValue: 0,
+    };
+  }
+
+  // 現在は前期かつ後期で巻き返せる可能性がある場合
+  if (isFirstSemeseter && score >= 20) {
+    return {
+      nextExam: '後期',
+      remainingType: 'score',
+      remainingValue: 120 - score,
+    };
+  }
+
+  // 単位認定試験確定
+  return {
+    nextExam: '後期',
+    remainingType: 'score',
+    remainingValue: Infinity,
+  };
+};
+
+/**
+ * 単位認定試験終了時点での残りの成績点を計算する。
+ * @param {number} last 単位認定試験の点数
+ * @return {Remaining}
+ */
+const calcLastRemaining = (last) => {
+  if (last >= 60) {
+    return {
+      nextExam: '合格',
+      remainingType: 'score',
+      remainingValue: 0,
+    };
+  } else {
+    return {
+      nextExam: '留年',
+      remainingType: 'score',
+      remainingValue: Infinity,
+    };
+  }
+};
+
+
 /**
  * フォームに入力された情報から自動で成績点を計算し、その他の情報とともに返す。
- * @return {{score: number, semester: ('first'|'second'|'last'), examType: ('mid'|'final'|'supplemental'|'reexam'|''), nextExam: ('前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'), remainingType: ('exam'|'portfolio'|'score'), remainingValue: number}} 成績点, 学期, 試験種別, 次の試験, 残っている値の種類, 残っている値
+ * @return {{
+ *   score: number, semester: ('first'|'second'|'last'),
+ *   examType: ('mid'|'final'|'supplemental'|'reexam'|''),
+ *   nextExam: ('前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'),
+ *   remainingType: ('exam'|'portfolio'|'score'),
+ *   remainingValue: number
+ * }} 成績点, 学期, 試験種別, 次の試験, 残っている点数の種類, 残っている点数
  * @throws {RangeError} Invalid form input
  */
 const calc = () => {
@@ -136,97 +361,27 @@ const calc = () => {
     }
   }
 
-  let nextExam = (semester === 'first' ? '前期' : '後期');
-  let remainingType = '';
-  let remainingValue = 0;
-
-  if (semester === 'last') {
-    if (score < 60) {
-      nextExam = '留年';
-      remainingType = 'score';
-      remainingValue = Infinity;
-    } else {
-      nextExam = '合格';
-      remainingType = 'score';
-      remainingValue = 0;
-    }
-  } else if (semester === 'second' && first < 60) {
-    nextExam = '単位認定';
-    remainingType = 'exam';
-    remainingValue = 60;
-  } else {
+  const remaining = (() => {
     switch (examType) {
       case 'mid':
-        nextExam += '期末';
-        remainingType = 'exam';
-        remainingValue = [...Array(100 + 1).keys()].find((value) =>
-          calcFinal(mid, value, examRate, portfolio) >= 60,
-        );
-        break;
+        return calcMidRemaining(first, mid, examRate, portfolio);
       case 'final':
-        if (score < 60) {
-          nextExam += '補講';
-          remainingType = 'portfolio';
-          remainingValue = ([...Array(portfolioRate + 1).keys()].find((value) =>
-            calcSupplemental(mid, final, examRate, value) >= 60,
-          ) - portfolio);
-          if (Number.isNaN(remainingValue)) {
-            nextExam = '再試';
-            remainingType = 'exam';
-            remainingValue = [...Array(100 + 1).keys()].find((value) =>
-              calcReexam(mid, final, examRate, portfolio, value) >= 60,
-            );
-          }
-        } else if (semester === 'first') {
-          nextExam = '後期';
-          remainingType = 'score';
-          remainingValue = 120 - score;
-        } else {
-          nextExam = '合格';
-          remainingType = 'score';
-          remainingValue = 0;
-        }
-        break;
+        return calcFinalRemaining(first, mid, final, examRate, portfolio);
       case 'supplemental':
-        if (score < 60) {
-          nextExam += '再試';
-          remainingType = 'exam';
-          remainingValue = [...Array(100 + 1).keys()].find((value) =>
-            calcReexam(mid, final, examRate, portfolio, value) >= 60,
-          );
-        } else if (semester === 'first') {
-          nextExam = '後期';
-          remainingType = 'score';
-          remainingValue = 60;
-        } else {
-          nextExam = '合格';
-          remainingType = 'score';
-          remainingValue = 0;
-        }
-        break;
+        return calcSupplementalRemaining(first, mid, final, examRate, portfolio);
       case 'reexam':
-        if (score < 60) {
-          if (semester === 'first') {
-            nextExam = '後期';
-            remainingType = 'score';
-            remainingValue = 120 - score;
-          } else {
-            nextExam = '単位認定';
-            remainingType = 'exam';
-            remainingValue = 60;
-          }
-        } else if (semester === 'first') {
-          nextExam = '後期';
-          remainingType = 'score';
-          remainingValue = 60;
-        } else {
-          nextExam = '合格';
-          remainingType = 'score';
-          remainingValue = 0;
+        return calcReexamRemaining(first, mid, final, examRate, portfolio, reexam);
+      default:
+        if (semester === 'last') {
+          return calcLastRemaining(last);
         }
-        break;
+        throw new Error('examType is invalid');
     }
-  }
+  })();
+
+  const nextExam = remaining.nextExam;
+  const remainingType = remaining.remainingType;
+  const remainingValue = remaining.remainingValue;
 
   return {score, semester, examType, nextExam, remainingType, remainingValue};
 };

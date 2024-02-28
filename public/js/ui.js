@@ -124,8 +124,12 @@ $(() => {
     let score;
     /** 学期 @type {"first" | "second" | "last"}*/
     let semester;
+    /** 学期名 @type {"前期" | "後期" | "単位認定"} */
+    let semesterName;
     /** 試験種別 @type {'mid'|'final'|'supplemental'|'reexam'|''} */
     let examType;
+    /** 試験種別名 @type {'中間'|'期末'|'補講'|'再試'|''} */
+    let examTypeName;
     /** 次の試験/学期 @type {'前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'} */
     let nextExam;
     /** 残っている値の種類 @type {'exam'|'portfolio'|'score'} */
@@ -133,9 +137,26 @@ $(() => {
     /** 残っている値 @type {number} */
     let remainingValue;
 
+    const semesterNames = {
+      'first': '前期',
+      'second': '後期',
+      'last': '単位認定',
+    };
+    const examTypeNames = {
+      'mid': '中間',
+      'final': '期末',
+      'supplemental': '補講',
+      'reexam': '再試',
+      '': '',
+    };
+
+    const portfolio = $('#num-portfolio').val();
+
     // 値の取得 + 入力チェック
     try {
       ({score, semester, examType, nextExam, remainingType, remainingValue} = calc());
+      semesterName = semesterNames[semester];
+      examTypeName = examTypeNames[examType];
     } catch (e) {
       if (e instanceof RangeError && e.message === 'Invalid form input') {
         console.log(e.message);
@@ -163,20 +184,45 @@ $(() => {
 
     // 指定時間後に結果画面を表示
     setTimeout(() => {
-      console.log(`今回の${semester} ${examType}の成績は${score}でした。${remainingType !== 'portfolio' ? '現在のポートフォリオ点を維持した場合、' : ''}次の${nextExam}で${remainingType}を${remainingValue}点取ると合格です。`);
-      if (score < 60) {
+      const rate = (semester === 'last' ? '-50.0' : Number.parseFloat(
+          // score * 1.666666666666666666666 * 0.75,
+          // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
+          ((score ** 2) / 45) || -50.0,
+      ).toFixed(1));
+
+      $('.resus, .resugs').append(`<p>今回の${semesterName}${examTypeName}の成績(見込み)は${score}です。</p><p>`);
+      if (nextExam === '留年') {
         ryunen();
-        // 魔法の計算を行う
-        const rate = (semester === 'last' ? '-50.0' : Number.parseFloat(
-            // score * 1.666666666666666666666 * 0.75,
-            // 50 + 50 * Math.cos((score - 60) * ((2 * Math.PI) / (60 * 2))),
-            ((score ** 2) / 45) || -50.0,
-        ).toFixed(1));
-        $('.resus').html(`総合成績${score}により、貴方が留年を回避できる確率は${rate}%です。`);
-      } else if (score >= 60) {
+        $('.resus').html(`<p>留年確定！！！おめでとう！！！！</p>`);
+      } else if (nextExam === '合格') {
         gameOVER();
-        $('.resugs').html(`総合成績${score}`);
+        $('.resugs').append(`合格`);
+      } else if (remainingValue === Infinity) {
+        ryunen();
+        $('.resus').append(`点数が足りないため、${nextExam}だけでは合格に持ち込むことができません。更に次の補講または試験を受けることが確定しています。`);
+      } else if (remainingValue === 0) {
+        gameOVER();
+        $('.resugs').append(`今回のポートフォリオ${portfolio}点を維持した場合、次の${nextExam}試験でたとえ0点を取っても合格することができるでしょう。`);
+      } else if (remainingType === 'portfolio') {
+        ryunen();
+        $('.resus').append(`次の${nextExam}のポートフォリオ点は、${remainingValue}点を取ることができれば合格です。`);
+      } else if (remainingType === 'exam') {
+        ryunen();
+        $('.resus').append(`次の${nextExam}試験で${remainingValue}点取ると合格です。`);
+      } else {
+        // TODO
+        // scoreをexamとportfolioに分解する
+        // if (score < remainingValue) {
+        //   ryunen();
+        //   $('.resus').append(`[TODO: scoreをexamとportfolioに分解する] 次の${nextExam}で成績点を追加で${remainingValue}点取ると合格です。このままでは${rate}&percnt;の確率で留年するでしょう。`);
+        // } else {
+        //   gameOVER();
+        //   $('.resugs').append(`[TODO: scoreをexamとportfolioに分解する] 次の${nextExam}で成績点を${remainingValue}点取ると合格です。このまま頑張りましょう。`);
+        // }
+        gameOVER();
+        $('.resugs').append(`[TODO: scoreをexamとportfolioに分解する] 次の${nextExam}で成績点を${remainingValue}点取ると合格です。`);
       }
+      $('.resus, .resugs').append(`</p>`);
     }, 4500);
   });
 
