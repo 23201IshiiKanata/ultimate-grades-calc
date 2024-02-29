@@ -88,7 +88,7 @@ body select:disabled {
   background-color: black;
   background-size: cover;
   color: white;
-  background-image: url(https://cdn.discordapp.com/attachments/1197864387030036490/1211855080593039360/image0.jpg?ex=65efb6fe&is=65dd41fe&hm=7452c40cb2c3ac140bd47dd0e9b2325860bf2943b5687bbfb0329e72c630a0bd&);
+  background-image: url(../img/image0.jpg);
   background-position: center;
   transition: .5s;
 }
