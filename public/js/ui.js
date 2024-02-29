@@ -250,6 +250,7 @@ $(() => {
   // エンドロールの表示を行う。
   $('.goend').on('click', () => {
     // 音楽をエンドロール用に切り替え
+    openFullscreen();
     retentionMusic.pause();
     endrollMusic.play();
 
@@ -358,6 +359,26 @@ $(() => {
       endrolltxt(index + 1);
     }, (howlong - 5000) / $('#endroll').children().length); // (MUSIC TIME - 7.5s) / ELEMENT
   };
+
+  /**
+   * 全画面表示をリクエストするメソッドを取得
+   * @param {*} elem;
+   */
+  function requestFullscreen(elem) {
+    // 全画面表示をリクエストするメソッドを取得
+    const method = elem.requestFullscreen || elem.webkitRequestFullscreen || elem.mozRequestFullScreen || elem.msRequestFullscreen;
+    if (method) {
+      method.call(elem); // 全画面表示をリクエスト
+    }
+  }
+
+  /**
+   * 全画面表示をリクエストするメソッドを取得
+   */
+  function openFullscreen() {
+    const elem = document.documentElement;
+    requestFullscreen(elem);
+  }
 
   console.log('ui.js ready');
 
