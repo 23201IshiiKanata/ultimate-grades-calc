@@ -271,8 +271,10 @@ div.second {
 }
 
 .chr {
+  text-align: center;
+  overflow-wrap: normal;
   height: 50px;
-  width: max-content;
+  width: 100%;
   position: fixed;
   color: white;
   bottom: -10%;

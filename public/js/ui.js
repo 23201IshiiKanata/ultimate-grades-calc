@@ -247,7 +247,7 @@ $(() => {
     $('.goend').removeAttr('disabled');
   };
 
-  const howlong = 217000;
+  const howlong = 204000;
 
   // エンドロールの表示を行う。
   $('.goend').on('click', () => {
@@ -305,6 +305,7 @@ $(() => {
    * 計算画面から結果画面まで遷移する。
    */
   const gameOVER = () => {
+    openFullscreen();
     $('body').addClass('dark');
     $('.calcwindow').addClass('none');
     $('.pinp').addClass('none');
@@ -338,7 +339,7 @@ $(() => {
     }, 10000);
     setTimeout(() => {
       overSound.play();
-    }, 12000);
+    }, 11000);
     setTimeout(() => {
       $('.txt').css('color', '#808080');
       repoView();

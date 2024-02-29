@@ -38,7 +38,7 @@
 - https://ncs.io/usage-policy
 
 ### end.mp3
-When I'm Gone (Instrumental Version) - Ellen Louise, ROY KNOX, Tetrix Bass
+When I'm Gone (Feat. Ellen Louise) - Ellen Louise, ROY KNOX, Tetrix Bass
 ```
 Song: Tetrix Bass & ROY KNOX - When I'm Gone (Feat. Ellen Louise)
 Music provided by NoCopyrightSounds
