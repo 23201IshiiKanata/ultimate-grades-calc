@@ -54,7 +54,7 @@ Music provided by NoCopyrightSounds
 Free Download/Stream: http://ncs.io/everlasting
 Watch: http://youtu.be/MT814DNhy_U
 ```
-## 声(いしい、しまだ)
+## 声
 - All Rights Reserved
 
 ### ugctitle.mp3
@@ -68,3 +68,6 @@ Watch: http://youtu.be/MT814DNhy_U
 
 ### over.mp3
 GAME OVER - しまだ
+
+### one.mp3
+もう1回遊べるドン - しまだ

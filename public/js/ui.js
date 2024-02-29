@@ -18,6 +18,8 @@ $(() => {
   const gouSound = new Audio('./sound/gou.mp3');
   /** goukaku祝いの拍手の効果音 */
   const overSound = new Audio('./sound/over.mp3');
+  /** mouikkaiasobesuyo */
+  const moreSound = new Audio('./sound/one.mp3');
 
   /** タイトル画面のBGM */
   const titleMusic = new Audio('./sound/title.mp3');
@@ -282,6 +284,10 @@ $(() => {
       $('.chrx').css('color', 'black');
       $('.chrx').html('もう1回遊べるドン');
     }, 1000);
+    setTimeout(() => {
+      repoView();
+      moreSound.play();
+    }, 1500);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
     }, 11000);
