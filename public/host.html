@@ -272,7 +272,7 @@
 <script>
   ; (async () => {
     const socket = io()
-    const connections = {}
+    const connections = {localhost:5000}
 
     /*   チャット機能 -------------  */
     init_chat(socket, $('form'), $('#messages'), $('#m'))
