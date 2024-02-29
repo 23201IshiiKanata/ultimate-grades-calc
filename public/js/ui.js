@@ -394,6 +394,17 @@ $(() => {
 
   console.log('ui.js ready');
 
+
+  /**
+  * なんか書け
+  */
+  const randomAnimationDuration = () => {
+    $('.flick').css('animation-duration', `${Math.random()}s`);
+    console.log(Math.random());
+    setTimeout(randomAnimationDuration, 100);
+  };
+  randomAnimationDuration();
+
   // イベントハンドラの登録
 
   // debug
