@@ -44,7 +44,6 @@ body input[type="number"] {
 }
 
 a {
-  text-decoration: none;
   color: white;
   transition: .3s;
 }
