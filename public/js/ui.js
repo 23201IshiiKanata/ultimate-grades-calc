@@ -330,7 +330,7 @@ $(() => {
     $('.over').removeClass('none');
     $('.over').css('opacity', '0%');
     $('.x').addClass('upperx');
-    $('.overh1').css('color', 'rgb(48, 48, 48)');
+    $('.overh1').css('color', 'black');
     setTimeout(() => {
       $('.over').css('opacity', '100%');
     }, 3000);
