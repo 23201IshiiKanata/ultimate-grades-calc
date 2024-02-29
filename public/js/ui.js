@@ -307,6 +307,7 @@ $(() => {
   const gameOVER = () => {
     $('body').addClass('dark');
     $('.calcwindow').addClass('none');
+    $('.pinp').addClass('none');
     // 合格祝いのBGM+SEを再生
     goukakuMusic.play();
     setTimeout(() => {
@@ -336,9 +337,11 @@ $(() => {
       $('.overh1').css('color', '#808080');
     }, 10000);
     setTimeout(() => {
+      overSound.play();
+    }, 12000);
+    setTimeout(() => {
       $('.txt').css('color', '#808080');
       repoView();
-      overSound.play();
     }, 17000);
     setTimeout(() => {
       $('.chrx').html('<button class="nextyear" onclick="location.reload();" style="background-color: rgb(210, 210, 210);">1年後</button>');
