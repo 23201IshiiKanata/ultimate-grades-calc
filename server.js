@@ -18,18 +18,6 @@ const options = {
 };
 */
 
-// origin は function を設定できるようです
-// ですので、正規表現を使用し、パターンマッチをさせることもできます。
-const socketOptions = {
-  cors: {
-    origin: function(origin, fn) {
-      const isTarget = origin !== undefined && origin.match(/^http?:\/\/localhost\:5000/) !== null;
-      return isTarget ? fn(null, origin) : fn('error invalid domain');
-    },
-    credentials: true,
-  },
-};
-
 /*  Webサーバー  */
 const docroot = '/public';
 app.use(express.static(__dirname + docroot));
@@ -42,7 +30,9 @@ const server = http.createServer(app);
 // const server = https.createServer(options, app);
 
 /*  シグナリングサーバー(WebSocketサーバー(socket.ioを利用))  */
-const io = require('socket.io')(server, socketOptions);
+const io = require('socket.io')(server, {
+  origins: ['http://localhost:5000'],
+});
 
 console.log('server', 'start');
 
