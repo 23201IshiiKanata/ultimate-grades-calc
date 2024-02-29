@@ -247,7 +247,7 @@ $(() => {
     $('.goend').removeAttr('disabled');
   };
 
-  const howlong = 204000;
+  const howlong = 217000;
 
   // エンドロールの表示を行う。
   $('.goend').on('click', () => {
