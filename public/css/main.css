@@ -46,12 +46,7 @@ body input[type="number"] {
 a {
   text-decoration: none;
   color: white;
-  text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
-  letter-spacing: 0.125em;
-  animation-duration: 0.1s;
-  animation-name: textflicker;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  transition: .3s;
 }
 
 body button {
@@ -364,7 +359,7 @@ div.second {
   transform: translate(-50%, 50%);
 }
 
-.txt a {
+button a {
   color: black;
 }
 
@@ -384,4 +379,16 @@ div.second {
   to {
     text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
   }
+}
+
+a:hover {
+  background-color: #5a5a5a;
+}
+
+.c:hover {
+  background-clip: inherit;
+  -webkit-background-clip: inherit;
+
+  text-fill-color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
 }
