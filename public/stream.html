@@ -72,7 +72,9 @@
 <script src="js/chat.js"></script>
 <script>
   ; (async () => {
-    const socket = io()
+    const socket = io('http://localhost:5000', {
+      withCredentials: true
+    })
     /*   チャット機能 -------------  */
     init_chat(socket, $('form'), $('#messages'), $('#m'))
 
