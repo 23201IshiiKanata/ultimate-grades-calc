@@ -90,6 +90,8 @@ const calcFrom = (type, data) => {
  * @prop {'前期中間'|'前期期末'|'前期補講'|'前期再試'|'後期'|'後期中間'|'後期期末'|'後期補講'|'後期再試'|'単位認定'|'合格'|'留年'} nextExam 次の試験/学期
  * @prop {'exam'|'portfolio'|'score'} remainingType 追加で取る必要がある点数の種類
  * @prop {number} remainingValue 追加で取る必要がある点数(次の試験/学期で0点でも合格できる場合は0、取っても合格にはならない場合はInfinity)
+ * @prop {string} message メッセージ
+ * @prop {boolean} isDanger 留年の危機にある場合はtrue
  */
 
 /**
@@ -97,37 +99,58 @@ const calcFrom = (type, data) => {
  * @param {number?} first 前期の成績点(0-100)、nullishの場合は前期として、数値の場合は後期として計算を行う
  * @param {number} mid 中間試験の点数
  * @param {number} examRate 試験点の割合(百分率)
- * @param {number} portfolio ポートフォリオ点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ点
  * @return {Remaining}
  */
 const calcMidRemaining = (first, mid, examRate, portfolio) => {
   const score = calcMid(mid, examRate, portfolio);
-  const isFirstSemeseter = !(first ?? false);
+  const isFirstSemeseter = ((first ??= null) === null);
   const threshold = isFirstSemeseter ? 60 : 120 - first;
 
   // すでに合格している場合
-  if (calcFinal(mid, 0, examRate, portfolio) >= threshold) {
+  if (calcFinal(mid, 0, examRate, 0) >= threshold) {
     if (isFirstSemeseter) {
       return {
         nextExam: '後期',
         remainingType: 'score',
         remainingValue: 120 - score,
+        message: `後期で$REMAININGVALUE$点以上の成績点を取ると合格です。`,
+        isDanger: false,
       };
     } else {
       return {
         nextExam: '合格',
         remainingType: 'score',
         remainingValue: 0,
+        message: `合格`,
+        isDanger: false,
       };
     }
   }
 
   // 期末試験で合格する可能性がある場合
   if (calcFinal(mid, 100, examRate, 100 - examRate) >= threshold) {
+    const remainingExamScore = [...Array(100 + 1).keys()].find((value) => {
+      return calcFinal(mid, value, examRate, 100 - examRate) >= threshold;
+    });
     return {
       nextExam: `${isFirstSemeseter ? '前期' : '後期'}期末`,
       remainingType: 'score',
       remainingValue: threshold,
+      message: (score < threshold ?
+        `このままでは$RATE$%の確率で留年です！\n$NEXTEXAM$試験で成績点$REMAININGVALUE$点を取ってください！\n` + (remainingExamScore > 0 ?
+          `これは、ポートフォリオが${100 - examRate}点満点になると仮定した場合、${remainingExamScore}点以上の試験点となります。` :
+          `期末試験で0点を取っても、ポートフォリオ点が${
+            [...Array(100 - examRate + 1).keys()].find((value) => calcFinal(mid, 0, examRate, value) >= threshold)
+          }以上であれば合格です。`
+        ) : (`$NEXTEXAM$試験で$REMAININGVALUE$点以上の成績点を取ると合格です。\n` + (remainingExamScore > 0 ?
+          `これは、ポートフォリオが${100 - examRate}点満点になると仮定した場合、${remainingExamScore}点以上の試験点となります。` :
+          `期末試験で0点を取っても、ポートフォリオ点が${
+            [...Array(100 - examRate + 1).keys()].find((value) => calcFinal(mid, 0, examRate, value) >= threshold)
+          }以上であれば合格です。`
+        ))
+      ),
+      isDanger: score < threshold,
     };
   }
 
@@ -136,6 +159,8 @@ const calcMidRemaining = (first, mid, examRate, portfolio) => {
     nextExam: `${isFirstSemeseter ? '前期' : '後期'}期末`,
     remainingType: 'score',
     remainingValue: Infinity,
+    message: `このままでは$RATE$%の確率で留年です！\n${isFirstSemeseter ? '前期' : '後期'}を受けても合格には点数が足りません！`,
+    isDanger: true,
   };
 };
 
@@ -145,12 +170,12 @@ const calcMidRemaining = (first, mid, examRate, portfolio) => {
  * @param {number} mid 中間試験の点数
  * @param {number} final 期末試験の点数
  * @param {number} examRate 試験点の割合(百分率)
- * @param {number} portfolio ポートフォリオ点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ点
  * @return {Remaining}
  */
 const calcFinalRemaining = (first, mid, final, examRate, portfolio) => {
   const score = calcFinal(mid, final, examRate, portfolio);
-  const isFirstSemeseter = !(first ?? false);
+  const isFirstSemeseter = ((first ??= null) === null);
   const threshold = isFirstSemeseter ? 60 : 120 - first;
 
   // すでに合格している場合
@@ -160,12 +185,16 @@ const calcFinalRemaining = (first, mid, final, examRate, portfolio) => {
         nextExam: '後期',
         remainingType: 'score',
         remainingValue: 120 - score,
+        message: `後期で$REMAININGVALUE$点以上の成績点を取ると合格です。`,
+        isDanger: false,
       };
     } else {
       return {
         nextExam: '合格',
         remainingType: 'score',
         remainingValue: 0,
+        message: `合格`,
+        isDanger: false,
       };
     }
   }
@@ -178,6 +207,8 @@ const calcFinalRemaining = (first, mid, final, examRate, portfolio) => {
       remainingValue: [...Array(100 - examRate + 1).keys()].find((value) =>
         calcSupplemental(mid, final, examRate, value) >= threshold,
       ) - portfolio,
+      message: `このままでは$RATE$%の確率で留年です！\n$NEXTEXAM$で$REMAININGVALUE$点以上のポートフォリオ点を取ると合格です！`,
+      isDanger: true,
     };
   }
 
@@ -186,6 +217,8 @@ const calcFinalRemaining = (first, mid, final, examRate, portfolio) => {
     nextExam: `${isFirstSemeseter ? '前期' : '後期'}補講`,
     remainingType: 'score',
     remainingValue: Infinity,
+    message: `このままでは$RATE$%の確率で留年です！\n$NEXTEXAM$を受けても合格には点数が足りません！`,
+    isDanger: true,
   };
 };
 
@@ -196,12 +229,12 @@ const calcFinalRemaining = (first, mid, final, examRate, portfolio) => {
  * @param {number} mid 中間試験の点数
  * @param {number} final 期末試験の点数
  * @param {number} examRate 試験点の割合(百分率)
- * @param {number} portfolio ポートフォリオ点の割合(百分率)
+ * @param {number} portfolio ポートフォリオ点
  * @return {Remaining}
  */
 const calcSupplementalRemaining = (first, mid, final, examRate, portfolio) => {
   const score = calcSupplemental(mid, final, examRate, portfolio);
-  const isFirstSemeseter = !(first ?? false);
+  const isFirstSemeseter = ((first ??= null) === null);
   const threshold = isFirstSemeseter ? 60 : 120 - first;
 
   // すでに合格している場合
@@ -211,12 +244,16 @@ const calcSupplementalRemaining = (first, mid, final, examRate, portfolio) => {
         nextExam: '後期',
         remainingType: 'score',
         remainingValue: 120 - score,
+        message: `後期で$REMAININGVALUE$点以上の成績点を取ると合格です。`,
+        isDanger: false,
       };
     } else {
       return {
         nextExam: '合格',
         remainingType: 'score',
         remainingValue: 0,
+        message: `合格`,
+        isDanger: false,
       };
     }
   }
@@ -229,6 +266,8 @@ const calcSupplementalRemaining = (first, mid, final, examRate, portfolio) => {
       remainingValue: [...Array(100 + 1).keys()].find((value) =>
         calcReexam(mid, final, examRate, portfolio, value) >= threshold,
       ),
+      message: `このままでは$RATE$%の確率で留年です！\n$NEXTEXAM$験で$REMAININGVALUE$点以上の試験点を取ると合格です！`,
+      isDanger: true,
     };
   }
 
@@ -237,6 +276,8 @@ const calcSupplementalRemaining = (first, mid, final, examRate, portfolio) => {
     nextExam: `${isFirstSemeseter ? '前期' : '後期'}再試`,
     remainingType: 'score',
     remainingValue: Infinity,
+    message: (isFirstSemeseter ? `このままでは$RATE$%の確率で留年です！\n$NEXTEXAM$験を受けても合格には点数が足りないため、後期でさらに高い点数を取る必要があります！` : `このままでは$RATE$%の確率で留年です！\n単位認定試験が確定しています！`),
+    isDanger: true,
   };
 };
 
@@ -246,13 +287,13 @@ const calcSupplementalRemaining = (first, mid, final, examRate, portfolio) => {
  * @param {number} mid 中間試験の点数
  * @param {number} final 期末試験の点数
  * @param {number} examRate 試験点の割合(百分率)
- * @param {number} portfolioRate ポートフォリオ点の割合(百分率)
+ * @param {number} portfolioRate ポートフォリオ点
  * @param {number} reexam 再試験の点数
  * @return {Remaining}
  */
 const calcReexamRemaining = (first, mid, final, examRate, portfolioRate, reexam) => {
   const score = calcReexam(mid, final, examRate, portfolioRate, reexam);
-  const isFirstSemeseter = !(first ?? false);
+  const isFirstSemeseter = ((first ??= null) === null);
   const threshold = isFirstSemeseter ? 60 : 120 - first;
 
   // すでに合格している場合
@@ -261,6 +302,8 @@ const calcReexamRemaining = (first, mid, final, examRate, portfolioRate, reexam)
       nextExam: '合格',
       remainingType: 'score',
       remainingValue: 0,
+      message: `合格`,
+      isDanger: false,
     };
   }
 
@@ -270,6 +313,8 @@ const calcReexamRemaining = (first, mid, final, examRate, portfolioRate, reexam)
       nextExam: '後期',
       remainingType: 'score',
       remainingValue: 120 - score,
+      message: `このままでは$RATE$の確率で留年です！\n後期で$REMAININGVALUE$点以上の成績点を取ると合格です！`,
+      isDanger: true,
     };
   }
 
@@ -278,6 +323,8 @@ const calcReexamRemaining = (first, mid, final, examRate, portfolioRate, reexam)
     nextExam: '後期',
     remainingType: 'score',
     remainingValue: Infinity,
+    message: `このままでは$RATE$%の確率で留年です！\n単位認定試験が確定しています！`,
+    isDanger: true,
   };
 };
 
@@ -292,12 +339,16 @@ const calcLastRemaining = (last) => {
       nextExam: '合格',
       remainingType: 'score',
       remainingValue: 0,
+      message: `合格`,
+      isDanger: false,
     };
   } else {
     return {
       nextExam: '留年',
       remainingType: 'score',
       remainingValue: Infinity,
+      message: `留年確定！！！おめでとう！！！！`,
+      isDanger: true,
     };
   }
 };
@@ -330,7 +381,7 @@ const calc = () => {
   const examRate = Number($('#exam-rate-select').val());
   const portfolioRate = 100 - examRate;
 
-  const first = Number($('#num-first-input').val());
+  const first = (semester === 'first' ? null : Number($('#num-first-input').val()));
   const mid = Number($('#num-mid-exam-input').val());
   const final = Number($('#num-final-exam-input').val());
   const portfolio = Number($('#num-portfolio-input').val());
@@ -356,9 +407,9 @@ const calc = () => {
         score = calcReexam(mid, final, examRate, portfolio, reexam);
         break;
     }
-    if (semester === 'second') {
-      score = Math.round((first + score) / 2);
-    }
+    // if (semester === 'second') {
+    //   score = Math.round((first + score) / 2);
+    // }
   }
 
   const remaining = (() => {
@@ -382,8 +433,10 @@ const calc = () => {
   const nextExam = remaining.nextExam;
   const remainingType = remaining.remainingType;
   const remainingValue = remaining.remainingValue;
+  const message = remaining.message;
+  const isDanger = remaining.isDanger;
 
-  return {score, semester, examType, nextExam, remainingType, remainingValue};
+  return {score, semester, examType, nextExam, remainingType, remainingValue, message, isDanger};
 };
 
 // ページの読み込みが完了した時に一度だけ実行される。
@@ -496,6 +549,7 @@ $(() => {
         numMidExamPrefix.text('後期中間試験');
         numFinalExam.show();
         numFinalExamPrefix.text('後期期末試験');
+        numPortfolio.show();
         numPortfolioPrefix.text('補講後のポートフォリオ');
         numReexam.show();
         numLast.show();
