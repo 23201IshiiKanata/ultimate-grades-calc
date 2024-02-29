@@ -17,6 +17,10 @@
   }
 }
 
+.dark {
+  background-color: #5a5a5a;
+}
+
 * {
   font-family: 'IBM Plex Sans JP', sans-serif;
 }
@@ -164,7 +168,7 @@ body select:disabled {
 
 .resug {
   position: fixed;
-  background-color: aliceblue;
+  background-color: rgb(0, 0, 0);
   width: 60%;
   padding: 20px;
   border-radius: 10px;
@@ -363,6 +367,7 @@ button a {
 }
 
 .flick {
+  color: white;
   text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
   letter-spacing: 0.125em;
   animation-duration: 0.1s;
@@ -378,16 +383,4 @@ button a {
   to {
     text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
   }
-}
-
-a:hover {
-  background-color: #5a5a5a;
-}
-
-.c:hover {
-  background-clip: inherit;
-  -webkit-background-clip: inherit;
-
-  text-fill-color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
 }

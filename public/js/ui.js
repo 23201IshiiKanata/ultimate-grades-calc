@@ -305,6 +305,8 @@ $(() => {
    * 計算画面から結果画面まで遷移する。
    */
   const gameOVER = () => {
+    $('body').addClass('dark');
+    $('.calcwindow').addClass('none');
     // 合格祝いのBGM+SEを再生
     goukakuMusic.play();
     setTimeout(() => {
