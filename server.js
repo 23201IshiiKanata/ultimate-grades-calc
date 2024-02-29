@@ -31,7 +31,14 @@ const server = http.createServer(app);
 
 /*  シグナリングサーバー(WebSocketサーバー(socket.ioを利用))  */
 const io = require('socket.io')(server, {
-  origins: ['http://localhost:5000'],
+  cors: {
+    origin: 'http://localhost:5000',
+    methods: ['GET', 'POST'],
+  },
+  cors: {
+    origin: 'https://23201ishiikanata.github.io',
+    methods: ['GET', 'POST'],
+  },
 });
 
 console.log('server', 'start');
