@@ -24,6 +24,7 @@
 body {
   background-color: bisque;
   max-width: 750px;
+  overflow: hidden;
 }
 
 .dark {
@@ -372,4 +373,15 @@ button a {
   to {
     text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
   }
+}
+
+/* for sound visualizer */
+#canvas {
+  z-index: 100000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
 }

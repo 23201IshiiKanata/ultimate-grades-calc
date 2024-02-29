@@ -30,7 +30,8 @@ $(() => {
   /** goukakuのBGM */
   const goukakuMusic = new Audio('./sound/goukaku.mp3');
   /** えんどろーる */
-  const endrollMusic = new Audio('./sound/end.mp3');
+  const endrollMusic = document.querySelector('#audio');
+
   // onemore
   const oneMore = new Audio('./sound/onemore.mp3');
 
@@ -235,6 +236,8 @@ $(() => {
     // 音楽をエンドロール用に切り替え
     openFullscreen();
     retentionMusic.pause();
+    $('.visualizer')[0].dispatchEvent(new Event('initSound'));
+    $('#canvas').show();
     endrollMusic.play();
 
     // アニメーション
@@ -381,7 +384,7 @@ $(() => {
   */
   const randomAnimationDuration = () => {
     $('.flick').css('animation-duration', `${Math.random()}s`);
-    console.log(Math.random());
+    // console.log(Math.random());
     setTimeout(randomAnimationDuration, 100);
   };
   randomAnimationDuration();
