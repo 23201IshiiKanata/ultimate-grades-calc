@@ -235,6 +235,8 @@ $(() => {
   $('.goend').on('click', () => {
     // 音楽をエンドロール用に切り替え
     openFullscreen();
+    $('.visualizer').css('opacity', '0%');
+    $('.visualizer').css('opacity', '100%');
     retentionMusic.pause();
     $('.visualizer')[0].dispatchEvent(new Event('initSound'));
     $('#canvas').show();
@@ -260,9 +262,11 @@ $(() => {
    */
   const moregrade = () => {
     oneMore.play();
+    $('.visualizer').css('opacity', '0%');
     $('.end').css('transition', '1s');
     $('.end').css('background-color', 'white');
     setTimeout(() => {
+      $('.visualizer').addClass('none');
       repoView();
       $('.chrx').css('transition', '.5s');
       $('.chrx').css('color', 'black');

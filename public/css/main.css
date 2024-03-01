@@ -385,3 +385,7 @@ button a {
   height: 100%;
   opacity: 0.5;
 }
+
+.visualizer {
+  transition: 1s;
+}
