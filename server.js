@@ -39,14 +39,18 @@ const io = require('socket.io')(server, {
     origin: 'https://23201ishiikanata.github.io',
     methods: ['GET', 'POST'],
   },
+  cors: {
+    origin: 'https://cs-1.hawk-betta.ts.net',
+    methods: ['GET', 'POST'],
+  },
 });
 
 console.log('server', 'start');
 
 let pubid = null;
-let connections = {};
+const connections = {};
 
-io.on('connect', socket => {
+io.on('connect', (socket) => {
   console.log('io', '%%%%% connect %%%%%:', socket.id);
   connections[socket.id] = true;
 
